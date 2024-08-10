@@ -6,4 +6,5 @@ sidebar_position: 3
 
 EVM包括transfer/mint/burn Runes接口
 
-## Getting Started
+Tokens
+Chains
