@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # EVM
@@ -18,74 +18,44 @@ Supported Chains:
 ### generate_ticket(hash: String) -> Result<(), String> 
 Rust:
 ```bash
-use candid::{Decode, Encode};
-use ic_agent::{
-	agent::http_transport::ReqwestTransport, export::Principal, identity::Secp256k1Identity, Agent,
-};
-use std::error::Error;
-use candid::CandidType;
-use thiserror::Error;
-use serde::Deserialize;
+let burn_hash = EVM_ROUTE_PORT_CONTRACT_burnToken_FUNCTION;
+let mint_hash = EVM_ROUTE_PORT_CONTRACT_mintRunes_FUNCTION;
 
-#[tokio::main]
-pub async fn main() -> Result<(), Box<dyn Error>> {
-	let network = "https://ic0.app".to_string();
-
-	let agent_identity = Secp256k1Identity::from_pem(
-		"-----BEGIN EC PRIVATE KEY-----
-		YOURPRIVATEKEY
-		-----END EC PRIVATE KEY-----".as_bytes(),
-	)?;
-
-	let agent = Agent::builder()
-		.with_transport(ReqwestTransport::create(network).unwrap())
-		.with_identity(agent_identity)
-		.build()
-		.map_err(|e| format!("{:?}", e))?;
-
-	let canister_id = Principal::from_text("CHAIN_ID".to_string())?;
-
-    let args = GenerateTicketArgs {
-				target_chain_id: "eICP".to_owned(),
-				receiver: String::from("cosmos1fwaeqe84kaymymmqv0wyj75hzsdq4gfqm5xvvv"),
-				rune_id: RUNE_ID.into(),
-				amount: 1000,
-				txid: txid.to_string(),
-			};
-
-	let ret = agent
-		.update(&canister_id, "generate_ticket")
-		.with_arg(args)
-		.call_and_wait()
-		.await?;
-
-	Ok(())
+let ret = agent
+	.update(&canister_id, "generate_ticket")
+	.with_arg(burn_hash)
+	.call_and_wait()
+	.await?;
 }
 ```
 
 ## Query
-### get_ticket
+### get_ticket(ticket_id: String) -> Option<(u64, Ticket)>
 Rust:
 ```bash
+let arg: Vec<u8> = Encode!(&"TICKETID".to_string)?;
+let ret = agent
+	.query(&canister_id, "get_ticket")
+	.with_arg(arg)
+	.call()
+	.await?;
 
-```
-### get_chain_list
-Rust:
-```bash
+let evm_ticket = Decode!(&ret, Result<u64, OmnityTicket>)??;
 
-```
-### get_token_list
-Rust:
-```bash
-
-```
-### mint_token_status
-Rust:
-```bash
-
-```
-### get_fee
-Rust:
-```bash
-
+#[derive(
+	CandidType, Deserialize, Serialize, Default, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash,
+)]
+pub struct OmnityTicket {
+	pub ticket_id: TicketId,
+	pub ticket_type: TicketType,
+	pub ticket_time: Timestamp,
+	pub src_chain: ChainId,
+	pub dst_chain: ChainId,
+	pub action: TxAction,
+	pub token: TokenId,
+	pub amount: String,
+	pub sender: Option<Account>,
+	pub receiver: Account,
+	pub memo: Option<Vec<u8>>,
+}
 ```

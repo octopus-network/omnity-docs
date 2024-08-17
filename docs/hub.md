@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 # HUB
@@ -97,11 +97,4 @@ pub enum OmnityError {
 	#[error("custom error: (`{0}`)")]
 	CustomError(String),
 }
-```
-
-## Update
-### add_runes_token
-Rust:
-```bash
-dfx canister call omnity_hub get_pending_tickets '(0:nat64,5:nat64)'
 ```

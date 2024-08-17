@@ -10,6 +10,6 @@ See the **[codebase](https://github.com/octopus-network/omnity-interoperability)
 
 This library consists of 1 route:
 
-- [EVM](http://localhost:3000/docs/evm) 
+- [EVM](https://omnity-docs.vercel.app/docs/evm) 
 
 Can't find what you need? let us know on **[OpenChat](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/209373796018851818071085429101874032721/)**.
