@@ -4,11 +4,14 @@ sidebar_position: 2
 
 # HUB
 
-OMNITY_HUB_CANISTER_ID=7wupf-wiaaa-aaaar-qaeya-cai
+OMNITY_HUB_CANISTER_ID = 7wupf-wiaaa-aaaar-qaeya-cai
 
 ## Query
 
 ### get_total_tx() -> Result<u64, OmnityError>
+
+Get the number of all transactions on Omnity
+
 Rust:
 ```bash
 use candid::{Decode, Encode};
@@ -36,7 +39,7 @@ pub async fn main() -> Result<(), Box<dyn Error>> {
 		.build()
 		.map_err(|e| format!("{:?}", e))?;
 
-	let canister_id = Principal::from_text("7wupf-wiaaa-aaaar-qaeya-cai".to_string())?;
+	let canister_id = Principal::from_text(OMNITY_HUB_CANISTER_ID.to_string())?;
 
 	let arg: Vec<u8> = Encode!(&Vec::<u8>::new())?;
 	let ret = agent
@@ -50,7 +53,6 @@ pub async fn main() -> Result<(), Box<dyn Error>> {
 
 	Ok(())
 }
-
 
 #[derive(CandidType, Deserialize, Debug, Error)]
 pub enum OmnityError {

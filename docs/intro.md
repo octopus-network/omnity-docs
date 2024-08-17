@@ -8,8 +8,9 @@ Omnity API hosts a library of assets, ranging from brand sources to fundamental 
 
 See the **[codebase](https://github.com/octopus-network/omnity-interoperability)** for more details. 
 
-This library consists of 1 route:
+This library consists of 2 sessions:
 
-- [EVM](https://omnity-docs.vercel.app/docs/evm) 
+- [HUB](https://omnity-docs.vercel.app/docs/hub) A center point for chain and token registration and ticket(transaction) execution, where settlement chains and execution chains are listed.
+- [EVM](https://omnity-docs.vercel.app/docs/evm) The evm route includes layer 2 evm-compatible instances.
 
 Can't find what you need? let us know on **[OpenChat](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/209373796018851818071085429101874032721/)**.
