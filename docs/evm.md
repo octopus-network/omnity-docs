@@ -18,6 +18,22 @@ Supported Chains:
 ### generate_ticket(hash: String) -> Result<(), String> 
 Rust:
 ```bash
+let network = "https://ic0.app".to_string();
+
+let agent_identity = Secp256k1Identity::from_pem(
+    "-----BEGIN EC PRIVATE KEY-----
+    YOURPRIVATEKEY
+    -----END EC PRIVATE KEY-----".as_bytes(),
+)?;
+
+let agent = Agent::builder()
+    .with_transport(ReqwestTransport::create(network).unwrap())
+    .with_identity(agent_identity)
+    .build()
+    .map_err(|e| format!("{:?}", e))?;
+
+let canister_id = Principal::from_text(EVM_ROUTE_CANISTER_ID.to_string())?;
+
 let burn_hash = EVM_ROUTE_PORT_CONTRACT_burnToken_FUNCTION;
 let mint_hash = EVM_ROUTE_PORT_CONTRACT_mintRunes_FUNCTION;
 
