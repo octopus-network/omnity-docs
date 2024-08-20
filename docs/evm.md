@@ -35,6 +35,7 @@ let agent = Agent::builder()
 
 let canister_id = Principal::from_text(EVM_ROUTE_CANISTER_ID.to_string())?;
 
+# Interact with the Solidity contract using Rust with web3 client, the Rust implementation of Web3.js library
 let burn_hash = EVM_ROUTE_PORT_CONTRACT_burnToken_FUNCTION;
 let mint_hash = EVM_ROUTE_PORT_CONTRACT_mintRunes_FUNCTION;
 
