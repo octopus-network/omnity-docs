@@ -12,6 +12,7 @@ Supported Chains:
 - [Bob](https://www.gobob.xyz/) CHAIN_ID=epmqo-ziaaa-aaaar-qagka-cai
 - [Rootstock](https://rootstock.io/) CHAIN_ID=if3hq-3iaaa-aaaar-qahga-cai
 - [Bitfinity](https://bitfinity.network/) CHAIN_ID=pw3ee-pyaaa-aaaar-qahva-cai
+- [AILayer](https://ailayer.xyz/) CHAIN_ID=pk76v-yyaaa-aaaar-qahxa-cai
 
 
 ## Update
