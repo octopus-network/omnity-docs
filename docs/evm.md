@@ -17,6 +17,11 @@ Supported Chains:
 
 ## Update
 ### generate_ticket(hash: String) -> Result<(), String> 
+- **WORKFLOW:**
+burn_hash(call the burnToken in Solidity) -> your dapp -> generate_ticket(burn_hash)
+
+- Go [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status after.
+
 Rust:
 ```bash
 let network = "https://ic0.app".to_string();
@@ -33,11 +38,12 @@ let agent = Agent::builder()
     .build()
     .map_err(|e| format!("{:?}", e))?;
 
+# EVM_ROUTE_CANISTER_ID is refering a smart contract on IC that implement your logic for the evm-compatible chain.
 let canister_id = Principal::from_text(EVM_ROUTE_CANISTER_ID.to_string())?;
 
-# Interact with the Solidity contract using Rust with web3 client, the Rust implementation of Web3.js library
-let burn_hash = EVM_ROUTE_PORT_CONTRACT_burnToken_FUNCTION;
-let mint_hash = EVM_ROUTE_PORT_CONTRACT_mintRunes_FUNCTION;
+# Interact with the Solidity contract using Typescript with viem, a TypeScript Interface for Ethereum.
+let burn_hash = FRONTEND_onBurn_FUNCTION;
+let mint_hash = FRONTEND_onMint_FUNCTION;
 
 let ret = agent
 	.update(&canister_id, "generate_ticket")
@@ -45,6 +51,144 @@ let ret = agent
 	.call_and_wait()
 	.await?;
 }
+```
+Typescript:
+```bash
+import {createPublicClient, createWalletClient,custom, getContract,http} from "viem";
+
+ async onBurn(params: OnBurnParams): Promise<string> {
+ 	# Define your OnBurnParams.
+    const { burnAddr, token, amount, targetChainId } = params;
+
+    const publicClient = createPublicClient({
+      chain: EvmChain,
+      transport: http(),
+    });
+
+    const walletClient = createWalletClient({
+      chain: EvmChain,
+      transport: custom(window.ethereum),
+    });
+
+    const portContractAddr = EvmChain.contract_address;
+
+    if (!portContractAddr) {
+      throw new Error("Missing port contract address");
+    }
+
+    # call the burnToken function from the EVM port contract.
+    const portContract = getContract({
+      address: portContractAddr as EvmAddress,
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "tokenId",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "burnToken",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+      ],
+      client: {
+        public: publicClient,
+        wallet: walletClient,
+      },
+    });
+
+    const [fee] = await this.actor.get_fee(targetChainId);
+    const tx_hash = await portContract.write.burnToken(
+      [token.token_id, amount],
+      {
+        account: burnAddr as EvmAddress,
+        chain: EvmChain,
+        value: fee,
+      },
+    );
+    return tx_hash;
+  }
+
+# call the mintRunes function from the EVM port contract.
+  async onMint({
+    token,
+    targetAddr,
+    sourceAddr,
+    targetChainId,
+  }: OnBridgeParams): Promise<string> {
+    try {
+      const publicClient = createPublicClient({
+        chain: EvmChain,
+        transport: http(),
+      });
+      const walletClient = createWalletClient({
+        chain: EvmChain,
+        transport: custom(window.ethereum),
+      });
+
+      const portContractAddr = this.chain.contract_address;
+
+      if (!portContractAddr) {
+        throw new Error("Missing port contract address");
+      }
+
+      // call port contract
+      const portContract = getContract({
+        address: portContractAddr as EvmAddress,
+        abi: [
+          {
+            inputs: [
+              {
+                internalType: "string",
+                name: "tokenId",
+                type: "string",
+              },
+              {
+                internalType: "address",
+                name: "receiver",
+                type: "address",
+              },
+            ],
+            name: "mintRunes",
+            outputs: [],
+            stateMutability: "payable",
+            type: "function",
+          },
+        ],
+        client: {
+          public: publicClient,
+          wallet: walletClient,
+        },
+      });
+
+      const [fee] = await this.actor.get_fee(targetChainId);
+
+      const tx_hash = await portContract.write.mintRunes(
+        [token.token_id, targetAddr as EvmAddress],
+        {
+          account: sourceAddr as EvmAddress,
+          chain: EvmChain,
+          value: fee,
+        },
+      );
+      return tx_hash;
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes("User rejected the request")) {
+          throw new Error("User rejected the transaction");
+        }
+      }
+      throw error;
+    }
+  }
 ```
 
 ## Query
