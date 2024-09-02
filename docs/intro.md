@@ -13,7 +13,7 @@ This library consists of 2 sessions:
 - [HUB](https://omnity-docs.vercel.app/docs/hub) A Canister(Smart Contract) on ICP for chain and token registration and ticket(transaction) execution, where settlement chains and execution chains are listed.
 - [EVM](https://omnity-docs.vercel.app/docs/evm) The evm route includes layer2 evm-compatible instances.
 
-Please refer the following basic code example for all the apis in ***Rust*** for this document.
+***Please refer the following basic code example for all the apis in Rust on this document.***
 ```jsx title="Rust"
 use candid::{Decode, Encode};
 use ic_agent::{agent::http_transport::ReqwestTransport, export::Principal, identity::Secp256k1Identity, Agent};
