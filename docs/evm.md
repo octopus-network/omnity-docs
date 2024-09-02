@@ -69,11 +69,7 @@ const portContract = getContract({
 const [fee] = await actor.get_fee(targetChainId);
 
 # The Calculated function_hash
-const tx_hash = await portContract.write.burnToken(
-      [token.token_id, amount],
-      {account: burnAddr as EvmAddress,
-        chain: EvmChain,
-        value: fee},);
+const tx_hash = await portContract.write.burnToken([token.token_id, amount], {account: burnAddr as EvmAddress, chain: EvmChain, value: fee});
 
 const result = await actor.generate_ticket(tx_hash);
 ```
