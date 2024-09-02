@@ -15,10 +15,13 @@ sidebar_position: 3
 - [AILayer](https://ailayer.xyz/) CHAIN_ID=pk76v-yyaaa-aaaar-qahxa-cai
 
 ## Update
-### generate_ticket(hash: String) -> Result<(), String> 
-***Usage***: This api is provided to generate an cross-chain transaction between the Bitcoin layer2 evm-compatible instances mentioned above and the Bitcoin network on Omnity. See the code example(burnToken) below.
+### generate_ticket
+```jsx title="generate_ticket(hash: String) -> Result<(), String>"
+This api is provided to generate an cross-chain transaction between the Bitcoin layer2 evm-compatible instances mentioned above and the Bitcoin network on Omnity. 
+See the burnToken example code below.
+```
 
-***Workflow***: 
+#### Workflow: 
 
 ***1***. Call the corresponding Solidity function from the UI and get the calculated function_hash:
 
@@ -60,49 +63,16 @@ const walletClient = createWalletClient({chain: EvmChain, transport: custom(wind
 const portContractAddr = EvmChain.contract_address;
 
 # Call The burnToken Function From The Evm Port Contract.
-const portContract = getContract({
-    address: portContractAddr,
-    abi: [{inputs: [{internalType: "string", name: "tokenId",type: "string"},{internalType: "uint256", name: "amount", type: "uint256"}], name: "burnToken", outputs: [], stateMutability: "payable", type: "function"}],
-    client: {public: publicClient, wallet: walletClient}});
+const portContract = getContract({address: portContractAddr, abi: [{inputs: [{internalType: "string", name: "tokenId",type: "string"},{internalType: "uint256", name: "amount", type: "uint256"}], name: "burnToken", outputs: [], stateMutability: "payable", type: "function"}], client: {public: publicClient, wallet: walletClient}});
 
 # Get The Target Chain Transaction Fee.
 const [fee] = await actor.get_fee(targetChainId);
 
-# The Calculated function_hash
+# The Calculated function_hash.
 const tx_hash = await portContract.write.burnToken([token.token_id, amount], {account: burnAddr as EvmAddress, chain: EvmChain, value: fee});
 
 const result = await actor.generate_ticket(tx_hash);
 ```
-
-```jsx title="Rust"
-let network = "https://ic0.app".to_string();
-
-let agent_identity = Secp256k1Identity::from_pem(
-    "-----BEGIN EC PRIVATE KEY-----
-    YOURPRIVATEKEY
-    -----END EC PRIVATE KEY-----".as_bytes(),
-)?;
-
-let agent = Agent::builder()
-    .with_transport(ReqwestTransport::create(network).unwrap())
-    .with_identity(agent_identity)
-    .build()
-    .map_err(|e| format!("{:?}", e))?;
-
-# The Evm_route_chain_id Is Refering a Smart Contract On Ic That Implement Your Logic For The Evm-compatible Chain. And Omnity Has Implemented The Listed Supported Chains.
-let canister_id = Principal::from_text(EVM_ROUTE_CHAIN_ID.to_string())?;
-
-# Interact With The Solidity Contract Using Rust With Web3 Client, The Rust Implementation Of Web3.js Library.
-let burn_hash = SOLIDITY_onBurn_FUNCTION;
-
-let result = agent
-	.update(&canister_id, "generate_ticket")
-	.with_arg(burn_hash)
-	.call_and_wait()
-	.await?;
-}
-```
-
 
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
 
