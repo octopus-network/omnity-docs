@@ -12,8 +12,7 @@ OMNITY_HUB_CANISTER_ID = 7wupf-wiaaa-aaaar-qaeya-cai
 
 Get the number of all transactions on Omnity
 
-Rust:
-```bash
+```jsx title="Rust"
 use candid::{Decode, Encode};
 use ic_agent::{
 	agent::http_transport::ReqwestTransport, export::Principal, identity::Secp256k1Identity, Agent,
