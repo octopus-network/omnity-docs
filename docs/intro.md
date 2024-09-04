@@ -17,7 +17,7 @@ This library consists of 4 sessions:
 - [eICP](https://omnity-docs.vercel.app/docs/eicp) A execution chain canister which manage the logic on icp network.
 
 ***Please refer the following basic code example to utilize all the apis in Rust on this document.***
-```jsx title="Rust"
+```code title="Rust"
 use candid::{Decode, Encode};
 use ic_agent::{agent::http_transport::ReqwestTransport, export::Principal, identity::Secp256k1Identity, Agent};
 use std::error::Error;
@@ -45,12 +45,12 @@ pub async fn main() -> Result<(), Box<dyn Error>> {
 
 	let arg: Vec<u8> = Encode!(&api_input)?;
 	let ret = agent
-		.query(&canister_id, "api")
+		.query(&canister_id, "API_METHOD")
 		.with_arg(arg)
 		.call()
 		.await?;
 
-	let result = Decode!(&ret, api_return)??;
+	let result = Decode!(&ret, API_RETURN)??;
 	Ok(())
 }
 ```

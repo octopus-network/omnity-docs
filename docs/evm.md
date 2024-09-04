@@ -26,7 +26,7 @@ Returns the status of the wrapped token minting operation:
 ## Update
 ### generate_ticket
 ```md title="generate_ticket(hash: String) -> Result<(), String>"
-Generate an cross-chain transaction between the bitcoin layer2 evm-compatible instances mentioned above and the bitcoin network on Omnity. 
+Generate an cross-chain transaction from the bitcoin layer2 evm-compatible instances mentioned above on Omnity. 
 ```
 
 #### Workflow: 
@@ -50,7 +50,7 @@ Creates an event of burning a amount of wrapped rune tokenId and withdraw the co
 The cross-chain application will read the event and operate the withdrawal action on bitcoin network.
 ```
 
-***2***. Put the function_hash as a parameter into generate_ticket from your dapp(Either in ***Rust*** or ***Typescript***):
+***2***. Put the function_hash as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
 - [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/service.rs#L240) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
 
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
