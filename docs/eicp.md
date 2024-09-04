@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# EICP
+# eICP
 OMNITY_EXECUTION_ICP_CANISTER_ID = 7ywcn-nyaaa-aaaar-qaeza-cai
 
 ## Query
@@ -12,41 +12,33 @@ Returns the status of the wrapped token minting operation:
 * Finalized { block_index: u64 } represents the operation is succeeded with the transaction block index on the icp.
 * Unknown represents the operation is not completed.
 ```
-***Source*** : 
+***Sources*** : 
 [`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
 [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/state.rs#L15)
 
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
-
+Retrieve a list of chains that connect with icp.
 ```
-***Source*** : [`Chain`](https://github.com)
+***Sources*** : [`Chain`](https://github.com)
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
-
+Retrieve a list of token that is available on icp.
 ```
-***Source*** : [`TokenResp`](https://github.com)
+***Sources*** : [`TokenResp`](https://github.com)
 
 ### get_token_ledger
 ```md title="get_token_ledger(token_id: String) -> Option<Principal> "
-
+Get the token ledger canister id based on token_id.
 ```
-***Source*** : [`Principal`](https://github.com)
-
-### get_fee_account
-```md title="get_fee_account(principal: Option<Principal>) -> AccountIdentifier"
-
-```
-***Source*** : 
-[`Principal`](https://github.com)
-[`AccountIdentifier`](https://github.com)
+***Sources*** : [`Principal`](https://github.com)
 
 ### get_redeem_fee
 ```md title="get_redeem_fee(chain_id: ChainId) -> Option<u64>"
-
+Get the fee information needed for redeeming chain_id on icp.
 ```
-***Source*** : [`ChainId`](https://github.com)
+***Sources*** : [`ChainId`](https://github.com)
 
 
 ## Update
@@ -54,7 +46,7 @@ Returns the status of the wrapped token minting operation:
 ```md title="generate_ticket(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"
 Generate an cross-chain transaction from the icp on Omnity.
 ```
-***Source*** : 
+***Sources*** : 
 [`GenerateTicketReq`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L18)
 [`GenerateTicketOk`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L29)
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L34)

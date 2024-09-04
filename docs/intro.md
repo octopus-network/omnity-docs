@@ -10,12 +10,13 @@ See the **[codebase](https://github.com/octopus-network/omnity-interoperability)
 
 This library consists of 4 sessions:
 
-- [HUB](https://omnity-docs.vercel.app/docs/hub) A canister (smart contract) on [icp](https://internetcomputer.org/) for chain and token registration and ticket(transaction) execution, where settlement chains and execution chains are listed.
-- [BITCOIN](https://omnity-docs.vercel.app/docs/bitcoin) A settlement chain canister which manage the logic on bitcoin network, is where the assets are listed and call the bitcoin canister to check any bitcoin address status.
+- [Hub](https://omnity-docs.vercel.app/docs/hub) A canister (smart contract) on [icp](https://internetcomputer.org/) for chain and token registration and ticket(transaction) execution, where settlement chains and execution chains are listed.
+- [Bitcoin](https://omnity-docs.vercel.app/docs/bitcoin) A settlement chain canister which manage the logic on bitcoin network, is where the assets are listed and call the bitcoin canister to check any bitcoin address status.
 - [sICP](https://omnity-docs.vercel.app/docs/eicp) A settlement chain canister which manage the logic on icp network.
 - [EVM](https://omnity-docs.vercel.app/docs/evm) The evm route includes layer2 evm-compatible instances as execution chains.
 - [eICP](https://omnity-docs.vercel.app/docs/eicp) A execution chain canister which manage the logic on icp network.
 
+The APIs can be accessed using either Rust or TypeScript.
 ***Please refer the following basic code example to utilize all the apis in Rust on this document.***
 ```code title="Rust"
 use candid::{Decode, Encode};

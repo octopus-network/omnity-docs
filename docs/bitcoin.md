@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# BITCOIN
+# Bitcoin
 OMNITY_SETTLEMENT_BITCOIN_CANISTER_ID=7rvjr-3qaaa-aaaar-qaeyq-cai
 
 ## Query
@@ -11,13 +11,13 @@ OMNITY_SETTLEMENT_BITCOIN_CANISTER_ID=7rvjr-3qaaa-aaaar-qaeyq-cai
 Returns the status of the runes tokens withdrawing operation:
 * Confirmed(String) represents the operation is succeeded with the transaction hash on bitcoin network.
 ```
-***Source*** : [`ReleaseTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/state.rs#L217)
+***Sources*** : [`ReleaseTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/state.rs#L217)
 
 ### get_btc_address
 ```md title="get_btc_address(args: GetBtcAddressArgs) -> String"
 
 ```
-***Source*** : [`GetBtcAddressArgs`](https://github.com)
+***Sources*** : [`GetBtcAddressArgs`](https://github.com)
 
 ### get_main_btc_address
 ```md title="get_main_btc_address(token: String) -> String"
@@ -26,58 +26,44 @@ Returns the status of the runes tokens withdrawing operation:
 
 ### generate_ticket_status
 ```md title="generate_ticket_status(ticket_id: String) -> GenTicketStatus"
-
+Retrieve the status of ticket_id generating operation.
 ```
-***Source*** : [`GenTicketStatus`](https://github.com)
-
-### get_pending_gen_ticket_requests
-```md title="get_pending_gen_ticket_requests(args: GetGenTicketReqsArgs) -> Vec<GenTicketRequestV2>"
-
-```
-***Source*** : 
-[`GetGenTicketReqsArgs`](https://github.com)
-[`GenTicketRequestV2`](https://github.com)
+***Sources*** : [`GenTicketStatus`](https://github.com)
 
 ### get_runes_oracles
 ```md title="get_runes_oracles() -> Vec<Principal>"
-
+Get the list of runes oracles canister id.
 ```
-***Source*** : [`Principal`](https://github.com)
+***Sources*** : [`Principal`](https://github.com)
 
 ### estimate_redeem_fee
 ```md title="estimate_redeem_fee(arg: EstimateFeeArgs) -> RedeemFee"
-
+Get the estimated fee needed for redeeming chain_id on bitcoin network.
 ```
-***Source*** : 
+***Sources*** : 
 [`EstimateFeeArgs`](https://github.com)
 [`RedeemFee`](https://github.com)
 
-### get_customs_info
-```md title="get_customs_info() -> CustomsInfo"
-
-```
-***Source*** : [`ustomsInfo`](https://github.com)
-
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
-
+Retrieve a list of chains that connect with bitcoin network.
 ```
-***Source*** : [`Chain`](https://github.com)
+***Sources*** : [`Chain`](https://github.com)
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
-
+Retrieve a list of token that is available on bitcoin network.
 ```
-***Source*** : [`TokenResp`](https://github.com)
+***Sources*** : [`TokenResp`](https://github.com)
 
 
 
 ## Update
 ### generate_ticket
 ```md title="generate_ticket(args: GenerateTicketArgs) -> Result<(), GenerateTicketError>"
-Generate an cross-chain transaction from the bitcoin network on Omnity.
+Generate an cross-chain transaction from bitcoin network on Omnity.
 ```
-***Source*** : 
+***Sources*** : 
 [`GenerateTicketArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L24)
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L33)
 

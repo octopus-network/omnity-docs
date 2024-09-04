@@ -21,31 +21,25 @@ Returns the status of the wrapped token minting operation:
 * Finalized { tx_hash: String } represents the operation is succeeded with the transaction hash on the l2 chain.
 * Unknown represents the operation is not completed.
 ```
-***Source*** : [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L773)
+***Sources*** : [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L773)
 
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
-
+Retrieve a list of chains that connect with the layer2 chain.
 ```
-***Source*** : [`Chain`](https://github.com)
+***Sources*** : [`Chain`](https://github.com)
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
-
+Retrieve a list of token that is available on the layer2 chain.
 ```
-***Source*** : [`TokenResp`](https://github.com)
+***Sources*** : [`TokenResp`](https://github.com)
 
 ### get_fee
 ```md title="get_fee(chain_id: ChainId) -> Option<u64>"
-
+Retrieve the fee for a transaction based on chain_id as a target chain.
 ```
-***Source*** : [`ChainId`](https://github.com)
-
-### get_ticket
-```md title="get_ticket(ticket_id: String) -> Option<(u64, Ticket)>"
-
-```
-***Source*** : [`Ticket`](https://github.com)
+***Sources*** : [`ChainId`](https://github.com)
 
 ## Update
 ### generate_ticket

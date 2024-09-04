@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# SICP
+# sICP
 OMNITY_SETTLEMENT_ICP_CANISTER_ID=nlgkm-4qaaa-aaaar-qah2q-cai
 
 ## Query
@@ -12,29 +12,29 @@ Returns the status of the tokens withdrawal operation:
 * Finalized { tx_hash: String } represents the operation is succeeded with the transaction hash on the icp.
 * Unknown represents the operation is not completed.
 ```
-***Source*** : 
+***Sources*** : 
 [`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
 [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L773)
 
 ### get_account_identifier
 ```md title="get_account_identifier(principal: Principal) -> AccountIdentifier"
-
+Generate an subaccount from principal.
 ```
-***Source*** : 
+***Sources*** : 
 [`Principal`](https://github.com)
 [`AccountIdentifier`](https://github.com)
 
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
-
+Retrieve a list of chains that connect with icp.
 ```
-***Source*** : [`Chain`](https://github.com)
+***Sources*** : [`Chain`](https://github.com)
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
-
+Retrieve a list of token that is available on icp.
 ```
-***Source*** : [`TokenResp`](https://github.com)
+***Sources*** : [`TokenResp`](https://github.com)
 
 
 ## Update
@@ -42,7 +42,7 @@ Returns the status of the tokens withdrawal operation:
 ```md title="generate_ticket(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"
 Generate an cross-chain transaction from the icp on Omnity.
 ```
-***Source*** : 
+***Sources*** : 
 [`GenerateTicketReq`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L18)
 [`GenerateTicketOk`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L29)
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L34)
