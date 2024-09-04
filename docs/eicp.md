@@ -16,6 +16,39 @@ Returns the status of the wrapped token minting operation:
 [`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
 [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/state.rs#L15)
 
+### get_chain_list
+```md title="get_chain_list() -> Vec<Chain>"
+
+```
+***Source*** : [`Chain`](https://github.com)
+
+### get_token_list
+```md title="get_token_list() -> Vec<TokenResp>"
+
+```
+***Source*** : [`TokenResp`](https://github.com)
+
+### get_token_ledger
+```md title="get_token_ledger(token_id: String) -> Option<Principal> "
+
+```
+***Source*** : [`Principal`](https://github.com)
+
+### get_fee_account
+```md title="get_fee_account(principal: Option<Principal>) -> AccountIdentifier"
+
+```
+***Source*** : 
+[`Principal`](https://github.com)
+[`AccountIdentifier`](https://github.com)
+
+### get_redeem_fee
+```md title="get_redeem_fee(chain_id: ChainId) -> Option<u64>"
+
+```
+***Source*** : [`ChainId`](https://github.com)
+
+
 ## Update
 ### generate_ticket
 ```md title="generate_ticket(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"

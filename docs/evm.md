@@ -23,6 +23,30 @@ Returns the status of the wrapped token minting operation:
 ```
 ***Source*** : [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L773)
 
+### get_chain_list
+```md title="get_chain_list() -> Vec<Chain>"
+
+```
+***Source*** : [`Chain`](https://github.com)
+
+### get_token_list
+```md title="get_token_list() -> Vec<TokenResp>"
+
+```
+***Source*** : [`TokenResp`](https://github.com)
+
+### get_fee
+```md title="get_fee(chain_id: ChainId) -> Option<u64>"
+
+```
+***Source*** : [`ChainId`](https://github.com)
+
+### get_ticket
+```md title="get_ticket(ticket_id: String) -> Option<(u64, Ticket)>"
+
+```
+***Source*** : [`Ticket`](https://github.com)
+
 ## Update
 ### generate_ticket
 ```md title="generate_ticket(hash: String) -> Result<(), String>"

@@ -13,6 +13,65 @@ Returns the status of the runes tokens withdrawing operation:
 ```
 ***Source*** : [`ReleaseTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/state.rs#L217)
 
+### get_btc_address
+```md title="get_btc_address(args: GetBtcAddressArgs) -> String"
+
+```
+***Source*** : [`GetBtcAddressArgs`](https://github.com)
+
+### get_main_btc_address
+```md title="get_main_btc_address(token: String) -> String"
+
+```
+
+### generate_ticket_status
+```md title="generate_ticket_status(ticket_id: String) -> GenTicketStatus"
+
+```
+***Source*** : [`GenTicketStatus`](https://github.com)
+
+### get_pending_gen_ticket_requests
+```md title="get_pending_gen_ticket_requests(args: GetGenTicketReqsArgs) -> Vec<GenTicketRequestV2>"
+
+```
+***Source*** : 
+[`GetGenTicketReqsArgs`](https://github.com)
+[`GenTicketRequestV2`](https://github.com)
+
+### get_runes_oracles
+```md title="get_runes_oracles() -> Vec<Principal>"
+
+```
+***Source*** : [`Principal`](https://github.com)
+
+### estimate_redeem_fee
+```md title="estimate_redeem_fee(arg: EstimateFeeArgs) -> RedeemFee"
+
+```
+***Source*** : 
+[`EstimateFeeArgs`](https://github.com)
+[`RedeemFee`](https://github.com)
+
+### get_customs_info
+```md title="get_customs_info() -> CustomsInfo"
+
+```
+***Source*** : [`ustomsInfo`](https://github.com)
+
+### get_chain_list
+```md title="get_chain_list() -> Vec<Chain>"
+
+```
+***Source*** : [`Chain`](https://github.com)
+
+### get_token_list
+```md title="get_token_list() -> Vec<TokenResp>"
+
+```
+***Source*** : [`TokenResp`](https://github.com)
+
+
+
 ## Update
 ### generate_ticket
 ```md title="generate_ticket(args: GenerateTicketArgs) -> Result<(), GenerateTicketError>"
