@@ -15,46 +15,46 @@ Returns the status of the runes tokens withdrawing operation:
 
 ### get_btc_address
 ```md title="get_btc_address(args: GetBtcAddressArgs) -> String"
-
+Generate a bitcoin address by using the target chain and receiver as the derivation path.
 ```
-***Sources*** : [`GetBtcAddressArgs`](https://github.com)
+***Sources*** : [`GetBtcAddressArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/get_btc_address.rs#L14)
 
 ### get_main_btc_address
 ```md title="get_main_btc_address(token: String) -> String"
-
+Retrieve the token locking account for a given token.
 ```
 
 ### generate_ticket_status
 ```md title="generate_ticket_status(ticket_id: String) -> GenTicketStatus"
 Retrieve the status of ticket_id generating operation.
 ```
-***Sources*** : [`GenTicketStatus`](https://github.com)
+***Sources*** : [`GenTicketStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/state.rs#L234)
 
 ### get_runes_oracles
 ```md title="get_runes_oracles() -> Vec<Principal>"
 Get the list of runes oracles canister id.
 ```
-***Sources*** : [`Principal`](https://github.com)
+***Sources*** : [`Principal`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L25)
 
 ### estimate_redeem_fee
 ```md title="estimate_redeem_fee(arg: EstimateFeeArgs) -> RedeemFee"
 Get the estimated fee needed for redeeming chain_id on bitcoin network.
 ```
 ***Sources*** : 
-[`EstimateFeeArgs`](https://github.com)
-[`RedeemFee`](https://github.com)
+[`EstimateFeeArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/queries.rs#L7)
+[`RedeemFee`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/queries.rs#L13)
 
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
 Retrieve a list of chains that connect with bitcoin network.
 ```
-***Sources*** : [`Chain`](https://github.com)
+***Sources*** : [`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L439)
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
 Retrieve a list of token that is available on bitcoin network.
 ```
-***Sources*** : [`TokenResp`](https://github.com)
+***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/lib.rs#L106)
 
 
 

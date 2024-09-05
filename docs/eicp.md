@@ -20,25 +20,25 @@ Returns the status of the wrapped token minting operation:
 ```md title="get_chain_list() -> Vec<Chain>"
 Retrieve a list of chains that connect with icp.
 ```
-***Sources*** : [`Chain`](https://github.com)
+***Sources*** : [`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L439)
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
 Retrieve a list of token that is available on icp.
 ```
-***Sources*** : [`TokenResp`](https://github.com)
+***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/lib.rs#L179)
 
 ### get_token_ledger
 ```md title="get_token_ledger(token_id: String) -> Option<Principal> "
 Get the token ledger canister id based on token_id.
 ```
-***Sources*** : [`Principal`](https://github.com)
+***Sources*** : [`Principal`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/main.rs#L1)
 
 ### get_redeem_fee
 ```md title="get_redeem_fee(chain_id: ChainId) -> Option<u64>"
 Get the fee information needed for redeeming chain_id on icp.
 ```
-***Sources*** : [`ChainId`](https://github.com)
+***Sources*** : [`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L23)
 
 
 ## Update

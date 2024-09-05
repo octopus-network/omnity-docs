@@ -17,154 +17,156 @@ Get the number of total transactions on Omnity.
 Query the transaction hash of the ticket_id.
 ```
 ***Sources*** : 
-[`TicketId`](https://github.com) 
-[`TxHash`](https://github.com) 
-[`Error`](https://github.com) 
+[`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26) 
+[`TxHash`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/types.rs#L28) 
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718) 
 
 ### get_self_service_fee
 ```md title="get_self_service_fee() -> SelfServiceFee"
 Obtain the fees for adding both a chain and a token.
 ```
-***Sources*** : [`SelfServiceFee`](https://github.com) 
+***Sources*** : [`SelfServiceFee`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/service.rs#L262) 
 
 ### get_chains
 ```md title="get_chains(chain_type: Option<ChainType>, chain_state: Option<ChainState>, offset: usize, limit: usize) -> Result<Vec<Chain>, Error>"
 Specify filters to narrow down the list of chains based on the chain_type and chain_state and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
-[`ChainType`](https://github.com) 
-[`ChainState`](https://github.com)
-[`Chain`](https://github.com)
-[`Error`](https://github.com)
+[`ChainType`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L301) 
+[`ChainState`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L308)
+[`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L439)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_chain
 ```md title="get_chain(chain_id: String) -> Result<Chain, Error>"
 Retrieve the metadata of a chain_id.
 ```
 ***Sources*** : 
-[`Chain`](https://github.com)
-[`Error`](https://github.com)
+[`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L439)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_tokens
 ```md title="get_tokens(chain_id: Option<ChainId>, token_id: Option<TokenId>, offset: usize, limit: usize) -> Result<Vec<TokenResp>, Error>"
 Specify filters to narrow down the list of tokens metadata based on the either ChainId or TokenId and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
-[`ChainId`](https://github.com) 
-[`TokenId`](https://github.com)
-[`TokenResp`](https://github.com)
-[`Error`](https://github.com)
+[`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L23) 
+[`TokenId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L25)
+[`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/types.rs#L200)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_fees
 ```md title="get_fees(chain_id: Option<ChainId>,token_id: Option<TokenId>,offset: usize,limit: usize) -> Result<Vec<(ChainId, TokenId, u128)>, Error>"
 Specify filters to narrow down the list of fees based on the either ChainId or TokenId and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
-[`ChainId`](https://github.com) 
-[`TokenId`](https://github.com)
-[`TokenResp`](https://github.com)
-[`Error`](https://github.com)
+[`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L23) 
+[`TokenId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L25)
+[`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/types.rs#L200)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_chain_tokens
 ```md title="get_chain_tokens(chain_id: Option<ChainId>,token_id: Option<TokenId>,offset: usize,limit: usize) -> Result<Vec<TokenOnChain>, Error>"
 Specify filters to narrow down the list of token amount on a chain based on the either ChainId or TokenId and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
-[`ChainId`](https://github.com) 
-[`TokenId`](https://github.com)
-[`TokenOnChain`](https://github.com)
-[`Error`](https://github.com)
+[`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L23) 
+[`TokenId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L25)
+[`TokenOnChain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L550)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_tx
 ```md title="get_tx(ticket_id: TicketId) -> Result<Ticket, Error>"
 Retrieve the metadata for the trasaction using the TicketId.
 ```
 ***Sources*** : 
-[`TicketId`](https://github.com)
-[`Error`](https://github.com)
+[`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_txs_with_chain
 ```md title="get_txs_with_chain(src_chain: Option<ChainId>, dst_chain: Option<ChainId>, token_id: Option<TokenId>, time_range: Option<(u64, u64)>, offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
 Retrieve a list of transactions based on src_chain, dst_chain, token_id, time_range and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
-[`ChainId`](https://github.com)
-[`TokenId`](https://github.com)
-[`Ticket`](https://github.com)
-[`Error`](https://github.com)
+[`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L23) 
+[`TokenId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L25)
+[`Ticket`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L190)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_txs_with_account
 ```md title="get_txs_with_account(sender: Option<ChainId>, receiver: Option<ChainId>, token_id: Option<TokenId>, time_range: Option<(u64, u64)>, offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
 Retrieve a list of transactions based on sender, receiver, token_id, time_range and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
-[`ChainId`](https://github.com)
-[`TokenId`](https://github.com)
-[`Ticket`](https://github.com)
-[`Error`](https://github.com)
+[`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L23) 
+[`TokenId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L25)
+[`Ticket`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L190)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_txs
 ```md title="get_txs(offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
 Retrieve all historical transactions from the beginning.
 ```
 ***Sources*** : 
-[`Ticket`](https://github.com)
-[`Error`](https://github.com)
+[`Ticket`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L190)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_chain_metas
 ```md title="get_chain_metas(offset: usize, limit: usize) -> Result<Vec<ChainMeta>, Error>"
 Retrieve all of chain metadata and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
-[`ChainMeta`](https://github.com)
-[`Error`](https://github.com)
+[`ChainMeta`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/types.rs#L67)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_chain_size
 ```md title="get_chain_size() -> Result<u64, Error>"
 Get the number of chains on Omnity.
 ```
-***Sources*** : [`Error`](https://github.com)
+***Sources*** : [`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_token_metas
 ```md title="get_token_metas(offset: usize, limit: usize) -> Result<Vec<TokenMeta>, Error>"
 Retrieve all of token metadata and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
-[`TokenMeta`](https://github.com)
-[`Error`](https://github.com)
+[`TokenMeta`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/types.rs#L149)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_token_size
 ```md title="get_token_size() -> Result<u64, Error>"
 Get the number of tokens on Omnity.
 ```
-***Sources*** : [`Error`](https://github.com)
+***Sources*** : [`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### sync_ticket_size
 ```md title="sync_ticket_size() -> Result<u64, Error>"
 Get the number of transactions on Omnity.
 ```
-***Sources*** : [`Error`](https://github.com)
+***Sources*** : [`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### sync_tickets
 ```md title="sync_tickets(offset: usize, limit: usize) -> Result<Vec<(u64, Ticket)>, Error>"
 Retrieve all of ticket data and manage pagination by providing an offset and limit.
 ```
-***Sources*** : [`Error`](https://github.com)
+***Sources*** : 
+[`Ticket`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L190)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_pending_ticket_size
 ```md title="get_pending_ticket_size() -> Result<u64, Error>"
 Get the number of all the pending tickets on Omnity.
 ```
-***Sources*** : [`Error`](https://github.com)
+***Sources*** : [`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_pending_tickets
 ```md title="get_pending_tickets(offset: usize, limit: usize) -> Result<Vec<(TicketId, Ticket)>, Error>"
 Retrieve all of pending ticket data.
 ```
 ***Sources*** : 
-[`TicketId`](https://github.com)
-[`Ticket`](https://github.com)
-[`Error`](https://github.com)
+[`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
+[`Ticket`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L190)
+[`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 
 ## Update

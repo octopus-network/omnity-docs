@@ -21,20 +21,20 @@ Returns the status of the tokens withdrawal operation:
 Generate an subaccount from principal.
 ```
 ***Sources*** : 
-[`Principal`](https://github.com)
-[`AccountIdentifier`](https://github.com)
+[`Principal`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/icp/src/service.rs#L3)
+[`AccountIdentifier`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/icp/src/service.rs#L11)
 
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
 Retrieve a list of chains that connect with icp.
 ```
-***Sources*** : [`Chain`](https://github.com)
+***Sources*** : [`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L439)
 
 ### get_token_list
-```md title="get_token_list() -> Vec<TokenResp>"
+```md title="get_token_list() -> Vec<Token>"
 Retrieve a list of token that is available on icp.
 ```
-***Sources*** : [`TokenResp`](https://github.com)
+***Sources*** : [`Token`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L508)
 
 
 ## Update

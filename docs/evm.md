@@ -27,19 +27,19 @@ Returns the status of the wrapped token minting operation:
 ```md title="get_chain_list() -> Vec<Chain>"
 Retrieve a list of chains that connect with the layer2 chain.
 ```
-***Sources*** : [`Chain`](https://github.com)
+***Sources*** : [`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/types.rs#L570)
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
 Retrieve a list of token that is available on the layer2 chain.
 ```
-***Sources*** : [`TokenResp`](https://github.com)
+***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/types.rs#L557)
 
 ### get_fee
 ```md title="get_fee(chain_id: ChainId) -> Option<u64>"
 Retrieve the fee for a transaction based on chain_id as a target chain.
 ```
-***Sources*** : [`ChainId`](https://github.com)
+***Sources*** : [`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/types.rs#L24)
 
 ## Update
 ### generate_ticket
