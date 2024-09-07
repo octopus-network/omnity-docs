@@ -6,18 +6,22 @@ sidebar_position: 1
 
 ***Omnity API hosts a library of fundamental apis for app developers to plug and play into their codebases.***
 
-See the **[codebase](https://github.com/octopus-network/omnity-interoperability)** for more details. 
+See the **[codebase](https://github.com/octopus-network/omnity-interoperability)** for more details. It includes:
 
-This library consists of 4 sessions:
+- [Hub](https://github.com/octopus-network/omnity-interoperability/tree/main/hub) A canister (smart contract) on [icp](https://internetcomputer.org/) for chain and token registration and ticket (transaction) execution, where settlement chains and execution chains are listed.
+- [Bitcoin](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin) A settlement chain canister which manage the logic on bitcoin network, is where the assets are listed and call the bitcoin canister to check any bitcoin address status.
+- [sICP](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/icp) A settlement chain canister which manage the logic on icp network.
+- [EVM](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm) The evm route includes layer2 evm-compatible instances as execution chains.
+- [eICP](https://github.com/octopus-network/omnity-interoperability/tree/main/route/icp) A execution chain canister which manage the logic on icp network.
 
-- [Hub](https://omnity-docs.vercel.app/docs/hub) A canister (smart contract) on [icp](https://internetcomputer.org/) for chain and token registration and ticket(transaction) execution, where settlement chains and execution chains are listed.
-- [Bitcoin](https://omnity-docs.vercel.app/docs/bitcoin) A settlement chain canister which manage the logic on bitcoin network, is where the assets are listed and call the bitcoin canister to check any bitcoin address status.
-- [sICP](https://omnity-docs.vercel.app/docs/eicp) A settlement chain canister which manage the logic on icp network.
-- [EVM](https://omnity-docs.vercel.app/docs/evm) The evm route includes layer2 evm-compatible instances as execution chains.
-- [eICP](https://omnity-docs.vercel.app/docs/eicp) A execution chain canister which manage the logic on icp network.
+## Use Cases
+- If you were developing a defi project on one of the evm-compatible layer2 networks listed on Omnity by using a runes token as the project token, please go to **[Port Contract On EVM L2s](https://omnity-docs.vercel.app/docs/evm)** to utilise the runes feature in generate_ticket.
+- If you were interesting in integrating with [Omnity cross-chain services](https://bridge.omnity.network/runes) or adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) for your convenience, please go to **[Runes Indexer](https://omnity-docs.vercel.app/docs/runes)**.
+- If you were interesting in what is used on [Omnity Explorer](https://explorer.omnity.network/) in your project, please go to **[Omnity Explorer](https://omnity-docs.vercel.app/docs/explorer)**.
 
+## Code Example
 The APIs can be accessed using either Rust or TypeScript.
-***Please refer the following basic code example to utilize all the apis in Rust on this document.***
+***Please refer the following basic code example to utilize all the apis in Rust.***
 ```code title="Rust"
 use candid::{Decode, Encode};
 use ic_agent::{agent::http_transport::ReqwestTransport, export::Principal, identity::Secp256k1Identity, Agent};

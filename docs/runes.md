@@ -1,11 +1,32 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
-# Hub
-OMNITY_HUB_CANISTER_ID = 7wupf-wiaaa-aaaar-qaeya-cai
+# Runes Indexer
+- OMNITY_HUB_CANISTER_ID = 7wupf-wiaaa-aaaar-qaeya-cai
+- OMNITY_SETTLEMENT_BITCOIN_CANISTER_ID = 7rvjr-3qaaa-aaaar-qaeyq-cai
+- OMNITY_EXECUTION_ICP_CANISTER_ID = 7ywcn-nyaaa-aaaar-qaeza-cai
 
-## Query
+## Hub
+Update:
+### add_runes_token
+```md title="add_runes_token(args: AddRunesTokenReq) -> Result<(), SelfServiceError>"
+Add the existing runes token on Omnity.
+```
+***Sources*** : 
+[`AddRunesTokenReq`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L23)
+[`SelfServiceError`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L37)
+
+### add_dest_chain_for_token
+```md title="add_dest_chain_for_token(args: AddDestChainArgs) -> Result<(), SelfServiceError>"
+Add the existing token_id available on the dest_chain.
+```
+***Sources*** : 
+[`AddDestChainArgs`](https://github.com/)
+[`SelfServiceError`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L37)
+
+----------------------------------------------------------------------------
+Query:
 ### get_total_tx
 ```md title="get_total_tx() -> Result<u64, OmnityError>"
 Get the number of total transactions on Omnity. 
@@ -169,19 +190,109 @@ Retrieve all of pending ticket data.
 [`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 
-## Update
-### add_runes_token
-```md title="add_runes_token(args: AddRunesTokenReq) -> Result<(), SelfServiceError>"
-Add the existing runes token on Omnity.
-```
-***Sources*** : 
-[`AddRunesTokenReq`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L23)
-[`SelfServiceError`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L37)
 
-### add_dest_chain_for_token
-```md title="add_dest_chain_for_token(args: AddDestChainArgs) -> Result<(), SelfServiceError>"
-Add the existing token_id available on the dest_chain.
+## Bitcoin
+Update:
+### generate_ticket
+```md title="generate_ticket(args: GenerateTicketArgs) -> Result<(), GenerateTicketError>"
+Generate an cross-chain transaction from bitcoin network on Omnity.
 ```
 ***Sources*** : 
-[`AddDestChainArgs`](https://github.com/)
-[`SelfServiceError`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L37)
+[`GenerateTicketArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L24)
+[`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L33)
+
+#### Workflow: 
+***1***. Call the corresponding bitcoin function from the UI and get the calculated function_hash.
+
+***2***. Put the function_hash as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
+- [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
+
+***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
+
+----------------------------------------------------------------------------
+Query:
+### release_token_status
+```md title="release_token_status(ticket_id: String) -> ReleaseTokenStatus"
+Returns the status of the runes tokens withdrawing operation:
+* Confirmed(String) represents the operation is succeeded with the transaction hash on bitcoin network.
+```
+***Sources*** : [`ReleaseTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/state.rs#L217)
+
+### get_btc_address
+```md title="get_btc_address(args: GetBtcAddressArgs) -> String"
+Generate a bitcoin address by using the target chain and receiver as the derivation path.
+```
+***Sources*** : [`GetBtcAddressArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/get_btc_address.rs#L14)
+
+### get_main_btc_address
+```md title="get_main_btc_address(token: String) -> String"
+Retrieve the token locking account for a given token.
+```
+
+### generate_ticket_status
+```md title="generate_ticket_status(ticket_id: String) -> GenTicketStatus"
+Retrieve the status of ticket_id generating operation.
+```
+***Sources*** : [`GenTicketStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/state.rs#L234)
+
+### get_runes_oracles
+```md title="get_runes_oracles() -> Vec<Principal>"
+Get the list of runes oracles canister id.
+```
+***Sources*** : [`Principal`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L25)
+
+### estimate_redeem_fee
+```md title="estimate_redeem_fee(arg: EstimateFeeArgs) -> RedeemFee"
+Get the estimated fee needed for redeeming chain_id on bitcoin network.
+```
+***Sources*** : 
+[`EstimateFeeArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/queries.rs#L7)
+[`RedeemFee`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/queries.rs#L13)
+
+### get_chain_list
+```md title="get_chain_list() -> Vec<Chain>"
+Retrieve a list of chains that connect with bitcoin network.
+```
+***Sources*** : [`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L439)
+
+### get_token_list
+```md title="get_token_list() -> Vec<TokenResp>"
+Retrieve a list of token that is available on bitcoin network.
+```
+***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/lib.rs#L106)
+
+## eICP
+Query:
+### mint_token_status
+```md title="mint_token_status(ticket_id: TicketId) -> MintTokenStatus"
+Returns the status of the wrapped token minting operation:
+* Finalized { block_index: u64 } represents the operation is succeeded with the transaction block index on the icp.
+* Unknown represents the operation is not completed.
+```
+***Sources*** : 
+[`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
+[`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/state.rs#L15)
+
+### get_chain_list
+```md title="get_chain_list() -> Vec<Chain>"
+Retrieve a list of chains that connect with icp.
+```
+***Sources*** : [`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L439)
+
+### get_token_list
+```md title="get_token_list() -> Vec<TokenResp>"
+Retrieve a list of token that is available on icp.
+```
+***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/lib.rs#L179)
+
+### get_token_ledger
+```md title="get_token_ledger(token_id: String) -> Option<Principal> "
+Get the token ledger canister id based on token_id.
+```
+***Sources*** : [`Principal`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/main.rs#L1)
+
+### get_redeem_fee
+```md title="get_redeem_fee(chain_id: ChainId) -> Option<u64>"
+Get the fee information needed for redeeming chain_id on icp.
+```
+***Sources*** : [`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L23)
