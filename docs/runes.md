@@ -8,7 +8,7 @@ sidebar_position: 5
 - OMNITY_EXECUTION_ICP_CANISTER_ID = 7ywcn-nyaaa-aaaar-qaeza-cai
 
 ## Hub
-Update:
+**Update:**
 ### add_runes_token
 ```md title="add_runes_token(args: AddRunesTokenReq) -> Result<(), SelfServiceError>"
 Add the existing runes token on Omnity.
@@ -19,23 +19,23 @@ Add the existing runes token on Omnity.
 
 ### add_dest_chain_for_token
 ```md title="add_dest_chain_for_token(args: AddDestChainArgs) -> Result<(), SelfServiceError>"
-Add the existing token_id available on the dest_chain.
+Add the existing token_id on the dest_chain.
 ```
 ***Sources*** : 
 [`AddDestChainArgs`](https://github.com/)
 [`SelfServiceError`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L37)
 
 ----------------------------------------------------------------------------
-Query:
+**Query:**
 ### get_total_tx
 ```md title="get_total_tx() -> Result<u64, OmnityError>"
-Get the number of total transactions on Omnity. 
+Get the total number of transactions on Omnity. 
 ```
 ***Sources*** : [`OmnityError`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718) 
 
 ### query_tx_hash
 ```md title="query_tx_hash(ticket_id: TicketId) -> Result<TxHash, Error>"
-Query the transaction hash of the ticket_id.
+Query the transaction hash for the ticket_id.
 ```
 ***Sources*** : 
 [`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26) 
@@ -60,7 +60,7 @@ Specify filters to narrow down the list of chains based on the chain_type and ch
 
 ### get_chain
 ```md title="get_chain(chain_id: String) -> Result<Chain, Error>"
-Retrieve the metadata of a chain_id.
+Retrieve the metadata for the chain_id.
 ```
 ***Sources*** : 
 [`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L439)
@@ -98,7 +98,7 @@ Specify filters to narrow down the list of token amount on a chain based on the 
 
 ### get_tx
 ```md title="get_tx(ticket_id: TicketId) -> Result<Ticket, Error>"
-Retrieve the metadata for the trasaction using the TicketId.
+Retrieve the metadata for the transaction using the TicketId.
 ```
 ***Sources*** : 
 [`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
@@ -126,7 +126,7 @@ Retrieve a list of transactions based on sender, receiver, token_id, time_range 
 
 ### get_txs
 ```md title="get_txs(offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
-Retrieve all historical transactions from the beginning.
+Retrieve all historical transactions from the start.
 ```
 ***Sources*** : 
 [`Ticket`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L190)
@@ -134,7 +134,7 @@ Retrieve all historical transactions from the beginning.
 
 ### get_chain_metas
 ```md title="get_chain_metas(offset: usize, limit: usize) -> Result<Vec<ChainMeta>, Error>"
-Retrieve all of chain metadata and manage pagination by providing an offset and limit.
+Retrieve all chain metadata and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
 [`ChainMeta`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/types.rs#L67)
@@ -142,13 +142,13 @@ Retrieve all of chain metadata and manage pagination by providing an offset and 
 
 ### get_chain_size
 ```md title="get_chain_size() -> Result<u64, Error>"
-Get the number of chains on Omnity.
+Get the total number of chains on Omnity.
 ```
 ***Sources*** : [`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_token_metas
 ```md title="get_token_metas(offset: usize, limit: usize) -> Result<Vec<TokenMeta>, Error>"
-Retrieve all of token metadata and manage pagination by providing an offset and limit.
+Retrieve all token metadata and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
 [`TokenMeta`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/types.rs#L149)
@@ -156,19 +156,19 @@ Retrieve all of token metadata and manage pagination by providing an offset and 
 
 ### get_token_size
 ```md title="get_token_size() -> Result<u64, Error>"
-Get the number of tokens on Omnity.
+Get the total number of tokens on Omnity.
 ```
 ***Sources*** : [`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### sync_ticket_size
 ```md title="sync_ticket_size() -> Result<u64, Error>"
-Get the number of transactions on Omnity.
+Get the total number of transactions on Omnity.
 ```
 ***Sources*** : [`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### sync_tickets
 ```md title="sync_tickets(offset: usize, limit: usize) -> Result<Vec<(u64, Ticket)>, Error>"
-Retrieve all of ticket data and manage pagination by providing an offset and limit.
+Retrieve all ticket data and manage pagination by providing an offset and limit.
 ```
 ***Sources*** : 
 [`Ticket`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L190)
@@ -176,13 +176,13 @@ Retrieve all of ticket data and manage pagination by providing an offset and lim
 
 ### get_pending_ticket_size
 ```md title="get_pending_ticket_size() -> Result<u64, Error>"
-Get the number of all the pending tickets on Omnity.
+Get the total number of pending tickets on Omnity.
 ```
 ***Sources*** : [`Error`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L718)
 
 ### get_pending_tickets
 ```md title="get_pending_tickets(offset: usize, limit: usize) -> Result<Vec<(TicketId, Ticket)>, Error>"
-Retrieve all of pending ticket data.
+Retrieve all pending ticket data.
 ```
 ***Sources*** : 
 [`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
@@ -192,35 +192,35 @@ Retrieve all of pending ticket data.
 
 
 ## Bitcoin
-Update:
+**Update:**
 ### generate_ticket
 ```md title="generate_ticket(args: GenerateTicketArgs) -> Result<(), GenerateTicketError>"
-Generate an cross-chain transaction from bitcoin network on Omnity.
+Generate an cross-chain transaction from the bitcoin network on Omnity.
 ```
 ***Sources*** : 
 [`GenerateTicketArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L24)
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L33)
 
 #### Workflow: 
-***1***. Call the corresponding bitcoin function from the UI and get the calculated function_hash.
+***1***. TO-DO.
 
-***2***. Put the function_hash as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
+***2***. Put the TO-RETURN as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
 - [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
 
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
 
 ----------------------------------------------------------------------------
-Query:
+**Query:**
 ### release_token_status
 ```md title="release_token_status(ticket_id: String) -> ReleaseTokenStatus"
-Returns the status of the runes tokens withdrawing operation:
+Returns the status of the runes tokens withdrawal operation:
 * Confirmed(String) represents the operation is succeeded with the transaction hash on bitcoin network.
 ```
 ***Sources*** : [`ReleaseTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/state.rs#L217)
 
 ### get_btc_address
 ```md title="get_btc_address(args: GetBtcAddressArgs) -> String"
-Generate a bitcoin address by using the target chain and receiver as the derivation path.
+Generate a bitcoin address using the target chain and receiver as the derivation path.
 ```
 ***Sources*** : [`GetBtcAddressArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/get_btc_address.rs#L14)
 
@@ -231,13 +231,13 @@ Retrieve the token locking account for a given token.
 
 ### generate_ticket_status
 ```md title="generate_ticket_status(ticket_id: String) -> GenTicketStatus"
-Retrieve the status of ticket_id generating operation.
+Retrieve the status of ticket_id generation operation.
 ```
 ***Sources*** : [`GenTicketStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/state.rs#L234)
 
 ### get_runes_oracles
 ```md title="get_runes_oracles() -> Vec<Principal>"
-Get the list of runes oracles canister id.
+Get the list of runes oracles canister ids.
 ```
 ***Sources*** : [`Principal`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L25)
 
@@ -251,18 +251,18 @@ Get the estimated fee needed for redeeming chain_id on bitcoin network.
 
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
-Retrieve a list of chains that connect with bitcoin network.
+Retrieve a list of chains that connect with the bitcoin network.
 ```
 ***Sources*** : [`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L439)
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
-Retrieve a list of token that is available on bitcoin network.
+Retrieve a list of tokens available on the  bitcoin network.
 ```
 ***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/lib.rs#L106)
 
 ## eICP
-Query:
+**Query:**
 ### mint_token_status
 ```md title="mint_token_status(ticket_id: TicketId) -> MintTokenStatus"
 Returns the status of the wrapped token minting operation:
@@ -281,7 +281,7 @@ Retrieve a list of chains that connect with icp.
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
-Retrieve a list of token that is available on icp.
+Retrieve a list of tokens available on icp.
 ```
 ***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/lib.rs#L179)
 
