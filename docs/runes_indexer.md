@@ -3,6 +3,9 @@ sidebar_position: 3
 ---
 
 # Runes Indexer
+The Ord canister periodically fetch bitcoin blocks from btc-rpc-proxy since 840000 using HTTP-outcall and resolve all transactions to RUNE UTXOs.
+
+
 Query Only
 
 - ORD_CANISTER_ID = o25oi-jaaaa-aaaal-ajj6a-cai

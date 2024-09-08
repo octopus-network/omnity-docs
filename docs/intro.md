@@ -8,15 +8,15 @@ sidebar_position: 1
 
 See the **[codebase](https://github.com/octopus-network/omnity-interoperability)** for more details. It includes:
 
-- [Hub](https://github.com/octopus-network/omnity-interoperability/tree/main/hub) A canister (smart contract) on [icp](https://internetcomputer.org/) for chain and token registration and ticket (transaction) execution, where settlement chains and execution chains are listed.
-- [Bitcoin](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin) A settlement chain canister which manage the logic on bitcoin network, is where the assets are listed and call the bitcoin canister to check any bitcoin address status.
-- [sICP](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/icp) A settlement chain canister which manage the logic on icp network.
-- [EVM](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm) The evm route includes layer2 evm-compatible instances as execution chains.
-- [eICP](https://github.com/octopus-network/omnity-interoperability/tree/main/route/icp) A execution chain canister which manage the logic on icp network.
+- [Hub](https://github.com/octopus-network/omnity-interoperability/tree/main/hub) A canister (smart contract) on [icp](https://internetcomputer.org/) that handles chain and token registration and ticket (transaction) execution, and it also lists settlement chains and execution chains.
+- [Bitcoin](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin) A settlement chain canister that manages the logic on the bitcoin network, It is where assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
+- [sICP](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/icp) A settlement chain canister which that manages on icp network.
+- [eICP](https://github.com/octopus-network/omnity-interoperability/tree/main/route/icp) A execution chain canister that manages the logic on icp network.
+- [EVM](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm) The evm route includes layer 2 evm-compatible instances as execution chains.
 
 ## Use Cases
-- If you were developing a defi project on one of the evm-compatible layer2 networks listed on Omnity by using a runes token as the project token, please go to **[Port Contract On EVM L2s](https://omnity-docs.vercel.app/docs/evm)** to utilise the runes feature in generate_ticket.
-- If you were interesting in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), please go to **[Runes Indexer](https://omnity-docs.vercel.app/docs/runes_indexer)**.
+- If you were developing a defi project on one of the evm-compatible layer 2 networks listed on Omnity by using a runes token as the project token, please go to **[Port Contract On EVM L2s](https://omnity-docs.vercel.app/docs/evm)** to utilise the runes feature in generate_ticket.
+- If you were interesting in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), a canister for indexing rune utxos on bitcoin, please go to **[Runes Indexer](https://omnity-docs.vercel.app/docs/runes_indexer)**.
 - If you were interesting in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://omnity-docs.vercel.app/docs/explorer)**.
 - If you were interesting in integrating with [Omnity cross-chain services](https://bridge.omnity.network/runes) or adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) for your convenience, please go to **[Runes](https://omnity-docs.vercel.app/docs/runes)**.
 

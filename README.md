@@ -1,4 +1,4 @@
-# [WIP] Omnity Api
+# Omnity Api
 
 ## Overview
 
