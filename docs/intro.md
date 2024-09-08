@@ -15,10 +15,10 @@ See the **[codebase](https://github.com/octopus-network/omnity-interoperability)
 - [EVM](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm) The evm route includes layer 2 evm-compatible instances as execution chains.
 
 ## Use Cases
-- If you were developing a defi project on one of the evm-compatible layer 2 networks listed on Omnity by using a runes token as the project token, please go to **[Port Contract On EVM L2s](https://omnity-docs.vercel.app/docs/evm)** to utilise the runes feature in generate_ticket.
-- If you were interesting in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), a canister for indexing rune utxos on bitcoin, please go to **[Runes Indexer](https://omnity-docs.vercel.app/docs/runes_indexer)**.
-- If you were interesting in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://omnity-docs.vercel.app/docs/explorer)**.
-- If you were interesting in integrating with [Omnity cross-chain services](https://bridge.omnity.network/runes) or adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) for your convenience, please go to **[Runes](https://omnity-docs.vercel.app/docs/runes)**.
+- If you are developing a defi project on one of the evm-compatible layer 2 networks listed on Omnity, and using a runes token as the project token, please go to **[Port Contract On EVM L2s](https://omnity-docs.vercel.app/docs/evm)** to utilize the runes feature in generate_ticket.
+- If you are interested in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), a canister for indexing runes utxos on bitcoin, please go to **[Runes Indexer](https://omnity-docs.vercel.app/docs/runes_indexer)**.
+- If you are interested in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://omnity-docs.vercel.app/docs/explorer)**.
+- If you are interested in integrating with [Omnity's cross-chain services](https://bridge.omnity.network/runes) or adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) for your convenience, please go to **[Runes](https://omnity-docs.vercel.app/docs/runes)**.
 
 ## Code Example
 The APIs can be accessed using either Rust or TypeScript.

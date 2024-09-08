@@ -3,7 +3,7 @@ sidebar_position: 4
 ---
 
 # Omnity Explorer
-Query Only
+**Query Only**
 
 - OMNITY_HUB_CANISTER_ID = 7wupf-wiaaa-aaaar-qaeya-cai
 - OMNITY_SETTLEMENT_BITCOIN_CANISTER_ID = 7rvjr-3qaaa-aaaar-qaeyq-cai
