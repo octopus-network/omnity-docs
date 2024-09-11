@@ -11,7 +11,7 @@ sidebar_position: 5
 **Update:**
 ### add_runes_token
 ```md title="add_runes_token(args: AddRunesTokenReq) -> Result<(), SelfServiceError>"
-Add the existing runes token on Omnity.
+Add new runes tokens token.
 ```
 ***Sources*** : 
 [`AddRunesTokenReq`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L23)
@@ -194,9 +194,9 @@ Generate an cross-chain transaction from the bitcoin network on Omnity.
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L33)
 
 #### Workflow: 
-***1***. TO-DO.
+***1***. Get the bitcoin deposit address from get_btc_address by providing the target chain id and the receiver address as a derive path. And this bitcoin deposit address is owned by the bitcoin customs canister. Get the [mint](https://github.com/octopus-network/rune-mint/blob/main/src/mint.rs#L16)/[send](https://github.com/octopus-network/rune-mint/blob/main/src/send.rs#L18) input from the UI provided by the user, and pass it to a [web service](https://github.com/octopus-network/rune-mint) to format the wrapped transaction, the UI will then bring the formatted transaction to call the wallet api to sign the transaction and return the tx-hash as a txid.
 
-***2***. Put the TO-RETURN as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
+***2***. Put the txid as one of the parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
 - [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
 
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
@@ -244,9 +244,10 @@ Retrieve a list of chains that connect with the bitcoin network.
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
-Retrieve a list of tokens available on the  bitcoin network.
+Retrieve a list of tokens available on the bitcoin network.
 ```
 ***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/lib.rs#L106)
+
 
 ## eICP
 **Update:**
