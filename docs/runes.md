@@ -17,14 +17,6 @@ Add the existing runes token on Omnity.
 [`AddRunesTokenReq`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L23)
 [`SelfServiceError`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L37)
 
-### add_dest_chain_for_token
-```md title="add_dest_chain_for_token(args: AddDestChainArgs) -> Result<(), SelfServiceError>"
-Add the existing token_id on the dest_chain.
-```
-***Sources*** : 
-[`AddDestChainArgs`](https://github.com/)
-[`SelfServiceError`](https://github.com/octopus-network/omnity-interoperability/blob/main/hub/src/self_help.rs#L37)
-
 ----------------------------------------------------------------------------
 **Query:**
 ### get_total_tx
@@ -220,14 +212,9 @@ Returns the status of the runes tokens withdrawal operation:
 
 ### get_btc_address
 ```md title="get_btc_address(args: GetBtcAddressArgs) -> String"
-Generate a bitcoin address using the target chain and receiver as the derivation path.
+Generate a bitcoin address using the target chain and receiver as the derivation path, and use it as the token locking account.
 ```
 ***Sources*** : [`GetBtcAddressArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/get_btc_address.rs#L14)
-
-### get_main_btc_address
-```md title="get_main_btc_address(token: String) -> String"
-Retrieve the token locking account for a given token.
-```
 
 ### generate_ticket_status
 ```md title="generate_ticket_status(ticket_id: String) -> GenTicketStatus"
@@ -262,6 +249,31 @@ Retrieve a list of tokens available on the  bitcoin network.
 ***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/lib.rs#L106)
 
 ## eICP
+**Update:**
+### generate_ticket
+```md title="generate_ticket(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"
+Generate an cross-chain transaction from icp network on Omnity.
+```
+```jsx title="Rust Input Example:"
+let args = GenerateTicketReq{};
+```
+***Sources*** : 
+[`GenerateTicketReq`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L18)
+[`GenerateTicketOk`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L296)
+[`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L34)
+[`TxAction`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L334)
+[`IcpChainKeyToken`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L346)
+
+#### Workflow: 
+***1***. TO-DO.
+
+***2***. Put the TO-RETURN as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
+- [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
+
+***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
+
+----------------------------------------------------------------------------
+
 **Query:**
 ### mint_token_status
 ```md title="mint_token_status(ticket_id: TicketId) -> MintTokenStatus"

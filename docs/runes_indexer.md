@@ -9,16 +9,14 @@ sidebar_position: 3
 
 - ORD_CANISTER_ID = o25oi-jaaaa-aaaal-ajj6a-cai
 
-```jsx title="Rust Usage Example:"
-use rune_indexer_interface::*;
-
-let indexer = Principal::from_text("o25oi-jaaaa-aaaal-ajj6a-cai").unwrap();
-let (result,): (Result<Vec<RuneBalance>, OrdError>,) = ic_cdk::call(indexer, "get_runes_by_utxo", ("ee8345590d85047c66a0e131153e5202b9bda3990bd07decd9df0a9bb2589348", 0)).await.unwrap();
-```
-
 ### get_runes_by_utxo
 ```md title="get_runes_by_utxo(txid: String, vout: u32) -> Result<Vec<RuneBalance>, OrdError>"
 Retrieve a list of RuneBalance contains information about the balance of the runes associated with a particular utxo from the vout and txid.
+```
+```jsx title="Rust Usage Example:"
+use rune_indexer_interface::*;
+let indexer = Principal::from_text("o25oi-jaaaa-aaaal-ajj6a-cai").unwrap();
+let (result,): (Result<Vec<RuneBalance>, OrdError>,) = ic_cdk::call(indexer, "get_runes_by_utxo", ("ee8345590d85047c66a0e131153e5202b9bda3990bd07decd9df0a9bb2589348", 0)).await.unwrap();
 ```
 ***Sources*** : 
 [`RuneBalance`](https://github.com/octopus-network/ord-canister/blob/master/src/index/entry.rs#L15)

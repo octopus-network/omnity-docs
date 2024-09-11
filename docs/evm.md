@@ -17,7 +17,7 @@ sidebar_position: 2
 ## Update
 ### generate_ticket
 ```md title="generate_ticket(hash: String) -> Result<(), String>"
-Generate an cross-chain transaction from the bitcoin layer 2 evm-compatible instances. 
+Generate an cross-chain transaction from the bitcoin network to layer 2 evm-compatible instances. 
 ```
 #### Workflow: 
 
@@ -30,19 +30,19 @@ burnToken(string memory tokenId, uint256 amount)
 ```
 
 Creates an event involving a certain amount (depending on the type of runes) of tokenId and assigns it to the receiver. 
-The cross-chain application will read the event and perform the mint and transfer actions in order on the bitcoin network. 
+The cross-chain application will read the event and perform the mint action on the bitcoin network. 
 ```jsx title="Solidity"
 mintRunes(string memory tokenId, address receiver)
 ```
 
 Creates an event to transfer a specified amount of tokenId runes tokens from the caller’s account to the receiver's account on dstChainId, with an optional memo.
-The cross-chain application will read the event and perform the mint and transfer actions in order on the bitcoin network.
+The cross-chain application will read the event and perform the transfer action on the bitcoin network.
 ```jsx title="Solidity"
 transportToken(string memory dstChainId, string memory tokenId, string memory receiver, uint256 amount, string memory memo)
 ```
 
 Creates an event to burn a specified amount of wrapped tokenId runes tokens and withdraw the corresponding amount of underlying tokens to the receiver.
-The cross-chain application will read the event and perform the mint and transfer actions in order on the bitcoin network.
+The cross-chain application will read the event and perform the withdrawal action on the bitcoin network.
 ```jsx title="Solidity"
 redeemToken(string memory tokenId, string memory receiver, uint256 amount)
 ```
@@ -55,7 +55,7 @@ redeemToken(string memory tokenId, string memory receiver, uint256 amount)
 ## Query
 ### mint_token_status
 ```md title="mint_token_status(ticket_id: String) -> MintTokenStatus"
-Returns the status of the wrapped token minting operation:
+Returns the status of the wrapped token minting operation on the layer 2 chain:
 * Finalized { tx_hash: String } represents the operation is succeeded with the transaction hash on the layer 2 chain.
 * Unknown represents the operation is not completed.
 ```
