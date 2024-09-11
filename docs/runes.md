@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Runes
+# Runes On ICP
 - OMNITY_HUB_CANISTER_ID = 7wupf-wiaaa-aaaar-qaeya-cai
 - OMNITY_SETTLEMENT_BITCOIN_CANISTER_ID = 7rvjr-3qaaa-aaaar-qaeyq-cai
 - OMNITY_EXECUTION_ICP_CANISTER_ID = 7ywcn-nyaaa-aaaar-qaeza-cai
@@ -194,7 +194,7 @@ Generate an cross-chain transaction from the bitcoin network on Omnity.
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L33)
 
 #### Workflow: 
-***1***. Get the bitcoin deposit address from get_btc_address by providing the target chain id and the receiver address as a derive path. And this bitcoin deposit address is owned by the bitcoin customs canister. Get the [mint](https://github.com/octopus-network/rune-mint/blob/main/src/mint.rs#L16)/[send](https://github.com/octopus-network/rune-mint/blob/main/src/send.rs#L18) input from the UI provided by the user, and pass it to a [web service](https://github.com/octopus-network/rune-mint) to format the wrapped transaction, the UI will then bring the formatted transaction to call the wallet api to sign the transaction and return the tx-hash as a txid.
+***1***. Get the bitcoin deposit address from get_btc_address by providing the target chain id and the receiver address as a derive path. And this bitcoin deposit address is owned by the bitcoin customs canister. Get the [mint](https://github.com/octopus-network/rune-mint/blob/main/src/mint.rs#L16)/[send](https://github.com/octopus-network/rune-mint/blob/main/src/send.rs#L18) input from the UI provided by the user, and pass it to a [web service](https://github.com/octopus-network/rune-mint) to format the wrapped transaction, the UI will then bring the formatted transaction to call the [wallet api](https://www.okx.com/web3/build/docs/sdks/chains/bitcoin/provider#signpsbt) to sign the transaction and return the tx-hash as a txid.
 
 ***2***. Put the txid as one of the parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
 - [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
