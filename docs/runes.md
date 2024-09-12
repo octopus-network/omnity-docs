@@ -3,6 +3,16 @@ sidebar_position: 5
 ---
 
 # Runes On ICP
+**ICP -> BTC**:
+For any icrc token (like $BOXY), it is possible to operate 100% premine on bitcoin with a suitable runes ticker and bridge totally supply to icp via Omnity, then connect it up with the icrc token on the icp side.
+
+
+
+**BTC -> ICP**:
+For any existing runes tokens on bitcoin, it is possible to bridge them to icp by having Omnity create the corresponding icrc tokens on the icp side.
+
+Both of the goals can be achieved by using generate_ticket on each side based on where do you want to utilize the runes.
+
 - OMNITY_HUB_CANISTER_ID = 7wupf-wiaaa-aaaar-qaeya-cai
 - OMNITY_SETTLEMENT_BITCOIN_CANISTER_ID = 7rvjr-3qaaa-aaaar-qaeyq-cai
 - OMNITY_EXECUTION_ICP_CANISTER_ID = 7ywcn-nyaaa-aaaar-qaeza-cai
