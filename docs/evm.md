@@ -4,15 +4,17 @@ sidebar_position: 2
 
 # Port Contract On EVM L2s
 ## Supported Chains:
-- **[Bevm](https://www.bevm.io/)** CANISTER_ID = rp433-4qaaa-aaaar-qaf2q-cai ｜ CONTRACT = 0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A
-- **[Bitlayer](https://www.bitlayer.org/)** CANISTER_ID = he2gn-7qaaa-aaaar-qagaq-cai ｜ CONTRACT = 0x2AFDA75BFfE47dDE22254937ef1E81E1C32B90d9
-- **[B² Network](https://www.bsquared.network/)** CANISTER_ID = gsr6g-kaaaa-aaaar-qagfq-cai ｜ CONTRACT = 0xF3D7bc94095454D5F8538a808941729c9B3D3B7A
-- **[X Layer](https://www.okx.com/xlayer)** CANISTER_ID = gjucd-qyaaa-aaaar-qagha-cai ｜ CONTRACT = 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468
-- **[Merlin](https://merlinchain.io)** CANISTER_ID = govex-5aaaa-aaaar-qaghq-cai ｜ CONTRACT = 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468
-- **[Bob](https://www.gobob.xyz/)** CANISTER_ID = epmqo-ziaaa-aaaar-qagka-cai ｜ CONTRACT = 0x21cf922c8bf60d1d11ADC8aDCFdd4BdAae9e8320
-- **[Rootstock](https://rootstock.io/)** CANISTER_ID = if3hq-3iaaa-aaaar-qahga-cai ｜ CONTRACT = 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468
-- **[Bitfinity](https://bitfinity.network/)** CANISTER_ID = pw3ee-pyaaa-aaaar-qahva-cai ｜ CONTRACT = 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468
-- **[AILayer](https://ailayer.xyz/)** CANISTER_ID = pk76v-yyaaa-aaaar-qahxa-cai ｜ CONTRACT = 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468
+| Chain | Canister ID | Contract |
+| --- | --- | --- |
+| [Bevm](https://www.bevm.io/) | rp433-4qaaa-aaaar-qaf2q-cai | 0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A |
+| [Bitlayer](https://www.bitlayer.org/) | he2gn-7qaaa-aaaar-qagaq-cai | 0x2AFDA75BFfE47dDE22254937ef1E81E1C32B90d9 |
+| [B² Network](https://www.bsquared.network/) | gsr6g-kaaaa-aaaar-qagfq-cai | 0xF3D7bc94095454D5F8538a808941729c9B3D3B7A |
+| [X Layer](https://www.okx.com/xlayer) | gjucd-qyaaa-aaaar-qagha-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 |
+| [Merlin](https://merlinchain.io) | govex-5aaaa-aaaar-qaghq-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 |
+| [Bob](https://www.gobob.xyz/) | epmqo-ziaaa-aaaar-qagka-cai | 0x21cf922c8bf60d1d11ADC8aDCFdd4BdAae9e8320 |
+| [Rootstock](https://rootstock.io/) | if3hq-3iaaa-aaaar-qahga-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 |
+| [Bitfinity](https://bitfinity.network/) | pw3ee-pyaaa-aaaar-qahva-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 |
+| [AILayer](https://ailayer.xyz/) | pk76v-yyaaa-aaaar-qahxa-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 |
 
 ## Update
 ### generate_ticket
