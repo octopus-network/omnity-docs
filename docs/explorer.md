@@ -5,10 +5,12 @@ sidebar_position: 4
 # Omnity Explorer
 **Query Only**
 
-- OMNITY_HUB_CANISTER_ID = 7wupf-wiaaa-aaaar-qaeya-cai
-- OMNITY_SETTLEMENT_BITCOIN_CANISTER_ID = 7rvjr-3qaaa-aaaar-qaeyq-cai
-- OMNITY_SETTLEMENT_ICP_CANISTER_ID = nlgkm-4qaaa-aaaar-qah2q-cai
-- OMNITY_EXECUTION_ICP_CANISTER_ID = 7ywcn-nyaaa-aaaar-qaeza-cai
+|  | CANISTER_ID |
+| --- | --- |
+| OMNITY_HUB_CANISTER_ID | 7wupf-wiaaa-aaaar-qaeya-cai |
+| OMNITY_SETTLEMENT_BITCOIN_CANISTER_ID | 7rvjr-3qaaa-aaaar-qaeyq-cai |
+| OMNITY_SETTLEMENT_ICP_CANISTER_ID | nlgkm-4qaaa-aaaar-qah2q-cai |
+| OMNITY_EXECUTION_ICP_CANISTER_ID | 7ywcn-nyaaa-aaaar-qaeza-cai |
 
 ## Hub
 ### get_token_position_size
