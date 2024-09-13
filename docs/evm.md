@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Port Contract On EVM L2s
 ## Supported Chains:
-| Chain | Canister ID | Contract |
+| Chain | Canister Id | Contract |
 | --- | --- | --- |
 | [Bevm](https://www.bevm.io/) | rp433-4qaaa-aaaar-qaf2q-cai | 0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A |
 | [Bitlayer](https://www.bitlayer.org/) | he2gn-7qaaa-aaaar-qagaq-cai | 0x2AFDA75BFfE47dDE22254937ef1E81E1C32B90d9 |

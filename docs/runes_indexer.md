@@ -7,7 +7,9 @@ sidebar_position: 3
 
 **[The ord canister](https://github.com/octopus-network/ord-canister)** periodically fetch bitcoin blocks from btc-rpc-proxy since 840000 using http-outcall and resolve all transactions to runes utxos. The main purpose of this canister is providing an online decentralized runes indexer for querying all etched runes assets given a utxo. See how it is used in [Omnity](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/oracle_canister/src/oracle.rs#L26).
 
-- ORD_CANISTER_ID = o25oi-jaaaa-aaaal-ajj6a-cai
+|  | Canister Id |
+| --- | --- |
+| ORD_CANISTER | o25oi-jaaaa-aaaal-ajj6a-cai |
 
 ### get_runes_by_utxo
 ```md title="get_runes_by_utxo(txid: String, vout: u32) -> Result<Vec<RuneBalance>, OrdError>"

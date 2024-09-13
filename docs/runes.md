@@ -10,16 +10,17 @@ For any icrc token (like $BOXY), it is possible to operate 100% premine on bitco
 For any existing runes tokens on bitcoin, it is possible to bridge them to icp by having Omnity create the corresponding icrc tokens on the icp side.
 
 Both of the goals can be achieved by using generate_ticket on each side based on where you want to utilize the runes tokens:
+
+|  | Canister ID |
+| --- | --- |
+| OMNITY_HUB | 7wupf-wiaaa-aaaar-qaeya-cai |
+| OMNITY_SETTLEMENT_BITCOIN | 7rvjr-3qaaa-aaaar-qaeyq-cai |
+| OMNITY_EXECUTION_ICP | 7ywcn-nyaaa-aaaar-qaeza-cai |
+
 * For btc to icp, please use generate_ticket from Bitcoin as an transfer operation.
 * For minting runes from icp, please use generate_ticket from eICP with TxAction::Mint.
 * For withdrawing runes from icp to btc, please use generate_ticket from eICP with TxAction::Redeem.
 * For burning runes from icp (the runes tokens will be burnt on the layer 1 chain as well), please use generate_ticket from eICP with TxAction::Burn.
-
-----------------------------------------------------------------------------
-
-- OMNITY_HUB_CANISTER_ID = 7wupf-wiaaa-aaaar-qaeya-cai
-- OMNITY_SETTLEMENT_BITCOIN_CANISTER_ID = 7rvjr-3qaaa-aaaar-qaeyq-cai
-- OMNITY_EXECUTION_ICP_CANISTER_ID = 7ywcn-nyaaa-aaaar-qaeza-cai
 
 ## Hub
 **Update:**
