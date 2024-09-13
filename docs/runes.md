@@ -270,9 +270,7 @@ Retrieve a list of tokens available on the bitcoin network.
 ```md title="generate_ticket(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"
 Generate an cross-chain transaction from icp network on Omnity.
 ```
-```jsx title="Rust Input Example:"
-let args = GenerateTicketReq{};
-```
+
 ***Sources*** : 
 [`GenerateTicketReq`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L18)
 [`GenerateTicketOk`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L296)
@@ -281,9 +279,9 @@ let args = GenerateTicketReq{};
 [`IcpChainKeyToken`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L346)
 
 #### Workflow: 
-***1***. TO-DO.
+***1***. The operation will be executed on icp based on the TxAction, for example, for TxAction::Redeem, on the icp side, the corresponding wrapped icrc runes token will be burned by calling the ledger.approve for the user, and from the bitcoin side, the ord indexer will verify the user account to see if there is original runes tokens, if so, will transfer from the generated bitcoin account to the receiver account.
 
-***2***. Put the TO-RETURN as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
+***2***. Put the GenerateTicketReq as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
 - [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
 
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
