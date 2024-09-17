@@ -208,6 +208,18 @@ Generate an cross-chain transaction from the bitcoin network on Omnity.
 [`GenerateTicketArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L24)
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L33)
 
+```md title="Rust Input Example:"
+# The amount is multiplied by the decimals of the runes(e.g. $HOPE•YOU•GET•RICH has two decimal so the input will be 10*100).
+
+let args = GenerateTicketArgs {
+		    target_chain_id: "eICP".to_string(),
+		    receiver: "hijd3-ferev-ybojm-nailk-pdk3t-l2h3o-h6cdy-mfynr-p3oen-d67mg-5ae".to_string(),
+		    rune_id: "840000:846".to_string(),
+		    amount: 1000,
+		    txid: "6368ec94cfd560d5f3b9656ad142422080dede78d4b8e0afa9228351988778ee".to_string(),
+	    };
+```
+
 #### Workflow: 
 ***1***. Get the bitcoin deposit address from get_btc_address by providing the target chain id and the receiver address as a derive path. And this bitcoin deposit address is owned by the bitcoin customs canister. Get the [send](https://github.com/octopus-network/rune-mint/blob/main/src/send.rs#L18) input from the UI provided by the user, and pass it to a [web service](https://github.com/octopus-network/rune-mint) to format the wrapped transaction, the UI will then bring the formatted transaction to call the [wallet api](https://www.okx.com/web3/build/docs/sdks/chains/bitcoin/provider#signpsbt) to sign the transaction and return the tx-hash as a txid.
 
@@ -270,13 +282,32 @@ Retrieve a list of tokens available on the bitcoin network.
 ```md title="generate_ticket(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"
 Generate an cross-chain transaction from icp network on Omnity.
 ```
-
 ***Sources*** : 
 [`GenerateTicketReq`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L18)
 [`GenerateTicketOk`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L296)
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/updates/generate_ticket.rs#L34)
 [`TxAction`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L334)
 [`IcpChainKeyToken`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L346)
+
+```md title="Rust Input Example:"
+let mint_args = GenerateTicketReq {
+		target_chain_id: "Bitcoin".to_string(),
+		receiver: "hijd3-ferev-ybojm-nailk-pdk3t-l2h3o-h6cdy-mfynr-p3oen-d67mg-5ae".to_string(),
+		token_id: "Bitcoin-runes-HOPE•YOU•GET•RICH".to_string(),
+		amount: 10000,
+		from_subaccount: None,
+		action: TxAction::Mint,
+	}
+
+let burn_args = GenerateTicketReq {
+		target_chain_id: "Bitcoin".to_string(),
+		receiver: "bc1qh8u0gpw2ze6qdeltnknxmyk8wpqnpmtr8ph9nc".to_string(),
+		token_id: "Bitcoin-runes-HOPE•YOU•GET•RICH".to_string(),
+		amount: 10000,
+		from_subaccount: None,
+		action: TxAction::Burn,
+	}
+```
 
 #### Workflow: 
 ***1***. The operation will be executed on icp based on the TxAction, for example, for TxAction::Redeem, on the icp side, the corresponding wrapped icrc runes token will be burned by calling the ledger.approve for the user, and from the bitcoin side, the ord indexer will verify the user account to see if there is original runes tokens, if so, will transfer from the generated bitcoin account to the receiver account.
