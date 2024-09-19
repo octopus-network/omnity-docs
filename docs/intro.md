@@ -20,10 +20,32 @@ See the **[codebase](https://github.com/octopus-network/omnity-interoperability)
 - If you are interested in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://omnity-docs.vercel.app/docs/explorer)**.
 - If you are interested in integrating with [Omnity's cross-chain services](https://bridge.omnity.network/runes) or adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) for your convenience, please go to **[Runes On ICP](https://omnity-docs.vercel.app/docs/runes)**.
 
-## Code Example
+## Code Examples
 The APIs can be accessed using either Rust or TypeScript.
-***Please refer the following basic code example to utilize all the apis in Rust.***
-```code title="Rust"
+***Please refer the following basic code examples to utilize all the apis in Rust.***
+```code title="Rust (canister call)"
+use candid::Principal;
+use ic_cdk::update;
+
+#[update]
+pub async fn cross_chain_function() -> Result<(), ErrorType> {
+    let cycles = 1_000_000_000;
+
+    let bitcoin_canister_id = Principal::from_text(BTC_CANISTER_ID.to_string()).unwrap();
+
+    let ret: (Result<(), ErrorType>,) = ic_cdk::api::call::call_with_payment128(
+        bitcoin_canister_id,
+        "API_METHOD",
+        (args,),
+        cycles,
+    )
+    .await
+    .map_err(|err| ErrorType)?;
+    ret.0
+}
+```
+
+```code title="Rust (http call)"
 use candid::{Decode, Encode};
 use ic_agent::{agent::http_transport::ReqwestTransport, export::Principal, identity::Secp256k1Identity, Agent};
 use std::error::Error;

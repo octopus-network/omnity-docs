@@ -214,7 +214,7 @@ Generate an cross-chain transaction from the bitcoin network on Omnity.
 let args = GenerateTicketArgs {
 		    target_chain_id: "eICP".to_string(),
 		    receiver: "hijd3-ferev-ybojm-nailk-pdk3t-l2h3o-h6cdy-mfynr-p3oen-d67mg-5ae".to_string(),
-		    rune_id: "840000:846".to_string(),
+		    rune_id: "HOPE•YOU•GET•RICH".to_string(),
 		    amount: 1000,
 		    txid: "6368ec94cfd560d5f3b9656ad142422080dede78d4b8e0afa9228351988778ee".to_string(),
 	    };
