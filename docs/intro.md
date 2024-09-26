@@ -25,7 +25,7 @@ See the **[codebase](https://github.com/octopus-network/omnity-interoperability)
 - For those interested in locking bitcoin natively on L1 and mint the wrapped bitcoin on the cosmwasm-based chain, please go to **[CosmWasm](https://docs.omnity.network/docs/cosmwasm)**.
 
 ## Code Examples
-The APIs can be accessed using either Rust or TypeScript.
+The APIs can be accessed using either Rust or Motoko or TypeScript.
 ***Please refer the following basic code examples to utilize all the apis in Rust.***
 ```code title="Rust (call via canister)"
 use candid::Principal;
@@ -85,6 +85,14 @@ pub async fn main() -> Result<(), Box<dyn Error>> {
 	let result = Decode!(&ret, API_RETURN)??;
 	Ok(())
 }
+```
+***Please refer the following basic code examples to utilize all the apis in Motoko.***
+```code title="Motoko"
+
+```
+***Please refer the following basic code examples to utilize all the apis in Typescript.***
+```code title="Typescript"
+
 ```
 
 Can't find what you need? let us know on **[OpenChat](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/209373796018851818071085429101874032721/)**.

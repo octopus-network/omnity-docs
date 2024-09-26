@@ -62,7 +62,7 @@ Returns the status of the wrapped token minting operation on the layer 2 chain:
 * Finalized { tx_hash: String } represents the operation is succeeded with the transaction hash on the layer 2 chain.
 * Unknown represents the operation is not completed.
 ```
-***Sources*** : [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L773)
+***Sources*** : [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L778)
 
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
