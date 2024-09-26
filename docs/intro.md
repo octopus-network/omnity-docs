@@ -17,7 +17,7 @@ See the **[codebase](https://github.com/octopus-network/omnity-interoperability)
 - **[Solana](https://github.com/octopus-network/omnity-interoperability)** A execution chain canister that manages the logic on solana network.
 
 ## Use Cases
-- If you are developing a defi project on one of the evm-compatible layer 2 networks listed on Omnity, and using a runes token as the project token, please go to **[Port Contract On EVM](https://docs.omnity.network/docs/evm)** to utilize the runes feature in generate_ticket.
+- If you are developing a defi project on one of the evm-compatible layer 2 networks listed on Omnity or on ethereum, and using a runes token as the project token, please go to **[Port Contract On EVM](https://docs.omnity.network/docs/evm)** to utilize the runes feature in generate_ticket.
 - If you are interested in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), a canister for indexing runes utxos on bitcoin, please go to **[Runes Indexer](https://docs.omnity.network/docs/runes_indexer)**.
 - If you are interested in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://docs.omnity.network/docs/explorer)**.
 - If you are interested in integrating with [Omnity's cross-chain services](https://bridge.omnity.network/runes) or adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) for your convenience, please go to **[Runes On ICP](https://docs.omnity.network/docs/runes)**.
@@ -25,8 +25,9 @@ See the **[codebase](https://github.com/octopus-network/omnity-interoperability)
 - For those interested in locking bitcoin natively on L1 and mint the wrapped bitcoin on the cosmwasm-based chain, please go to **[CosmWasm](https://docs.omnity.network/docs/cosmwasm)**.
 
 ## Code Examples
-The APIs can be accessed using either Rust or Motoko or TypeScript.
-***Please refer the following basic code examples to utilize all the apis in Rust.***
+The APIs can be accessed using ***Rust | Motoko | TypeScript***.
+
+Please refer the following basic code examples to utilize all the apis in ***Rust***.
 ```code title="Rust (call via canister)"
 use candid::Principal;
 use ic_cdk::update;
@@ -86,11 +87,11 @@ pub async fn main() -> Result<(), Box<dyn Error>> {
 	Ok(())
 }
 ```
-***Please refer the following basic code examples to utilize all the apis in Motoko.***
+Please refer the following basic code examples to utilize all the apis in ***Motoko***.
 ```code title="Motoko"
 
 ```
-***Please refer the following basic code examples to utilize all the apis in Typescript.***
+Please refer the following basic code examples to utilize all the apis in ***Typescript***.
 ```code title="Typescript"
 
 ```

@@ -20,7 +20,7 @@ sidebar_position: 2
 ## Update
 ### generate_ticket
 ```md title="generate_ticket(hash: String) -> Result<(), String>"
-Generate an cross-chain transaction from the bitcoin network to layer 2 evm-compatible instances. 
+Generate an cross-chain transaction from the layer 2 evm-compatible instances and ethereum. 
 ```
 #### Workflow: 
 
