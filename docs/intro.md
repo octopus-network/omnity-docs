@@ -89,6 +89,12 @@ pub async fn main() -> Result<(), Box<dyn Error>> {
 ```
 Please refer the following basic code examples to utilize all the apis in ***Motoko***.
 ```code title="Motoko"
+actor {
+    public func main(canisterId: Text) : async Nat {
+      let hub = actor(canisterId): actor { get_total_tx: shared () -> async Nat };
+        return await hub.get_total_tx();
+    };
+};
 
 ```
 Please refer the following basic code examples to utilize all the apis in ***Typescript***.
