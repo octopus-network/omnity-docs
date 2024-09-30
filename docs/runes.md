@@ -11,11 +11,11 @@ For any existing runes tokens on bitcoin, it is possible to bridge them to icp b
 
 Both of the goals can be achieved by using generate_ticket on each side based on where you want to utilize the runes tokens:
 
-|  | Canister ID |
-| --- | --- |
-| OMNITY_HUB | 7wupf-wiaaa-aaaar-qaeya-cai |
-| OMNITY_SETTLEMENT_BITCOIN | 7rvjr-3qaaa-aaaar-qaeyq-cai |
-| OMNITY_EXECUTION_ICP | 7ywcn-nyaaa-aaaar-qaeza-cai |
+|  | Canister ID | Chain Id |
+| --- | --- | --- |
+| OMNITY_HUB | 7wupf-wiaaa-aaaar-qaeya-cai | / |
+| OMNITY_SETTLEMENT_BITCOIN | 7rvjr-3qaaa-aaaar-qaeyq-cai | Bitcoin|
+| OMNITY_EXECUTION_ICP | 7ywcn-nyaaa-aaaar-qaeza-cai | eICP|
 
 * For btc to icp, please use generate_ticket from Bitcoin as an transfer operation.
 * For minting runes from icp, please use generate_ticket from eICP with TxAction::Mint.
@@ -221,7 +221,7 @@ let args = GenerateTicketArgs {
 ```
 
 #### Workflow: 
-***1***. Get the bitcoin deposit address from get_btc_address by providing the target chain id and the receiver address as a derivative path. And this bitcoin deposit address is owned by the bitcoin customs canister. Get the [send](https://github.com/octopus-network/rune-mint/blob/main/src/send.rs#L18) input from the UI provided by the user, and pass it to a [web service](https://github.com/octopus-network/rune-mint) to format the wrapped transaction, the UI will then bring the formatted transaction to call the [wallet api](https://www.okx.com/web3/build/docs/sdks/chains/bitcoin/provider#signpsbt) to sign the transaction and return the tx-hash as a txid.
+***1***. Get the bitcoin deposit address from get_btc_address by providing the target chain id and the receiver address as a derivative path. And this bitcoin deposit address is owned by the bitcoin customs canister. Get the [send](https://github.com/octopus-network/rune-mint/blob/main/src/send.rs#L18) input from the UI provided by the user, and pass it to a [web service](https://github.com/octopus-network/rune-mint) to format the wrapped transaction, the UI will then bring the formatted transaction to call the [wallet api](https://www.okx.com/web3/build/docs/sdks/chains/bitcoin/provider#signpsbt) to sign the transaction and return the tx-hash as a txid. This action is to lock the runes tokens by transfering them to the bitcoin deposit address.
 
 ***2***. Put the txid as one of the parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
 - [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
@@ -310,7 +310,7 @@ let burn_args = GenerateTicketReq {
 ```
 
 #### Workflow: 
-***1***. The operation will be executed on icp based on the TxAction, for example, for TxAction::Redeem, on the icp side, the corresponding wrapped icrc runes token will be burned by calling the ledger.approve for the user, and from the bitcoin side, the ord indexer will verify the user account to see if there is original runes tokens, if so, will transfer from the generated bitcoin account to the receiver account.
+***1***. The operation will be executed on icp based on the TxAction, for example, for TxAction::Redeem, on the icp side, the corresponding wrapped icrc runes token will be burned by calling the ledger.approve for the sender, and from the bitcoin side, the ord indexer will verify the sender account to see if there is original runes tokens, if so, will transfer from the generated bitcoin account to the receiver account.
 
 ***2***. Put the GenerateTicketReq as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
 - [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.

@@ -5,12 +5,12 @@ sidebar_position: 4
 # Omnity Explorer
 **Query Only**
 
-|  | Canister ID |
-| --- | --- |
-| OMNITY_HUB | 7wupf-wiaaa-aaaar-qaeya-cai |
-| OMNITY_SETTLEMENT_BITCOIN | 7rvjr-3qaaa-aaaar-qaeyq-cai |
-| OMNITY_SETTLEMENT_ICP | nlgkm-4qaaa-aaaar-qah2q-cai |
-| OMNITY_EXECUTION_ICP | 7ywcn-nyaaa-aaaar-qaeza-cai |
+|  | Canister ID | Chain Id |
+| --- | --- | --- |
+| OMNITY_HUB | 7wupf-wiaaa-aaaar-qaeya-cai | / |
+| OMNITY_SETTLEMENT_BITCOIN | 7rvjr-3qaaa-aaaar-qaeyq-cai | Bitcoin|
+| OMNITY_SETTLEMENT_ICP | nlgkm-4qaaa-aaaar-qah2q-cai | sICP|
+| OMNITY_EXECUTION_ICP | 7ywcn-nyaaa-aaaar-qaeza-cai | eICP|
 
 ## Hub
 ### get_token_position_size

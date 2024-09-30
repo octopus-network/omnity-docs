@@ -2,11 +2,11 @@
 sidebar_position: 7
 ---
 
-# ICP ICRC[WIP]
+# ICP ICRC
 
-|  | Canister ID |
-| --- | --- |
-| OMNITY_SETTLEMENT_ICP | nlgkm-4qaaa-aaaar-qah2q-cai |
+|  | Canister ID | Chain Id |
+| --- | --- | --- |
+| OMNITY_SETTLEMENT_ICP | nlgkm-4qaaa-aaaar-qah2q-cai | sICP |
 
 ## Update
 ### generate_ticket
