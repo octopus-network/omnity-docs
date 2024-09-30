@@ -301,7 +301,7 @@ let mint_args = GenerateTicketReq {
 
 let burn_args = GenerateTicketReq {
 		target_chain_id: "Bitcoin".to_string(),
-		receiver: "bc1qh8u0gpw2ze6qdeltnknxmyk8wpqnpmtr8ph9nc".to_string(),
+		receiver: "".to_string(),
 		token_id: "Bitcoin-runes-HOPE•YOU•GET•RICH".to_string(),
 		amount: 10000,
 		from_subaccount: None,
