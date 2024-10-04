@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ***Omnity API hosts a library of fundamental apis for app developers to plug and play into their codebases.***
 
-See the **[codebase](https://github.com/octopus-network/omnity-interoperability)** for more details. It includes:
+See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbFR7eTtG5Eml6JWT5RCWwrJQIs/edit?pli=1)** / **[codebase](https://github.com/octopus-network/omnity-interoperability)** for more details. It includes:
 
 - **[Hub](https://github.com/octopus-network/omnity-interoperability/tree/main/hub)** A canister (smart contract) on [icp](https://internetcomputer.org/) that handles chain and token registration and ticket (transaction) execution, and it also lists settlement chains and execution chains.
 - **[Bitcoin](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin)** A settlement chain canister that manages the logic on the bitcoin network, It is where assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.

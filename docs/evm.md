@@ -15,7 +15,7 @@ sidebar_position: 2
 | [Rootstock](https://rootstock.io/) | if3hq-3iaaa-aaaar-qahga-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 | RootStock|
 | [Bitfinity](https://bitfinity.network/) | pw3ee-pyaaa-aaaar-qahva-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 | Bitfinity|
 | [AILayer](https://ailayer.xyz/) | pk76v-yyaaa-aaaar-qahxa-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 | AILayer|
-| [Ethereum](https://ailayer.xyz/) | 3zfof-myaaa-aaaar-qaioa-cai | 0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A | Ethereum |
+| [Ethereum](https://ethereum.org/en/) | 3zfof-myaaa-aaaar-qaioa-cai | 0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A | Ethereum |
 
 ## Update
 ### generate_ticket
@@ -50,7 +50,7 @@ The cross-chain application will read the event and perform the withdrawal actio
 redeemToken(string memory tokenId, string memory receiver, uint256 amount)
 ```
 
-***2***. Put the function_hash as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
+***2***. Put the function_hash as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ), after a series of verifications for the redemption action, the original runes tokens will be released from the generated btc account corresponding to the sender's address to the receiver's account if the target chain is the bitcoin network.
 - **[omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/service.rs#L240)** is the rust implementation of Omnity protocol. And you can find the details of generate_ticket in it.
 
 ***3***. Go to **[Omnity Explorer](https://explorer.omnity.network/)** to track the generated ticket status.

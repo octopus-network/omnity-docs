@@ -290,6 +290,15 @@ Generate an cross-chain transaction from icp network on Omnity.
 [`IcpChainKeyToken`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L346)
 
 ```md title="Rust Input Example:"
+let redeem_args = GenerateTicketReq {
+		target_chain_id: "Bitcoin".to_string(),
+		receiver: "".to_string(),
+		token_id: "Bitcoin-runes-HOPE•YOU•GET•RICH".to_string(),
+		amount: 10000,
+		from_subaccount: None,
+		action: TxAction::Redeem,
+	}
+
 let mint_args = GenerateTicketReq {
 		target_chain_id: "Bitcoin".to_string(),
 		receiver: "hijd3-ferev-ybojm-nailk-pdk3t-l2h3o-h6cdy-mfynr-p3oen-d67mg-5ae".to_string(),
