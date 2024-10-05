@@ -87,6 +87,72 @@ pub async fn main() -> Result<(), Box<dyn Error>> {
 	Ok(())
 }
 ```
+
+Please refer the following basic code examples to utilize all the apis in ***Typescript***.
+```code title="omnityHub.ts"
+import { Actor, HttpAgent } from "@dfinity/agent";
+import { IDL } from "@dfinity/candid";
+import {
+  idlFactory as OmnityHubInterfaceFactory,
+  _SERVICE as OmnityHubService,
+} from "./OmnityHub.did";
+
+export const OMNITY_HUB_CANISTER_ID = "7wupf-wiaaa-aaaar-qaeya-cai";
+
+const createActor = <T>(
+    canisterId: string,
+    interfaceFactory: IDL.InterfaceFactory,
+  ) => {
+    const agent = new HttpAgent({
+      host: "https://icp0.io/",
+    });
+    return Actor.createActor<T>(interfaceFactory, {
+      canisterId,
+      agent,
+    });
+  };
+
+export const OmnityHub = createActor<OmnityHubService>(
+    OMNITY_HUB_CANISTER_ID,
+    OmnityHubInterfaceFactory,
+);
+```
+
+```code title="App.tsx"
+import { useEffect, useState } from "react";
+import { OmnityHub } from "./omnitHub";
+
+function App() {
+  const [totalTx, setTotalTx] = useState<number>();
+
+  useEffect(() => {
+    function getOmnityAnalysis() {
+      OmnityHub.get_total_tx().then((res:any) => {
+        if ("Ok" in res) {
+          const total = Number(res.Ok.toString());
+          setTotalTx((prev) => {
+            if (Number.isInteger(prev) && prev !== total) {
+              // new tx
+            }
+            return total;
+          });
+        }
+      });
+    }
+    const tick = setInterval(getOmnityAnalysis, 5000);
+    return () => {
+      clearInterval(tick);
+    };
+  }, []);
+
+  return (
+     <div >Total Txs : {totalTx}</div>
+  );
+}
+
+export default App;
+```
+
 Please refer the following basic code examples to utilize all the apis in ***Motoko***.
 ```code title="Motoko"
 actor {
@@ -95,11 +161,6 @@ actor {
         return await hub.get_total_tx();
     };
 };
-
-```
-Please refer the following basic code examples to utilize all the apis in ***Typescript***.
-```code title="Typescript"
-
 ```
 
 Can't find what you need? let us know on **[OpenChat](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/209373796018851818071085429101874032721/)**.
