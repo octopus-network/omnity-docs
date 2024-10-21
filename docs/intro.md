@@ -153,14 +153,4 @@ function App() {
 export default App;
 ```
 
-Please refer the following basic code examples to utilize all the apis in ***Motoko***.
-```code title="Motoko"
-actor {
-    public func main(canisterId: Text) : async Nat {
-      let hub = actor(canisterId): actor { get_total_tx: shared () -> async Nat };
-        return await hub.get_total_tx();
-    };
-};
-```
-
 Can't find what you need? let us know on **[OpenChat](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/209373796018851818071085429101874032721/)**.
