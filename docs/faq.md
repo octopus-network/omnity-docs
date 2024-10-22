@@ -3,9 +3,21 @@ sidebar_position: 10
 ---
 
 # FAQ
-***Question:*** Related to costs, bridging the runes to ICP cost 13 total ICP (10 ICP for the first time going through Add Runes, 3 ICP for the second time). Is 13 ICP the amount I should expect to pay in the future? Or was the second 3 ICP fee not needed?
+***Question 1:*** How long does a transaction take?
 
-***Answer:*** Regarding to the cost of adding the Runes permissionlessly by the users has 2 steps:
-Step 1: Adding the runes into Omnity, this step costs 10 ICP, if the Rune already exists, there’s no need to pay for it.
-Step 2: Allowing bridging the Runes to a specific chain costs 3 ICP. However, if this action is performed by someone else or by us, there will be no cost.
-So for example, if you have added BLOCKMINER.OG to the system and want to bridge it to another chain, such as Ethereum, you only need to pay 3 ICP.
+Answer : ckBTC will take around 6 confirmation blocks, while others typically take about 4 confirmations.
+
+
+***Question 2:*** How much does a cross-chain trasaction cost?
+
+Answer : Settlement chain -> execution chain with no cross-chain fee(more in detail).
+
+
+***Question 3:***  What happens if the “Insufficient balance” pop-up window appears?
+
+Answer : It means you have some unconfirmed transactions. Please wait for at least 4 confirmations before proceeding with the transaction.
+
+
+***Question 4:*** What happens if the “Not Enough Cardinal Utxos” pop-up window appears?
+
+Answer : We are using the bitcoin api from mempool, which has a limit of 500 utxos per address. This indicates that the number of runes you previously transferred was large and spread across many utxos. As a result, this transaction will require a significant fee. The message 'not enough cardinal utxos' refers to insufficient btc to cover the fee. Please see the suggested solution [here](https://support.xverse.app/hc/en-us/articles/22556402106893-Understanding-UTXO-Management-in-Bitcoin-Transactions#h_01HJ57PH9E7J939P6NJ2HQNN1E).
