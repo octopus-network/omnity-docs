@@ -7,7 +7,7 @@ sidebar_position: 8
 |  | Canister ID | Chain Id |
 | --- | --- | --- |
 | COSMWASM_ROUTE | ystyg-kaaaa-aaaar-qaieq-cai | osmosis-1 |
-| COSMWASM_PROXY | ncfbq-kyaaa-aaaar-qah3a-cai | \ |
+| COSMWASM_PROXY | ncfbq-kyaaa-aaaar-qah3a-cai | null |
 
 #### Workflow: 
 **Bitcoin -> Osmosis**:
@@ -27,6 +27,11 @@ redeem_token: {
         }
 ```
 * The transaction hash will be put into redeem function from CosmWasm Route, when the function is called, the ticket will be generated, and the transaction result can be see from **[Omnity Explorer](https://explorer.omnity.network/)**.
+
+#### Light Client:
+* The Cosmos light client verification logic is implemented in the CosmWasm Route canister.
+* A scheduled task is added to periodically fetch and verify the latest block headers.
+* A light client verification logic is added to our original redeem process.
 
 ## CosmWasm Proxy
 **Update:**

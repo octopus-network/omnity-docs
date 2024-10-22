@@ -7,7 +7,7 @@ sidebar_position: 4
 
 |  | Canister ID | Chain Id |
 | --- | --- | --- |
-| OMNITY_HUB | 7wupf-wiaaa-aaaar-qaeya-cai | / |
+| OMNITY_HUB | 7wupf-wiaaa-aaaar-qaeya-cai | null |
 | OMNITY_SETTLEMENT_BITCOIN | 7rvjr-3qaaa-aaaar-qaeyq-cai | Bitcoin|
 | OMNITY_SETTLEMENT_ICP | nlgkm-4qaaa-aaaar-qah2q-cai | sICP|
 | OMNITY_EXECUTION_ICP | 7ywcn-nyaaa-aaaar-qaeza-cai | eICP|
