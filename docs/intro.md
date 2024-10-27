@@ -21,6 +21,7 @@ See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbF
 - If you are interested in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), a canister for indexing runes utxos on bitcoin, please go to **[Runes Indexer](https://docs.omnity.network/docs/runes_indexer)**.
 - If you are interested in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://docs.omnity.network/docs/explorer)**.
 - If you are interested in integrating with [Omnity's cross-chain services](https://bridge.omnity.network/runes) or adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) for your convenience, please go to **[Runes On ICP](https://docs.omnity.network/docs/runes)**.
+- For those interested in bridging icp icrc tokens, please go to **[BRC20](https://docs.omnity.network/docs/brc20)**.
 - For those interested in bridging icp icrc tokens, please go to **[ICP ICRC](https://docs.omnity.network/docs/icp_icrc)**.
 - For those interested in locking bitcoin natively on layer 1 and mint the wrapped bitcoin on the cosmwasm-based chain, please go to **[CosmWasm](https://docs.omnity.network/docs/cosmwasm)**.
 
