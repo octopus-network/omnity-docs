@@ -41,6 +41,10 @@ const config = {
     ({
       navbar: {
         // title: 'Home',
+        logo: {
+          alt: 'Omnity Logo',
+          src: 'img/logo.svg',
+        },
         items: [
           {
             type: 'doc',
