@@ -15,6 +15,7 @@ sidebar_position: 2
 | [Rootstock](https://rootstock.io/) | if3hq-3iaaa-aaaar-qahga-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 | RootStock|
 | [Bitfinity](https://bitfinity.network/) | pw3ee-pyaaa-aaaar-qahva-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 | Bitfinity|
 | [AILayer](https://ailayer.xyz/) | pk76v-yyaaa-aaaar-qahxa-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 | AILayer|
+| [Core](https://coredao.org/) | vopxt-5qaaa-aaaar-qajnq-cai | 0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468 | Core |
 | [Ethereum](https://ethereum.org/en/) | 3zfof-myaaa-aaaar-qaioa-cai | 0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A | Ethereum |
 
 ## Update

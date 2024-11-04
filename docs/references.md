@@ -94,7 +94,7 @@ sidebar_position: 10
 |Bob|epmqo-ziaaa-aaaar-qagka-cai|0x21cf922c8bf60d1d11ADC8aDCFdd4BdAae9e8320|bob_ETH|
 |B²Network|gsr6g-kaaaa-aaaar-qagfq-cai|0xF3D7bc94095454D5F8538a808941729c9B3D3B7A|b2_BTC|
 |bevm|rp433-4qaaa-aaaar-qaf2q-cai|0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A|BTC|
-|CORE|vopxt-5qaaa-aaaar-qajnq-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|CORE|
+|Core|vopxt-5qaaa-aaaar-qajnq-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|CORE|
 |eICP|7ywcn-nyaaa-aaaar-qaeza-cai|none|LICP|
 |eSolana|lvinw-hiaaa-aaaar-qahoa-cai|none|SOL|
 |Ethereum|3zfof-myaaa-aaaar-qaioa-cai|0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A|ethereum_ETH|

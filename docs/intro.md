@@ -9,7 +9,8 @@ sidebar_position: 1
 See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbFR7eTtG5Eml6JWT5RCWwrJQIs/edit?pli=1)** / **[codebase](https://github.com/octopus-network/omnity-interoperability)** for more details. It includes:
 
 - **[Hub](https://github.com/octopus-network/omnity-interoperability/tree/main/hub)** A canister (smart contract) on [icp](https://internetcomputer.org/) that handles chain and token registration and ticket (transaction) execution, and it also lists settlement chains and execution chains.
-- **[Bitcoin](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin)** A settlement chain canister that manages the logic on the bitcoin network, It is where assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
+- **[Bitcoin Runes](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin_runes)** A settlement chain canister that manages the logic on the bitcoin network, it is where runes assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
+- **[Bitcoin Brc20](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin_brc20)** A settlement chain canister that manages the logic on the bitcoin network, it is where brc20 assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
 - **[sICP](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/icp)** A settlement chain canister that manages on icp network.
 - **[eICP](https://github.com/octopus-network/omnity-interoperability/tree/main/route/icp)** A execution chain canister that manages the logic on icp network.
 - **[EVM](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm)** The evm route includes layer 2 evm-compatible instances and ethereum as execution chains.
@@ -26,7 +27,7 @@ See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbF
 - For those interested in locking bitcoin natively on layer 1 and mint the wrapped bitcoin on the cosmwasm-based chain, please go to **[CosmWasm](https://docs.omnity.network/docs/cosmwasm)**.
 
 ## Code Examples
-The APIs can be accessed using ***Rust | Motoko | TypeScript***.
+The APIs can be accessed using ***Rust | TypeScript***.
 
 Please refer the following basic code examples to utilize all the apis in ***Rust***.
 ```code title="Rust (call via canister)"
