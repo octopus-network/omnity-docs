@@ -16,6 +16,7 @@ sidebar_position: 10
 |bevm|0x6af978fa6a504cdc8bd9da7541a97794ba6320ab|Bitcoin-runes-SATOSHI•RUNE•TITAN|
 |bevm|0x8e6e7cd8db9c9b73c6c6221702146840b12d6763|Bitcoin-runes-SHIB•SHIB•SHIB|
 |bevm|0x2fd9afe2589b6bb44c61ca8e0620a43070efb941|Bitcoin-runes-SHORT•THE•WORLD|
+|bevm|0xc1e35932ebce748d8364800aad8cd26f10c666b6|Bitcoin-runes-UNCOMMON•GOODS|
 |Bitfinity|0xb37b60166ac1677a50d0ef158541c441bff3d09a|sICP-icrc-CHAPX|
 |Bitfinity|0x51ccde9ca75d95bb55ece1775fcbff91324b18a6|sICP-native-ICP|
 |Bitfinity|0x56bf74ef5d4ad161d2d8d5d576e70108f152cd35|sICP-icrc-ckBTC|
@@ -24,6 +25,9 @@ sidebar_position: 10
 |Bitfinity|0xc15356a06818c19542d1823a5cebda4fa9fcaa22|sICP-icrc-GLDGov|
 |Bitfinity|0xfd4de66eca49799bdde66eb33654e2198ab7bba4|Bitcoin-runes-HOPE•YOU•GET•RICH|
 |Bitfinity|0x3662afef38c94a6184cdfce8dcc60e7c305b8299|sICP-icrc-ckUSDC|
+|Bitfinity|0x1a2b233715cb798d15c8e125a736f26fc7f079dd|sICP-icrc-GLDT|
+|Bitfinity|0x10156cd5ae2000518ff8d771ae3bc51bd3d8ec76|Bitcoinbrc20-brc20-SATS|
+|Bitfinity|0xac28537fea6284fca6894086e7e3a4cf5fbfd220|Bitcoinbrc20-brc20-ORDI|
 |Bitlayer|0x2496a760da748e0c33206fa63921da2cd72a4fbd|Bitcoin-runes-BOX•TOKEN•ON•BITCOIN|
 |Bitlayer|0xc1366362ba987036b19092e5e5c6dd7aa36ac479|Bitcoin-runes-PICKLE•RICK•RUNE|
 |Bitlayer|0x64d8e48ef9032c051d6a091544a75d056bd8b684|Bitcoin-runes-RSIC•GENESIS•RUNE|
@@ -37,6 +41,10 @@ sidebar_position: 10
 |Bitlayer|0x54cc66725493afea5045fe3a32edd620becd0d77|Bitcoin-runes-SATOSHI•NAKAMOTO|
 |Bitlayer|0xb32b737817ba8ff81c696ca8fbd4832cca5751a6|Bitcoin-runes-HOPE•YOU•GET•RICH|
 |Bitlayer|0x7d2b7603234c7312976c6920f33a84531ca40940|Bitcoin-runes-SATOSHI•RUNE•TITAN|
+|Bitlayer|0xb5d68839bfc052a74e2d840edea8454480719b06|Bitcoin-runes-UNCOMMON•GOODS|
+|Bitlayer|0x123258355f95f302978b2c75f00522b6182c6a7e|Bitcoinbrc20-brc20-ORDI|
+|Bitlayer|0x45a95b910848391ee6515a9c222ed38e94cd6784|Bitcoinbrc20-brc20-SYRON|
+|Bitlayer|0x5c8ba2392530a51bb2de2729c27c656f0f7bad0b|Bitcoinbrc20-brc20-SATS|
 |Bob|0xeb95424bd91dbd735db0bcd6ece191ef2e24d286|Bitcoin-runes-DOG•GO•TO•THE•MOON|
 |Bob|0x8f9568bb47b7772f334cccef4652c9ac7678f21a|Bitcoin-runes-HOPE•YOU•GET•RICH|
 |Bob|0x6012fcafe3f570dcd491da3546ff748eb9308146|Bitcoin-runes-RUNES•X•BITCOIN|
@@ -65,6 +73,13 @@ sidebar_position: 10
 |Ethereum|0xbe175b13f733e8b57382717597dbd8205e6fd24a|Bitcoin-runes-RUNES•X•BITCOIN|
 |Merlin|0xfd4de66eca49799bdde66eb33654e2198ab7bba4|Bitcoin-runes-HOPE•YOU•GET•RICH|
 |RootStock|0xb943b047473218a8e0fc637e96136071ffa3f842|Bitcoin-runes-HOPE•YOU•GET•RICH|
+|sICP|ryjl3-tyaaa-aaaaa-aaaba-cai|sICP-native-ICP|
+|sICP|mxzaz-hqaaa-aaaar-qaada-cai|sICP-icrc-ckBTC|
+|sICP|xevnm-gaaaa-aaaar-qafnq-cai|sICP-icrc-ckUSDC|
+|sICP|buwm7-7yaaa-aaaar-qagva-cai|sICP-icrc-nICP|
+|sICP|tyyy3-4aaaa-aaaaq-aab7a-cai|sICP-icrc-GLDGov|
+|sICP|6c7su-kiaaa-aaaar-qaira-cai|sICP-icrc-GLDT|
+|sICP|mymm4-2yaaa-aaaan-qmlwq-cai|sICP-icrc-CHAPX|
 |X Layer|0xfd4de66eca49799bdde66eb33654e2198ab7bba4|Bitcoin-runes-BOX•TOKEN•ON•BITCOIN|
 |X Layer|0x51ccde9ca75d95bb55ece1775fcbff91324b18a6|Bitcoin-runes-HOPE•YOU•GET•RICH|
 
@@ -72,27 +87,29 @@ sidebar_position: 10
 |Chain Id|Canister Id|Contract Address|Fee Token|
 | --- | --- | --- | --- |
 |AILayer|pk76v-yyaaa-aaaar-qahxa-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|BTC|
-|Bitcoin|7rvjr-3qaaa-aaaar-qaeyq-cai|null|null|
-|Bitcoinbrc20|72whx-eiaaa-aaaar-qaiva-cai|null|brc20_BTC|
+|Bitcoin|7rvjr-3qaaa-aaaar-qaeyq-cai|none|BTC|
+|Bitcoinbrc20|72whx-eiaaa-aaaar-qaiva-cai|none|brc20_BTC|
 |Bitfinity|pw3ee-pyaaa-aaaar-qahva-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|BFT|
 |Bitlayer|he2gn-7qaaa-aaaar-qagaq-cai|0x2AFDA75BFfE47dDE22254937ef1E81E1C32B90d9|bitlayer_BTC|
 |Bob|epmqo-ziaaa-aaaar-qagka-cai|0x21cf922c8bf60d1d11ADC8aDCFdd4BdAae9e8320|bob_ETH|
 |B²Network|gsr6g-kaaaa-aaaar-qagfq-cai|0xF3D7bc94095454D5F8538a808941729c9B3D3B7A|b2_BTC|
+|bevm|rp433-4qaaa-aaaar-qaf2q-cai|0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A|BTC|
+|CORE|vopxt-5qaaa-aaaar-qajnq-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|CORE|
+|eICP|7ywcn-nyaaa-aaaar-qaeza-cai|none|LICP|
+|eSolana|lvinw-hiaaa-aaaar-qahoa-cai|none|SOL|
 |Ethereum|3zfof-myaaa-aaaar-qaioa-cai|0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A|ethereum_ETH|
 |Merlin|govex-5aaaa-aaaar-qaghq-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|merlin_BTC|
 |RootStock|if3hq-3iaaa-aaaar-qahga-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|RBTC|
 |X Layer|gjucd-qyaaa-aaaar-qagha-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|OKB|
-|bevm|rp433-4qaaa-aaaar-qaf2q-cai|0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A|BTC|
-|eICP|7ywcn-nyaaa-aaaar-qaeza-cai|null|LICP|
-|eSolana|lvinw-hiaaa-aaaar-qahoa-cai|null|SOL|
-|osmosis-1|ystyg-kaaaa-aaaar-qaieq-cai|null|uosmo
-|sICP|nlgkm-4qaaa-aaaar-qah2q-cai|null|null|
+|osmosis-1|ystyg-kaaaa-aaaar-qaieq-cai|none|uosmo
+|sICP|nlgkm-4qaaa-aaaar-qah2q-cai|none|none|
 
 
 ## Token Metadata
 |Name|Symbol|Token Id|Target Chains|Metadata|Decimals|Issue Chain|Icon
 | --- | --- | --- | --- | --- | --- | --- | --- |
 |BILLION•DOLLAR•CAT|BDC.OT|Bitcoin-runes-BILLION•DOLLAR•CAT|Bitcoin,eICP,Bitlayer,Bob|rune_id:845764:84|0|Bitcoin|https://ordinals.com/content/c5e59f3f8024c80fe7f8685c1d920f66cee5e9d4a423f3f293d844b291381ba5i0|
+|BLOCKMINER•OG|BLOCKMINEROG.OT|Bitcoin-runes-BLOCKMINER•OG|Bitcoin,eICP|rune_id:866278:5618|2|Bitcoin|https://ordinals.com/content/845c64e23915ae06de5c49c5e66ff8601f6e572f19da0b164eb90218d7853003i0|
 |BOLD•ART•DEGENS|BAD.OT|Bitcoin-runes-BOLD•ART•DEGENS|Bitcoin,eICP|rune_id:860742:660|18|Bitcoin|https://ordinals.com/content/1fbcc84835f1d9be2de9512129fa978ca29349100fa3729df0f95b46aa0faba5i0|
 |BOX•TOKEN•ON•BITCOIN|BOX|Bitcoin-runes-BOX•TOKEN•ON•BITCOIN|Bitcoin,eICP,bevm,Bitlayer,B² Network,X Layer|rune_id:842020:1651|8|Bitcoin|https://ordinals.com/content/c355803196743618e3dadf99fdfcc8dd3ca73eeb7fbf2da727888b51ee0b857ci0|
 |DOG•GO•TO•THE•MOON|DOG|Bitcoin-runes-DOG•GO•TO•THE•MOON|Bitcoin,eICP,bevm,Bitlayer,Bob,B² Network,Bob|rune_id:840000:3|5|Bitcoin|https://static.unisat.io/content/618ffb4e23e19566c7567841187a1c424dfd775e4f8cb633a7a3d4836784835fi0|
@@ -112,11 +129,16 @@ sidebar_position: 10
 |SATOSHI•RUNE•TITAN.OT|TITAN.OT|Bitcoin-runes-SATOSHI•RUNE•TITAN|Bitcoin,bevm,Bitlayer,Bob,Ethereum|rune_id:840106:129|8|Bitcoin|https://github.com/ordinals/ord/assets/8003221/8d9418b0-d60b-40c9-b655-3fd26cf92d1b|
 |SHIB•SHIB•SHIB|SHIB.OT|Bitcoin-runes-SHIB•SHIB•SHIB|Bitcoin,eICP,bevm,Bitlayer|rune_id:845732:312|0|Bitcoin|https://ordinals.com/content/9d0cadfeec79af0d90e6c90c274ffc85d309b5edbb304c593d1083d1ab55e77bi0|
 |SHORT•THE•WORLD|SHORT.OT|Bitcoin-runes-SHORT•THE•WORLD|Bitcoin,eICP,Bitlayer,bevm,Bob|rune_id:840000:51|3|Bitcoin|https://geniidata.com/content/d4cd42cf289f4efd622acce605e46b8f8ce7cde135c5dd26646c0e3c42524306i0|
-|YCBS|YCBS|Bitcoinbrc20-brc20-YCBS|Bitcoinbrc20,Bitfinity|null|18|Bitcoin|null|
+|UNCOMMON•GOODS|UG.OT|Bitcoin-runes-UNCOMMON•GOODS|Bitcoin,Bitlayer,bevm|rune_id:1:0|0|Bitcoin|https://ordinals.com/content/0000000000000000000000000000000000000000000000000000000000000000i0|
+|ORDI|ORDI|Bitcoinbrc20-brc20-ORDI|Bitlayer,Bitfinity,Bitcoinbrc20|none|18|Bitcoinbrc20|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/ordi.png|
+|SATS|SATS|Bitcoinbrc20-brc20-SATS|Bitlayer,Bitfinity,Bitcoinbrc20|none|18|Bitcoinbrc20|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/sats.png|
+|SYRON|SYRON|Bitcoinbrc20-brc20-SYRON|Bitlayer,Bitcoinbrc20|none|18|Bitcoinbrc20|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/syron.png|
+|YCBS|YCBS|Bitcoinbrc20-brc20-YCBS|Bitcoinbrc20,Bitfinity|none|18|Bitcoin|none|
 |CHAPX|CHAPX|sICP-icrc-CHAPX|sICP,Bitfinity|ledger_id:mymm4-2yaaa-aaaan-qmlwq-cai|8|sICP|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/chapx.png|
 |Gold Governance Token|GLDGov|sICP-icrc-GLDGov|sICP,Bitfinity|ledger_id:tyyy3-4aaaa-aaaaq-aab7a-cai|8|sICP|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/GLDGov.png|
+|Gold Token|GLDT|sICP-icrc-GLDT|sICP,Bitfinity|ledger_id': '6c7su-kiaaa-aaaar-qaira-cai|8|sICP|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/sICP-icrc-GLDT.png|
 |ckBTC|ckBTC|sICP-icrc-ckBTC|sICP,osmo-test-5,Bitfinity,osmosis-1|ledger_id:mxzaz-hqaaa-aaaar-qaada-cai|8|sICP|https://assets.coingecko.com/coins/images/33818/standard/01_ckBTC_Token_HEX__4x.png|
 |ckUSDC|ckUSDC|sICP-icrc-ckUSDC|sICP,Bitfinity|ledger_id:xevnm-gaaaa-aaaar-qafnq-cai|6|sICP|https://assets.coingecko.com/coins/images/38396/standard/ckUSDC.png|
 |neuron ICP|nICP|sICP-icrc-nICP|sICP,Bitfinity|ledger_id:buwm7-7yaaa-aaaar-qagva-cai|8|sICP|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/nICP.png|
-|ICP|ICP|sICP-native-ICP|sICP,Bitfinity|null|8|sICP|https://raw.githubusercontent.com/octopus-network/omnity-interoperability/9061b7e2ea9e0717b47010279ff1ffd6f1f4c1fc/assets/token_logo/icp.svg|
-|BLOCKMINER•OG|BLOCKMINEROG.OT|Bitcoin-runes-BLOCKMINER•OG|Bitcoin,eICP|rune_id:866278:5618|2|Bitcoin|https://ordinals.com/content/845c64e23915ae06de5c49c5e66ff8601f6e572f19da0b164eb90218d7853003i0|
+|ICP|ICP|sICP-native-ICP|sICP,Bitfinity|none|8|sICP|https://raw.githubusercontent.com/octopus-network/omnity-interoperability/9061b7e2ea9e0717b47010279ff1ffd6f1f4c1fc/assets/token_logo/icp.svg|
+

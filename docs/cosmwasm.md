@@ -7,7 +7,7 @@ sidebar_position: 8
 |  | Canister ID | Chain Id |
 | --- | --- | --- |
 | COSMWASM_ROUTE | ystyg-kaaaa-aaaar-qaieq-cai | osmosis-1 |
-| COSMWASM_PROXY | ncfbq-kyaaa-aaaar-qah3a-cai | null |
+| COSMWASM_PROXY | ncfbq-kyaaa-aaaar-qah3a-cai | none |
 
 #### Workflow: 
 **Bitcoin -> Osmosis**:
