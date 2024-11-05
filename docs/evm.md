@@ -24,41 +24,72 @@ sidebar_position: 2
 Generate an cross-chain transaction from the layer 2 evm-compatible instances and ethereum. 
 ```
 #### Workflow: 
-
-***1***. Call the corresponding solidity function(e.g. burnToken) from the UI and get the calculated function_hash:
+***1***. Call the corresponding solidity function(e.g., burnToken) from your own contract in the UI and get the calculated function_hash:
 - **[omnity-port-solidity](https://github.com/octopus-network/omnity-port-solidity/blob/main/contracts/OmnityPort.sol)** is the solidity implementation of Omnity Port on evm-compatible blockchains, a contract module which provides a basic access control mechanism on the runes tokens. 
-- **[LuckyPot](https://github.com/octopus-network/bitlayer-omnity-demo)** is a solidity implementation that includes a **[demo](https://bitlayer-omnity-demo.vercel.app/)** application interacting with Omnity on the Bitlayer. It provides the following apis:
+- **[LuckyPot](https://github.com/octopus-network/bitlayer-omnity-demo)** is a solidity implementation that includes a **[demo](https://bitlayer-omnity-demo.vercel.app/)** application interacting with Omnity on the Bitlayer. 
 
-Creates an event involving a certain amount (depending on the type of runes) of tokenId and assigns it to the receiver. 
-The cross-chain application will read the event and perform the mint action on the bitcoin network. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L13)**
+Both provide the following apis:
+
 #### mintRunes
+Creates an event involving a certain amount (depending on the type of runes) of tokenId and assigns it to the receiver. 
+The cross-chain application will read the event and perform the mint action on the bitcoin network.
+
 ```jsx title="Solidity"
 mintRunes(string memory tokenId, address receiver)
 ```
+| Parameter | Description | Example |
+| --- | --- | --- |
+| tokenId | the token id |Bitcoin-runes-UNCOMMON•GOODS|
+| receiver | the evm receiver address |0xd1f4711f22e600E311f9485080866519ad4FbE3e|
 
-Creates an event to burn a specified amount of wrapped tokenId runes tokens and withdraw the corresponding amount of underlying tokens to the receiver.
-The cross-chain application will read the event and perform the withdrawal action on the bitcoin network. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L24)**
+#### redeemToken
+Creates an event to burn a specified amount of wrapped tokenId runes tokens and withdraw the corresponding amount of underlying tokens to the receiver(Transfer runes back to bitcoin network).
+The cross-chain application will read the event and perform the withdrawal action on the bitcoin network.
+
 ```jsx title="Solidity"
 redeemToken(string memory tokenId, string memory receiver, uint256 amount)
 ```
-Creates an event to transfer a specified amount of tokenId runes tokens from the caller’s account to the receiver's account on dstChainId, with an optional memo.
-The cross-chain application will read the event and perform the transfer action on the bitcoin network. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L37)**
+| Parameter | Description | Example |
+| --- | --- | --- |
+| tokenId | the token id |Bitcoin-runes-UNCOMMON•GOODS|
+| receiver | the bitcoin receiver address |bc1qu597cmaqx5zugsz805wt5qsw5gnsmjge50tm8y|
+| amount | the amount of tokens that will be withdrawn|1|
+
+#### transportToken
+Creates an event to transfer a specified amount of tokenId runes tokens from the caller’s account to the receiver's account on dstChainId, with an optional memo(Transfer runes to the evm compatible layer2 network).
+The cross-chain application will read the event and perform the transfer action on the bitcoin network.
 ```jsx title="Solidity"
 transportToken(string memory dstChainId, string memory tokenId, string memory receiver, uint256 amount, string memory memo)
 ```
-To destroy a amount of tokenId runes tokens from the caller. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L52)**
+| Parameter | Description | Example |
+| --- | --- | --- |
+| dstChainId | the destination chain id | bevm |
+| receiver | the evm receiver address |0xd1f4711f22e600E311f9485080866519ad4FbE3e|
+| tokenId |the token id|Bitcoin-runes-UNCOMMON•GOODS|
+| amount |the amount of tokens that will be transferred|10|
+|memo|a short note or message, which could be empty|none|
+
+#### burnToken
+To destroy a amount of tokenId runes tokens from the caller.
 ```jsx title="Solidity"
 burnToken(string memory tokenId, uint256 amount)
 ```
-Calculates the transfer fee for the destination chain. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L63)**
+| Parameter | Description | Example |
+| --- | --- | --- |
+| tokenId |the token id|Bitcoin-runes-UNCOMMON•GOODS|
+| amount |the amount of tokens that will be burnt|1|
+
+#### calculateFee
+Calculates the transfer fee for the destination chain. This function will be used for each action mentioned above like this [one](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/LuckyPot.sol#L81).
 ```jsx title="Solidity"
 calculateFee(string memory target_chain_id) 
 ```
+Find more options for target_chain_id [here](https://docs.omnity.network/docs/references#chain-metadata).
 
-
-
-
-
+| Parameter | Description | Example |
+| --- | --- | --- |
+|target_chain_id|the destination chain id| Bitcoin|
+|fee|the calculated fee as uint128|none|
 
 
 ***2***. Put the function_hash as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ), after a series of verifications for the redemption action, the original runes tokens will be released from the generated btc account corresponding to the sender's address to the receiver's account if the target chain is the bitcoin network.
