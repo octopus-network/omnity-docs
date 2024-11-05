@@ -25,31 +25,41 @@ Generate an cross-chain transaction from the layer 2 evm-compatible instances an
 ```
 #### Workflow: 
 
-***1***. Call the corresponding Solidity function(E.g. burnToken) from the UI and get the calculated function_hash:
-- **[omnity-port-solidity](https://github.com/octopus-network/omnity-port-solidity/blob/main/contracts/OmnityPort.sol)** is the solidity implementation of Omnity Port on evm-compatible blockchains, a contract module which provides a basic access control mechanism on the runes tokens. It provides the following apis:
-
-To destroy a amount of tokenId runes tokens from the caller:
-```jsx title="Solidity"
-burnToken(string memory tokenId, uint256 amount)
-```
+***1***. Call the corresponding solidity function(e.g. burnToken) from the UI and get the calculated function_hash:
+- **[omnity-port-solidity](https://github.com/octopus-network/omnity-port-solidity/blob/main/contracts/OmnityPort.sol)** is the solidity implementation of Omnity Port on evm-compatible blockchains, a contract module which provides a basic access control mechanism on the runes tokens. 
+- **[LuckyPot](https://github.com/octopus-network/bitlayer-omnity-demo)** is a solidity implementation that includes a **[demo](https://bitlayer-omnity-demo.vercel.app/)** application interacting with Omnity on the Bitlayer. It provides the following apis:
 
 Creates an event involving a certain amount (depending on the type of runes) of tokenId and assigns it to the receiver. 
-The cross-chain application will read the event and perform the mint action on the bitcoin network. 
+The cross-chain application will read the event and perform the mint action on the bitcoin network. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L13)**
+#### mintRunes
 ```jsx title="Solidity"
 mintRunes(string memory tokenId, address receiver)
 ```
 
-Creates an event to transfer a specified amount of tokenId runes tokens from the caller’s account to the receiver's account on dstChainId, with an optional memo.
-The cross-chain application will read the event and perform the transfer action on the bitcoin network.
-```jsx title="Solidity"
-transportToken(string memory dstChainId, string memory tokenId, string memory receiver, uint256 amount, string memory memo)
-```
-
 Creates an event to burn a specified amount of wrapped tokenId runes tokens and withdraw the corresponding amount of underlying tokens to the receiver.
-The cross-chain application will read the event and perform the withdrawal action on the bitcoin network.
+The cross-chain application will read the event and perform the withdrawal action on the bitcoin network. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L24)**
 ```jsx title="Solidity"
 redeemToken(string memory tokenId, string memory receiver, uint256 amount)
 ```
+Creates an event to transfer a specified amount of tokenId runes tokens from the caller’s account to the receiver's account on dstChainId, with an optional memo.
+The cross-chain application will read the event and perform the transfer action on the bitcoin network. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L37)**
+```jsx title="Solidity"
+transportToken(string memory dstChainId, string memory tokenId, string memory receiver, uint256 amount, string memory memo)
+```
+To destroy a amount of tokenId runes tokens from the caller. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L52)**
+```jsx title="Solidity"
+burnToken(string memory tokenId, uint256 amount)
+```
+Calculates the transfer fee for the destination chain. See the **[sources codes](https://github.com/octopus-network/bitlayer-omnity-demo/blob/main/contracts/MockOmnityPort.sol#L63)**
+```jsx title="Solidity"
+calculateFee(string memory target_chain_id) 
+```
+
+
+
+
+
+
 
 ***2***. Put the function_hash as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ), after a series of verifications for the redemption action, the original runes tokens will be released from the generated btc account corresponding to the sender's address to the receiver's account if the target chain is the bitcoin network.
 - **[omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/service.rs#L240)** is the rust implementation of Omnity protocol. And you can find the details of generate_ticket in it.
