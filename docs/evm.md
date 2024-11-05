@@ -92,8 +92,17 @@ Find more options for target_chain_id [here](https://docs.omnity.network/docs/re
 |fee|the calculated fee as uint128|none|
 
 
-***2***. Put the function_hash as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ), after a series of verifications for the redemption action, the original runes tokens will be released from the generated btc account corresponding to the sender's address to the receiver's account if the target chain is the bitcoin network.
-- **[omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/service.rs#L240)** is the rust implementation of Omnity protocol. And you can find the details of generate_ticket in it.
+**2. [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability)** is the rust implementation of Omnity protocol. And you can find the details of generate_ticket( can be called in either ***Rust*** or ***Typescript*** ) in it.
+
+*  For minting runes on the evm compatible layer 2 network, 2 actions are combined: mint and transfer. For the transfer action, 4 confirmations from the generate_ticket invocation on the bitcoin network are required. The bitcoin custom will confirm that the runes are minted via **[the ord canister](https://github.com/octopus-network/ord-canister)**. Afterward, the ticket will be fetched from the target chain, and **mintRunes**  will be called to mint the tokens to the receiver.
+
+* For transfering runes back to bitcoin network, put the function_hash from the **redeemToken** output as a parameter into generate_ticket from your dapp, after a series of verifications for the redemption action, the original runes tokens will be released from the generated btc account corresponding to the sender's address to the receiver's account if the target chain is the bitcoin network.
+
+* For transferring runes from the Bitcoin network to an evm compatible layer 2 network, after receiving 4 confirmations on the Bitcoin network, the ticket will be fetched from the target chain, and **mintRunes**  will be called to mint the tokens to the receiver.
+
+* For transferring runes between evm compatible layer 2 networks, after receiving confirmation from 2 out of 3 RPCs (a workaround for light client verification), the function_hash from the **transportToken** output should be passed as a parameter into generate_ticket on the source chain. The ticket will then be fetched on the target chain, which will use its chain key to sign the transaction to its port contract.
+
+* For burning runes, similar to the redeem action, instead of being released, the original rune tokens will be burned with **burnToken** from the generated btc account on the bitcoin network.
 
 ***3***. Go to **[Omnity Explorer](https://explorer.omnity.network/)** to track the generated ticket status.
 

@@ -205,8 +205,8 @@ Retrieve all pending ticket data.
 Generate an cross-chain transaction from the bitcoin network on Omnity.
 ```
 ***Sources*** : 
-[`GenerateTicketArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L24)
-[`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/updates/generate_ticket.rs#L33)
+[`GenerateTicketArgs`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin_runes/src/updates/generate_ticket.rs#L24)
+[`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin_runes)
 
 ```md title="Rust Input Example:"
 # The amount is multiplied by the decimals of the runes(e.g. $HOPE•YOU•GET•RICH has two decimal so the input will be 10*100).
