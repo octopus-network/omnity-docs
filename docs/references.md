@@ -67,6 +67,10 @@ sidebar_position: 10
 |eICP|a6zof-5iaaa-aaaar-qagsa-cai|Bitcoin-runes-HASHLEY•HASHLEY|
 |eICP|pn6yb-vaaaa-aaaar-qahxq-cai|Bitcoin-runes-INTERNET•COMPUTER•RUNE|
 |eICP|mikdk-iiaaa-aaaar-qah4a-cai|Bitcoin-runes-PREDICTED•ON•BITCOIN|
+|eICP|sblow-6aaaa-aaaar-qaj4q-cai|Bitcoinbrc20-brc20-YCBS|
+|eICP|s2ost-eyaaa-aaaar-qaj6a-cai|Bitcoinbrc20-brc20-SATS|
+|eICP|spjd6-fqaaa-aaaar-qaj5q-cai|Bitcoinbrc20-brc20-ORDI|
+|eICP|sum73-7iaaa-aaaar-qaj7a-cai|Bitcoinbrc20-brc20-1kBTC|
 |Ethereum|0xb76fd1b6cda18a8cfa255e23059c0bb1624bb5f9|Bitcoin-runes-SATOSHI•RUNE•TITAN|
 |Ethereum|0xd14fad0fe8175afd3f4c22b25736e11cf42341a5|Bitcoin-runes-HOPE•YOU•GET•RICH|
 |Ethereum|0xf05c41d4f964746a1e1f146781be9bd013399d85|Bitcoin-runes-NON•STOP•NYAN•CAT|
@@ -130,6 +134,7 @@ sidebar_position: 10
 |SHIB•SHIB•SHIB|SHIB.OT|Bitcoin-runes-SHIB•SHIB•SHIB|Bitcoin,eICP,bevm,Bitlayer|rune_id:845732:312|0|Bitcoin|https://ordinals.com/content/9d0cadfeec79af0d90e6c90c274ffc85d309b5edbb304c593d1083d1ab55e77bi0|
 |SHORT•THE•WORLD|SHORT.OT|Bitcoin-runes-SHORT•THE•WORLD|Bitcoin,eICP,Bitlayer,bevm,Bob|rune_id:840000:51|3|Bitcoin|https://geniidata.com/content/d4cd42cf289f4efd622acce605e46b8f8ce7cde135c5dd26646c0e3c42524306i0|
 |UNCOMMON•GOODS|UG.OT|Bitcoin-runes-UNCOMMON•GOODS|Bitcoin,Bitlayer,bevm|rune_id:1:0|0|Bitcoin|https://ordinals.com/content/0000000000000000000000000000000000000000000000000000000000000000i0|
+|1kBTC|1kBTC|Bitcoinbrc20-brc20-1kBTC|Bitcoinbrc20,eICP|none|18|Bitcoinbrc20|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/1kBTC.png|
 |ORDI|ORDI|Bitcoinbrc20-brc20-ORDI|Bitlayer,Bitfinity,Bitcoinbrc20|none|18|Bitcoinbrc20|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/ordi.png|
 |SATS|SATS|Bitcoinbrc20-brc20-SATS|Bitlayer,Bitfinity,Bitcoinbrc20|none|18|Bitcoinbrc20|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/sats.png|
 |SYRON|SYRON|Bitcoinbrc20-brc20-SYRON|Bitlayer,Bitcoinbrc20|none|18|Bitcoinbrc20|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/syron.png|
