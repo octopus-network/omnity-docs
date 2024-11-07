@@ -19,7 +19,7 @@ Generate an cross-chain transaction from the solana route.
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/)
 
 #### Workflow: 
-***1***. Call the corresponding solana function with the [Solana SDK](https://www.npmjs.com/package/@solana/web3.js) and get the calculated function_hash(see [the code example](https://github.com/octopus-network/omnity-js/blob/chain/solana/packages/widget/src/wallet-kits/sol-wallet-kit/SOLWalletKitProvider.tsx#L53)):
+***1***. Call the corresponding solana function with the [Solana SDK](https://www.npmjs.com/package/@solana/web3.js) and get the calculated function_hash(see [the code example](https://github.com/octopus-network/omnity-js/blob/main/packages/widget/src/wallet-kits/sol-wallet-kit/SOLWalletKitProvider.tsx)):
 - **[solana HOPE•YOU•GET•RICH](https://explorer.solana.com/address/5HmvdqEM3e7bYKTUix8dJSZaMhx9GNkQV2vivsiC3Tdx)** is the token account address.
 
 
