@@ -8,9 +8,9 @@ sidebar_position: 11
 Answer : ckBTC will take around 6 confirmation blocks, while others typically take about 4 confirmations.
 
 
-***Question 2:*** How much does a cross-chain trasaction cost?
+***Question 2:*** Do fees have to be paid in ICP? Could you accept ckBTC perhaps?
 
-Answer : Settlement chain -> execution chain with no cross-chain fee(more in detail).
+Answer : Bridging fees are denominated in native tokens. BTC on Bitcoin, Ether on Ethererum, etc. Yes, bridging fee includes gas fee on the target chain.
 
 
 ***Question 3:***  What happens if the “Insufficient balance” pop-up window appears?
