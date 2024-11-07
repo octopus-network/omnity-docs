@@ -43,7 +43,7 @@ mintRunes(string memory tokenId, address receiver)
 | receiver | the evm receiver address |0xd1f4711f22e600E311f9485080866519ad4FbE3e|
 
 #### redeemToken
-Creates an event to burn a specified amount of wrapped tokenId runes tokens and withdraw the corresponding amount of underlying tokens to the receiver(Transfer runes back to bitcoin network).
+(Transfer runes back to bitcoin network) Creates an event to burn a specified amount of wrapped tokenId runes tokens and withdraw the corresponding amount of underlying tokens to the receiver.
 The cross-chain application will read the event and perform the withdrawal action on the bitcoin network.
 
 ```jsx title="Solidity"
@@ -56,8 +56,8 @@ redeemToken(string memory tokenId, string memory receiver, uint256 amount)
 | amount | the amount of tokens that will be withdrawn|1|
 
 #### transportToken
-Creates an event to transfer a specified amount of tokenId runes tokens from the caller’s account to the receiver's account on dstChainId, with an optional memo(Transfer runes to the evm compatible layer2 network).
-The cross-chain application will read the event and perform the transfer action on the bitcoin network.
+(Transfer runes to the evm compatible layer2 network) Creates an event to transfer a specified amount of tokenId runes tokens from the caller’s account to the receiver's account on dstChainId, with an optional memo.
+The cross-chain application will read the event and perform the transfer action on the source network.
 ```jsx title="Solidity"
 transportToken(string memory dstChainId, string memory tokenId, string memory receiver, uint256 amount, string memory memo)
 ```
@@ -89,7 +89,7 @@ Find more options for target_chain_id [here](https://docs.omnity.network/docs/re
 | Parameter | Description | Example |
 | --- | --- | --- |
 |target_chain_id|the destination chain id| Bitcoin|
-|fee|the calculated fee as uint128|none|
+|fee|returns the calculated fee as uint128|none|
 
 
 **2. [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability)** is the rust implementation of Omnity protocol. And you can find the details of generate_ticket( can be called in either ***Rust*** or ***Typescript*** ) in it.
@@ -98,7 +98,7 @@ Find more options for target_chain_id [here](https://docs.omnity.network/docs/re
 
 * For transfering runes back to bitcoin network, put the function_hash from the **redeemToken** output as a parameter into generate_ticket from your dapp, after a series of verifications for the redemption action, the original runes tokens will be released from the generated btc account corresponding to the sender's address to the receiver's account if the target chain is the bitcoin network.
 
-* For transferring runes from the Bitcoin network to an evm compatible layer 2 network, after receiving 4 confirmations on the Bitcoin network, the ticket will be fetched from the target chain, and **mintRunes**  will be called to mint the tokens to the receiver.
+* For transferring runes from the Bitcoin network to an evm compatible layer 2 network, after receiving 4 confirmations on the Bitcoin network, the ticket will be fetched from the target chain, which will use its chain key to sign the transaction to its port contract, and **mintRunes**  will be called to mint the tokens to the receiver.
 
 * For transferring runes between evm compatible layer 2 networks, after receiving confirmation from 2 out of 3 RPCs (a workaround for light client verification), the function_hash from the **transportToken** output should be passed as a parameter into generate_ticket on the source chain. The ticket will then be fetched on the target chain, which will use its chain key to sign the transaction to its port contract.
 
