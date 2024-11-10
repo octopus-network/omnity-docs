@@ -20,16 +20,16 @@ Generate an cross-chain transaction from icp network on Omnity.
 
 ```md title="Rust Input Example:"
 let args = GenerateTicketReq {
-		target_chain_id: "Bitcoin".to_string(),
-		receiver: "bc1qh8u0gpw2ze6qdeltnknxmyk8wpqnpmtr8ph9nc".to_string(),
-		token_id: "Bitcoin-runes-HOPE•YOU•GET•RICH".to_string(),
-		amount: 10000,
+		target_chain_id: "Bitfinity".to_string(),
+		receiver: "0xd1f4711f22e600E311f9485080866519ad4FbE3e".to_string(),
+		token_id: "sICP-icrc-ckUSDC".to_string(),
+		amount: 1,
 		from_subaccount: None,
 	}
 ```
 
 #### Workflow: 
-***1***. On the icp side, the corresponding wrapped icrc runes token will be burned by calling the ledger.approve for the sender, and from the bitcoin side, the ord indexer will verify the sender account to see if there is original runes tokens, if so, will transfer from the generated bitcoin account to the receiver account.
+***1***. Get the icp address from get_account_identifier by providing the receiver principal address. And this bitcoin deposit address is owned by the icp customs canister. This action is to lock the icrc tokens by transfering them to the deposit address.
 
 ***2***. Put the GenerateTicketReq as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
 - [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
