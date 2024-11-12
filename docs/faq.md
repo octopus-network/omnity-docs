@@ -8,10 +8,12 @@ sidebar_position: 11
 Answer : ckBTC will take around 6 confirmation blocks, while others typically take about 4 confirmations.
 
 
-***Question 2:*** Do fees have to be paid in ICP? Could you accept ckBTC perhaps?
+***Question 2:*** How do fees work?
 
-Answer : Bridging fees are denominated in native tokens. BTC on Bitcoin, Ether on Ethererum, etc. Yes, bridging fee includes gas fee on the target chain.
-
+Answer : 
+* Bridging fees are denominated in native tokens. BTC on Bitcoin, Ether on Ethererum, etc. 
+* And bridging fee includes gas fee on the target chain.
+* The redeem fee from the execution chain to the settlement chain (there is no charge for the settlement chain to the execution chain) is adjusted by the target_chain_factor and fee_token_factor. The fee calculation is: target_chain_factor * fee_token_factor.
 
 ***Question 3:***  What happens if the “Insufficient balance” pop-up window appears?
 
