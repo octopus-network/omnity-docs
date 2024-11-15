@@ -53,6 +53,8 @@ sidebar_position: 10
 |Bob|0xa37300e47b3739fee1707e04bc2003ea6d322d8b|Bitcoin-runes-SATOSHI•RUNE•TITAN|
 |Bob|0x8be571467517ab0cde8486b000b6677f70acdb67|Bitcoin-runes-SHORT•THE•WORLD|
 |Bob|0x3d446d881ae14016b841b2b27cac8639b83da4f6|Bitcoin-runes-BILLION•DOLLAR•CAT|
+|Core|0x51ccde9ca75d95bb55ece1775fcbff91324b18a6|sICP-icrc-ckBTC|
+|Core|0xfd4de66eca49799bdde66eb33654e2198ab7bba4|Bitcoin-runes-HOPE•YOU•GET•RICH|
 |eICP|2ulkl-dqaaa-aaaar-qaijq-cai|Bitcoin-runes-BILLION•DOLLAR•CAT|
 |eICP|fccua-waaaa-aaaar-qagnq-cai|Bitcoin-runes-HAWK•TUAH•FOR•PRESIDENT|
 |eICP|ic2be-wqaaa-aaaar-qahgq-cai|Bitcoin-runes-NON•STOP•NYAN•CAT|
