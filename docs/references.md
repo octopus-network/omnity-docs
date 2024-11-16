@@ -90,6 +90,7 @@ sidebar_position: 10
 |sICP|mymm4-2yaaa-aaaan-qmlwq-cai|sICP-icrc-CHAPX|
 |X Layer|0xfd4de66eca49799bdde66eb33654e2198ab7bba4|Bitcoin-runes-BOX•TOKEN•ON•BITCOIN|
 |X Layer|0x51ccde9ca75d95bb55ece1775fcbff91324b18a6|Bitcoin-runes-HOPE•YOU•GET•RICH|
+|osmosis|factory/osmo10c4y9csfs8q7mtvfg4p9gd8d0acx0hpc2mte9xqzthd7rd3348tsfhaesm/sICP-icrc-ckBTC|sICP-icrc-ckBTC|
 
 ## Chain Metadata
 |Chain Id|Canister Id|Contract Address|Fee Token|
