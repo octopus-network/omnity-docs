@@ -19,11 +19,12 @@ Generate an cross-chain transaction from icp network on Omnity.
 [`GenerateTicketError`](https://github.com/octopus-network/omnity-interoperability/)
 
 ```md title="Rust Input Example:"
+# The amount is multiplied by the decimals of the token(e.g. $sICP-icrc-ckUSDC has six decimals so the input will be 1*1_000_000).
 let args = GenerateTicketReq {
 		target_chain_id: "Bitfinity".to_string(),
 		receiver: "0xd1f4711f22e600E311f9485080866519ad4FbE3e".to_string(),
 		token_id: "sICP-icrc-ckUSDC".to_string(),
-		amount: 1,
+		amount: 1_000_000,
 		from_subaccount: None,
 	}
 ```
