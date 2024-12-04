@@ -36,8 +36,8 @@ redeem_token: {
 ## CosmWasm Proxy
 **Update:**
 ### update_balance_after_finalization
-```md title="update_balance_after_finalization(osmosis_account_id: String)"
-A scheduled task will be created to trigger the update balance for ckBTC, and if successful, it will call generate ticket.
+```md title="update_balance_after_finalization(osmosis_account_id: String, ticket_memo: Option<String>)"
+A scheduled task will be created to trigger the update balance for ckBTC, and if successful, it will call generate ticket. None on ticket_memo for ckBTC.
 ```
 
 **Query:**
