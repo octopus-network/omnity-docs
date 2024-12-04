@@ -1,9 +1,11 @@
 ---
-sidebar_position: 10
+sidebar_position: 15
 ---
 
 # References
 ## Chain Metadata
+***The last update of this table was on December 04, 2024.***
+
 |Chain Id|Canister Id|Contract Address|Fee Token|
 | --- | --- | --- | --- |
 |AILayer|pk76v-yyaaa-aaaar-qahxa-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|BTC|
@@ -19,13 +21,21 @@ sidebar_position: 10
 |eSolana|lvinw-hiaaa-aaaar-qahoa-cai|none|SOL|
 |Ethereum|3zfof-myaaa-aaaar-qaioa-cai|0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A|ethereum_ETH|
 |Merlin|govex-5aaaa-aaaar-qaghq-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|merlin_BTC|
-|RootStock|if3hq-3iaaa-aaaar-qahga-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|RBTC|
-|X Layer|gjucd-qyaaa-aaaar-qagha-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|OKB|
 |osmosis-1|ystyg-kaaaa-aaaar-qaieq-cai|none|uosmo
+|RootStock|if3hq-3iaaa-aaaar-qahga-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|RBTC|
 |sICP|nlgkm-4qaaa-aaaar-qah2q-cai|none|none|
+|Ton|p5ykc-qaaaa-aaaar-qalyq-cai|none|TON|
+|X Layer|gjucd-qyaaa-aaaar-qagha-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|OKB|
+
 
 
 ## Token Metadata
+***The last update of this table was on November 30, 2024.***
+If you cannot find the token ledger ids, please visit [here](https://explorer.omnity.network/tokens). 
+* For all the runes token type, please add the prefix "Bitcoin-runes-" to the token name(e.g Bitcoin-runes-HOPE•YOU•GET•RICH).
+* For all the brc20 token type, please add the prefix "Bitcoinbrc20-brc20-" to the token name(e.g Bitcoinbrc20-brc20-ORDI).
+* For all the icrc token type, please add the prefix "sICP-icrc-" to the token name(e.g sICP-icrc-ckBTC).
+
 |Name|Symbol|Token Id|Target Chains|Metadata|Decimals|Issue Chain|Icon
 | --- | --- | --- | --- | --- | --- | --- | --- |
 |BILLION•DOLLAR•CAT|BDC.OT|Bitcoin-runes-BILLION•DOLLAR•CAT|Bitcoin,eICP,Bitlayer,Bob|rune_id:845764:84|0|Bitcoin|https://ordinals.com/content/c5e59f3f8024c80fe7f8685c1d920f66cee5e9d4a423f3f293d844b291381ba5i0|
@@ -65,7 +75,12 @@ sidebar_position: 10
 |neuron ICP|nICP|sICP-icrc-nICP|sICP,Bitfinity|ledger_id:buwm7-7yaaa-aaaar-qagva-cai|8|sICP|https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/nICP.png|
 |ICP|ICP|sICP-native-ICP|sICP,Bitfinity|none|8|sICP|https://raw.githubusercontent.com/octopus-network/omnity-interoperability/9061b7e2ea9e0717b47010279ff1ffd6f1f4c1fc/assets/token_logo/icp.svg|
 
+
 ## Token Ledger Ids On Chains
+***The last update of this table was on November 20, 2024.***
+If you cannot find the token ledger ids, please visit [here](https://explorer.omnity.network/tokens) and find the corresponding chain token ledger ids by selecting the token, as shown in the image below:
+![token ledger ids](/img/1.png) 
+
 |Chain Id|Contract Id|Token Id|
 | --- | --- | --- |
 |AILayer|0xfd4de66eca49799bdde66eb33654e2198ab7bba4|Bitcoin-runes-HOPE•YOU•GET•RICH| 
@@ -153,8 +168,3 @@ sidebar_position: 10
 |X Layer|0xfd4de66eca49799bdde66eb33654e2198ab7bba4|Bitcoin-runes-BOX•TOKEN•ON•BITCOIN|
 |X Layer|0x51ccde9ca75d95bb55ece1775fcbff91324b18a6|Bitcoin-runes-HOPE•YOU•GET•RICH|
 |osmosis|factory/osmo10c4y9csfs8q7mtvfg4p9gd8d0acx0hpc2mte9xqzthd7rd3348tsfhaesm/sICP-icrc-ckBTC|sICP-icrc-ckBTC|
-
-***The last update of this table was on November 20, 2024.***
-
-If you cannot find the token ledger ids, please visit [here](https://explorer.omnity.network/tokens) and find the corresponding chain token ledger ids by selecting the token, as shown in the image:
-![token ledger ids](/img/1.png) 
