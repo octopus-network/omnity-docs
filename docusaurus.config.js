@@ -48,10 +48,11 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'Omnity-Hub/intro',
             position: 'left',
             label: 'OMNITY API',
           },
+          {to: '/ree', docId: 'REE/intro', label: 'REE', position: 'left', type: 'doc'},
         ],
       },
       prism: {
