@@ -63,6 +63,13 @@ Generate a ticket and send it to Hub.
 [`TxHash`](https://github.com/octopus-network/omnity-interoperability/)
 [`TicketId`](https://github.com/octopus-network/omnity-interoperability/)
 
+### generate_ticket
+```md title="generate_ticket(tx_hash: TxHash) -> std::result::Result<TicketId, String>"
+TODO
+```
+***Sources*** : 
+[`TxHash`](https://github.com/octopus-network/omnity-interoperability/)
+[`TicketId`](https://github.com/octopus-network/omnity-interoperability/)
 
 **Query:**
 ### mint_token_status
@@ -73,3 +80,15 @@ Returns the status of the wrapped token minting operation on the cosmos chain:
 ```
 ***Sources*** : 
 [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/)
+
+### get_chain_list
+```md title="get_chain_list() -> Vec<Chain>"
+Retrieve a list of chains that connect with the osmosis route.
+```
+***Sources*** : [`Chain`](https://github.com/octopus-network/omnity-interoperability)
+
+### get_token_list
+```md title="get_token_list() -> Vec<TokenResp>"
+Retrieve a list of tokens available on the osmosis route.
+```
+***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability)
