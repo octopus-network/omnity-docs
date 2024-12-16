@@ -9,8 +9,8 @@ sidebar_position: 7
 | OMNITY_SETTLEMENT_ICP | nlgkm-4qaaa-aaaar-qah2q-cai | sICP |
 
 ## Update
-### generate_ticket
-```md title="generate_ticket(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"
+### generate_ticket_v2
+```md title="generate_ticket_v2(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"
 Generate an cross-chain transaction from icp network on Omnity.
 ```
 ***Sources*** : 
@@ -32,8 +32,8 @@ let args = GenerateTicketReq {
 #### Workflow: 
 ***1***. Get the icp address from get_account_identifier by providing the receiver principal address. And this bitcoin deposit address is owned by the icp customs canister. This action is to lock the icrc tokens by transfering them to the deposit address.
 
-***2***. Put the GenerateTicketReq as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
-- [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
+***2***. Put the GenerateTicketReq as a parameter into generate_ticket_v2 from your dapp( either in ***Rust*** or ***Typescript*** ):
+- [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket_v2 in it.
 
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
 
