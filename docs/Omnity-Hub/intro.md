@@ -15,18 +15,18 @@ See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbF
 - **[eICP](https://github.com/octopus-network/omnity-interoperability/tree/main/route/icp)** A execution chain canister that manages the logic on icp network.
 - **[EVM](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm)** The evm route includes layer 2 evm-compatible instances and ethereum as execution chains.
 - **[Cosmwasm](https://github.com/octopus-network/cosmwasm-route)** CosmWasm Route is the component of the system that interfaces with the execution chains supporting CosmWasm.
-- **[Solana](https://github.com/octopus-network/omnity-interoperability)** A execution chain canister that manages the logic on solana network.
+- **[Solana](https://github.com/octopus-network/omnity-interoperability/tree/main/route/solana)** A execution chain canister that manages the logic on solana network.
 - **[Ton](https://github.com/octopus-network/omnity-interoperability)** A execution chain canister that manages the logic on ton network.
 
 ## Use Cases
 
-- For those interested in bridging brc20 tokens, please go to **[BRC20](https://docs.omnity.network/docs/brc20)**.
-- For those interested in bridging icp icrc tokens, please go to **[ICP ICRC](https://docs.omnity.network/docs/icp_icrc)**.
-- If you are interested in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://docs.omnity.network/docs/explorer)**.
-- If you are interested in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), a canister for indexing runes utxos on bitcoin, please go to **[Runes Indexer](https://docs.omnity.network/docs/runes_indexer)**.
-- For those interested in locking bitcoin natively on layer 1 and mint the wrapped bitcoin on the target chains, please go to **[CosmWasm](https://docs.omnity.network/docs/cosmwasm)** | **[Ton](https://docs.omnity.network/docs/ton)**.
-- If you are interested in integrating with [Omnity's cross-chain services](https://bridge.omnity.network/runes) or adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) for your convenience, please go to **[Runes On ICP](https://docs.omnity.network/docs/runes)** | **[Solana](https://docs.omnity.network/docs/solana)**.
-- If you are developing a defi project on one of the evm-compatible layer 2 networks listed on Omnity or on ethereum, and using a runes token as the project token, please go to **[Port Contract On EVM](https://docs.omnity.network/docs/evm)** to utilize the runes feature in generate_ticket.
+- For those interested in bridging brc20 tokens, please go to **[BRC20](https://docs.omnity.network/docs/Omnity-Hub/brc20)**.
+- For those interested in bridging icp icrc tokens, please go to **[ICP ICRC](https://docs.omnity.network/docs/Omnity-Hub/icp_icrc)**.
+- If you are interested in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://docs.omnity.network/docs/Omnity-Hub/explorer)**.
+- If you are interested in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), a canister for indexing runes utxos on bitcoin, please go to **[Runes Indexer](https://docs.omnity.network/docs/Omnity-Hub/runes_indexer)**.
+- For those interested in locking bitcoin natively on layer 1 and mint the wrapped bitcoin on the target chains, please go to **[CosmWasm](https://docs.omnity.network/docs/Omnity-Hub/cosmwasm)** | **[Ton](https://docs.omnity.network/docs/Omnity-Hub/ton)**.
+- If you are interested in integrating with [Omnity's cross-chain services](https://bridge.omnity.network/runes), such as adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) or [minting](https://docs.omnity.network/docs/Omnity-Hub/runes#generate_ticket-1)/[etching](https://docs.omnity.network/docs/Omnity-Hub/runes#etching) runes for your convenience, please go to **[Runes On ICP](https://docs.omnity.network/docs/Omnity-Hub/runes)** | **[Solana](https://docs.omnity.network/docs/Omnity-Hub/solana)**.
+- If you are developing a defi project on one of the evm-compatible layer 2 networks listed on Omnity or on ethereum, and using a runes token as the project token, please go to **[Port Contract On EVM](https://docs.omnity.network/docs/Omnity-Hub/evm)** to utilize the runes feature in generate_ticket.
 
 
 ## Code Examples

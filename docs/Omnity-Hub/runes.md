@@ -19,6 +19,7 @@ Both of the goals can be achieved by using generate_ticket on each side based on
 
 * For btc to icp, please use generate_ticket from Bitcoin as an transfer operation.
 * For minting runes from icp, please use generate_ticket from eICP with TxAction::Mint.
+* For etching runes from icp, please use etching from Bitcoin.
 * For withdrawing runes from icp to btc, please use generate_ticket from eICP with TxAction::Redeem.
 * For burning runes from icp (the runes tokens will be burnt on the layer 1 chain as well), please use generate_ticket from eICP with TxAction::Burn.
 
@@ -228,8 +229,65 @@ let args = GenerateTicketArgs {
 
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
 
+### etching
+```md title="etching(fee_rate: u64, args: EtchingArgs) -> Result<String, String>"
+Initiate etching. This api requires ICP tokens as the etching fee, determined by the result of the estimate_etching_fee function.
+The return is the tx_hash of the commit transaction.
+
+Parameters:
+fee_rate: The fee rate the user is willing to pay (must match the value entered during the fee estimation).
+args: The content for etching runes, represented as a structured parameter:
+		* rune_name: The name of the rune.
+		* divisibility: The precision of the runes, can be empty. It is 0 by default.
+		* amount: The smallest unit quantity that can be minted at one time. For example, if divisibility is 2, * * then 10000 represents 100.00.
+		* cap: The total number of times the rune can be minted.
+		* bridge_logo_url: This field is used for adding cross-chain information later and specifies the rune image.
+		* premine: The initial quantity of the smallest unit to mint. For example, if divisibility is 2, then 10000 represents 100.00.
+		* logo: The rune logo image, must match the inputs provided during fee estimation.
+```
+***Sources*** : [`EtchingArgs`](https://github.com/octopus-network/omnity-interoperability)
+
+#### Workflow: 
+estimate_etching_fee（Optional） -> etching (Optional）-> get_etching（Optional）
+
+### estimate_etching_fee
+```md title="estimate_etching_fee(fee_rate: u32, rune_name: String, logo: Option<LogoParams>) -> Result<u128, String>"
+Estimate the etching fee.
+The return is either a number or an error message. The number represents the amount of the smallest unit of ICP tokens required for payment. For example, 100000000 indicates 1 ICP.
+
+Parameters:
+ * fee_rate: The fee rate the user is willing to pay.
+ * rune_name: The name of the rune the user wants to etch, including the delimiter.
+ * logo: The image information of the rune. If no image needs to be uploaded, this can be left empty. This is a structured parameter containing two fields:
+			- content_type(String): The format of the image, such as image/png, image/jpeg, etc.
+			- content_base64(String): The base64-encoded content of the image.
+```
+***Sources*** : [`LogoParams`](https://github.com/octopus-network/omnity-interoperability)
+
 ----------------------------------------------------------------------------
 **Query:**
+### get_etching
+```md title="get_etching(commit_txid: String) -> Option<SendEtchingInfo>"
+Query rune etching status.
+
+Parameters: commit_txid: The return from etching.
+
+Return SendEtchingInfo: 
+ * commit_txid: The transaction hash of the commit transaction.
+ * reveal_txid: The transaction hash of the reveal transaction.
+ * time_at: The creation time.
+ * err_info: Contains error information if there are any errors, otherwise it is empty.
+ * etching_args: The etching content, consistent with the content submitted when initiating etching.
+ * status: The status of the etching, indicating the current phase and state. Possible values include:
+			- SendCommitSuccess: Indicates that the commit transaction for the etching has been successfully sent. The program will submit the reveal after 6 confirmations.
+			- SendCommitFailed: Indicates that the commit transaction for the etching failed, and there will be no further progress.
+			- SendRevealSuccess: Indicates that the reveal transaction has been successfully submitted. Subsequently, the corresponding cross-chain token will be added to the cross-chain bridge.
+			- SendRevealFailed: Indicates that the reveal transaction failed, and there will be no further progress.
+			- TokenAdded: Indicates that a request to add the token to the hub has been sent and successfully processed.
+			- Final: Indicates that bitcoin_customs has received the directive to add the token. There will be no further progress unless premine is required for the etching.
+```
+***Sources*** : [`SendEtchingInfo`](https://github.com/octopus-network/omnity-interoperability)
+
 ### release_token_status
 ```md title="release_token_status(ticket_id: String) -> ReleaseTokenStatus"
 Returns the status of the runes tokens withdrawal operation:
