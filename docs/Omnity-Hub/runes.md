@@ -237,13 +237,13 @@ The return is the tx_hash of the commit transaction.
 Parameters:
 fee_rate: The fee rate the user is willing to pay (must match the value entered during the fee estimation).
 args: The content for etching runes, represented as a structured parameter:
-		* rune_name: The name of the rune.
-		* divisibility: The precision of the runes, can be empty. It is 0 by default.
-		* amount: The smallest unit quantity that can be minted at one time. For example, if divisibility is 2, * * then 10000 represents 100.00.
-		* cap: The total number of times the rune can be minted.
-		* bridge_logo_url: This field is used for adding cross-chain information later and specifies the rune image.
-		* premine: The initial quantity of the smallest unit to mint. For example, if divisibility is 2, then 10000 represents 100.00.
-		* logo: The rune logo image, must match the inputs provided during fee estimation.
+		* rune_name(String): The name of the rune.
+		* divisibility(Option<u8>): The precision of the runes, can be empty. It is 0 by default.
+		* amount(u128): The smallest unit quantity that can be minted at one time. For example, if divisibility is 2, then 10000 represents 100.00.
+		* cap(u128): The total number of times the rune can be minted.
+		* bridge_logo_url(String): This field is used for adding cross-chain information later and specifies the rune image.
+		* premine(Option<u128>): The initial quantity of the smallest unit to mint. For example, if divisibility is 2, then 10000 represents 100.00.
+		* logo(Option<LogoParams>): The rune logo image, must match the inputs provided during fee estimation.
 ```
 ***Sources*** : [`EtchingArgs`](https://github.com/octopus-network/omnity-interoperability)
 
