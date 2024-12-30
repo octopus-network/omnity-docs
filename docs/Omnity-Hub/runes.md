@@ -248,7 +248,7 @@ args: The content for etching runes, represented as a structured parameter:
 ***Sources*** : [`EtchingArgs`](https://github.com/octopus-network/omnity-interoperability)
 
 #### Workflow: 
-estimate_etching_fee（Optional） -> etching (Optional）-> get_etching（Optional）
+estimate_etching_fee（Optional） -> etching -> get_etching（Optional）
 
 ### estimate_etching_fee
 ```md title="estimate_etching_fee(fee_rate: u32, rune_name: String, logo: Option<LogoParams>) -> Result<u128, String>"
