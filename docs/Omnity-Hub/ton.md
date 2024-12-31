@@ -17,6 +17,19 @@ Generate an cross-chain transaction from ton network on Omnity.
 [`GenerateTicketArgs`](https://github.com/octopus-network/omnity-interoperability/)
 [`Ticket`](https://github.com/octopus-network/omnity-interoperability/)
 
+```md title="Curl Request Example:"
+curl -X POST -H "Content-Type:application/json" --data 
+'{
+target_chain: "Bitfinity".to_string(),
+receiver: "0x61359C8034534d4B586AC7E09Bb87Bb8Cb2F1561".to_string(),
+amount: 10000,
+user_addr: "UQBHU4zFh3V1RVBnoduXarBdaTGpo-vDcT-jadel-hIpmyti".to_string(),
+jetton_master: "EQCW0ddLCQAn011bb8T2Xdoa40v6A_bL3cfjn0bplXdSKnWa".to_string(),
+bridge_fee: 500000000,
+}' https://brc20-mint.mainnet.octopus.network/jetton_burn
+```
+* jetton_master: The token contract on Ton. Each token has a jetton_master contract on the Ton.
+
 ```md title="Rust Input Example:"
 # The amount is multiplied by the decimals of the token(e.g. $sICP-icrc-ckUSDC has 8 decimals so the input 1 will be 1*100_000_000).
 let args = GenerateTicketArgs {
@@ -30,10 +43,10 @@ let args = GenerateTicketArgs {
 ```
 
 #### Workflow: 
-***1***. TODO!
+***1***. The UI will triger the [build_jetton_burn](https://github.com/octopus-network/brc20-mint/blob/main/src/main.rs#L60) function by making a http call using curl as shown in the example above to form the txid.
 
-***2***. Put the GenerateTicketReq as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
-- [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/bitcoin/src/main.rs#L195) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
+***2***. Put the txid as one of the parameter(GenerateTicketReq) into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
+- [omnity-interoperability](https://github.com/octopus-network/omnity-interoperability/) is the rust implementation of Omnity protocol. And you can find the detail of generate_ticket in it.
 
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
 
