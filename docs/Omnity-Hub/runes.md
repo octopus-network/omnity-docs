@@ -231,7 +231,9 @@ let args = GenerateTicketArgs {
 
 ### etching
 ```md title="etching(fee_rate: u64, args: EtchingArgs) -> Result<String, String>"
-Initiate etching. This api requires ICP tokens as the etching fee, determined by the result of the estimate_etching_fee function.
+Initiate etching. 
+This api requires ICP tokens as the etching fee, determined by the result of the estimate_etching_fee function.
+When terms is not null, the server will validate it as follows: both amount and cap must be greater than 0, and either height or offset must not be null.
 The return is the tx_hash of the commit transaction.
 
 Parameters:
@@ -239,11 +241,18 @@ fee_rate: The fee rate the user is willing to pay (must match the value entered 
 args: The content for etching runes, represented as a structured parameter:
 		* rune_name(String): The name of the rune.
 		* divisibility(Option<u8>): The precision of the runes, can be empty. It is 0 by default.
-		* amount(u128): The smallest unit quantity that can be minted at one time. For example, if divisibility is 2, then 10000 represents 100.00.
-		* cap(u128): The total number of times the rune can be minted.
-		* bridge_logo_url(String): This field is used for adding cross-chain information later and specifies the rune image.
-		* premine(Option<u128>): The initial quantity of the smallest unit to mint. For example, if divisibility is 2, then 10000 represents 100.00.
-		* logo(Option<LogoParams>): The rune logo image, must match the inputs provided during fee estimation.
+		* premine(Option<u128>): The initial quantity of the smallest unit to mint. For example, if the divisibility is 2, then 10000 represents 100.00.
+		* logo(Option<LogoParams>): The rune logo image, must match the inputs provided during fee estimation:
+			- content_type(String): The format of the image, such as image/png, image/jpeg, etc.
+			- content_base64(String): The base64-encoded content of the image.
+		* symbol(Option<String>): It's optional. The first character will be taken as the symbol if it is not None.
+		* turbo(bool): It indicates whether the rune chooses to participate in protocol changes, regardless of the nature of those changes.
+		* terms(Option<OrdinalsTerms>): It's used when etching is mintable, the struct fields are as follows:
+			- amount(Option<u128>): The smallest unit quantity that can be minted at one time. For example, if divisibility is 2, then 10000 represents 100.00.
+			- cap(Option<u128>): The total number of times the rune can be minted.
+			- height(Option<u64>, Option<u64>): A tuple representing the absolute height range for minting.
+			- offset(Option<u64>, Option<u64>): A tuple representing the relative height range for minting.
+		
 ```
 ***Sources*** : [`EtchingArgs`](https://github.com/octopus-network/omnity-interoperability)
 
