@@ -21,11 +21,37 @@ let indexer = Principal::from_text("o25oi-jaaaa-aaaal-ajj6a-cai").unwrap();
 let (result,): (Result<Vec<RuneBalance>, OrdError>,) = ic_cdk::call(indexer, "get_runes_by_utxo", ("ee8345590d85047c66a0e131153e5202b9bda3990bd07decd9df0a9bb2589348", 0)).await.unwrap();
 ```
 ***Sources*** : 
-[`RuneBalance`](https://github.com/octopus-network/ord-canister/blob/master/src/index/entry.rs#L15)
-[`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/src/lib.rs#L40)
+[`RuneBalance`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L24)
+[`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
+
+### query_runes
+```md query_runes(outpoints: Vec<String>) -> Result<Vec<Option<Vec<OrdRuneBalance>>>, OrdError>"
+The replacement for get_runes_balances (which previously had no valid return if there were fewer than 4 confirmations) now includes the number of block confirmations in the return. It is up to the application to decide whether to use the returned data based on the number of confirmations.
+```
+***Sources*** : 
+[`OrdRuneBalance`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L30)
+[`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
+
+### get_etching
+```md get_etching(txid: String) -> Result<Option<OrdEtching>, OrdError>"
+Check whether a transaction involves etching runes.
+It includes the number of block confirmations in the return. It is up to the application to decide whether to use the returned data based on the number of confirmations.
+```
+***Sources*** : 
+[`OrdEtching`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L39)
+[`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
+
+### get_rune_entry_by_rune_id
+```md get_rune_entry_by_rune_id(rune_id: String) -> Result<OrdRuneEntry, OrdError>"
+Query rune info by rune_id.
+It includes the number of block confirmations in the return. It is up to the application to decide whether to use the returned data based on the number of confirmations.
+```
+***Sources*** : 
+[`OrdRuneEntry`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L53)
+[`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
 
 ### get_height
 ```md title="get_height() -> Result<(u32, String), OrdError>"
-Retrieve the current block height of the indexer and it is 4 blocks less than the latest height on the bitcoin chain.
+Retrieve the current block height of the indexer and it is 4 blocks less than the latest height on the bitcoin chain and its hash.
 ```
-***Sources*** : [`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/src/lib.rs#L40)
+***Sources*** : [`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
