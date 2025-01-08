@@ -52,6 +52,6 @@ It includes the number of block confirmations in the return. It is up to the app
 
 ### get_height
 ```md title="get_height() -> Result<(u32, String), OrdError>"
-Retrieve the current block height of the indexer and it is 4 blocks less than the latest height on the bitcoin chain and its hash.
+Retrieve the current block height of the indexer and it is the latest height on the bitcoin chain and its hash.
 ```
 ***Sources*** : [`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
