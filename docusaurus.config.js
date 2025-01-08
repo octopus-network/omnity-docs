@@ -52,7 +52,7 @@ const config = {
             position: 'left',
             label: 'OMNITY API',
           },
-          {to: '/ree', docId: 'REE/intro', label: 'REE', position: 'left', type: 'doc'},
+          {to: '/ree', docId: 'REE/learn', label: 'REE', position: 'left', type: 'doc'},
         ],
       },
       prism: {
