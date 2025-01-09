@@ -275,6 +275,12 @@ Parameters:
 
 ----------------------------------------------------------------------------
 **Query:**
+### get_etching_by_user
+```md title="get_etching_by_user(user_addr: Principal) -> Vec<SendEtchingInfo>"
+Retrieve all rune etching information associated with the given user_addr.
+```
+***Sources*** : [`SendEtchingInfo`](https://github.com/octopus-network/omnity-interoperability)
+
 ### get_etching
 ```md title="get_etching(commit_txid: String) -> Option<SendEtchingInfo>"
 Query rune etching status.
