@@ -363,6 +363,8 @@ Generate an cross-chain transaction from icp network on Omnity.
 [`IcpChainKeyToken`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L346)
 
 ```md title="Rust Input Example:"
+# The amount is multiplied by the decimals of the runes(e.g. $HOPE•YOU•GET•RICH has two decimals so the input will be 10*100).
+
 let redeem_args = GenerateTicketReq {
 		target_chain_id: "Bitcoin".to_string(),
 		receiver: "bc1qu597cmaqx5zugsz805wt5qsw5gnsmjge50tm8y".to_string(),
@@ -401,6 +403,8 @@ let burn_args = GenerateTicketReq {
 ```
 
 #### Workflow: 
+***0***. The route uses the sub-account payment method. To use this api, the redeem fee must first be transferred to the sub-account. To check your sub-account, please use [get_fee_account](https://docs.omnity.network/docs/Omnity-Hub/runes#get_fee_account). To check the amount of the redeem fee, please use [get_redeem_fee](https://docs.omnity.network/docs/Omnity-Hub/runes#get_redeem_fee).
+
 ***1***. The operation will be executed on icp based on the TxAction, for example, for TxAction::Redeem, on the icp side, the corresponding wrapped icrc runes token will be burned by calling the ledger.approve for the sender, and from the bitcoin side, the runes indexer will verify the sender account to see if there is original runes tokens, if so, will transfer from the generated bitcoin account to the receiver account.
 
 ***2***. Put the GenerateTicketReq as a parameter into generate_ticket from your dapp( either in ***Rust*** or ***Typescript*** ):
@@ -420,6 +424,12 @@ Returns the status of the wrapped token minting operation:
 ***Sources*** : 
 [`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
 [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/state.rs#L15)
+
+### get_fee_account
+```md title="get_fee_account(principal: Option<Principal>) -> AccountIdentifier"
+The payment account corresponding to the principal to which you can pay the redeem fee.
+```
+***Sources*** : [`AccountIdentifier`](https://github.com/octopus-network/omnity-interoperability/blob/47295443c547d7f43c49dc350bfb6055a2e6700f/route/icp/src/main.rs#L9)
 
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
