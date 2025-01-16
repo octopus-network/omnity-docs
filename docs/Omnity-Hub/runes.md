@@ -239,12 +239,12 @@ The return is the tx_hash of the commit transaction.
 Parameters:
 fee_rate: The fee rate the user is willing to pay (must match the value entered during the fee estimation).
 args: The content for etching runes, represented as a structured parameter:
-		* rune_name(String): The name of the rune.
+		* rune_name(String): The name of the rune. Please use the bullet point ( • ) by pressing Option + 8 on a Mac, instead of the interpunct or middle dot ( · ), which is typed using Option + Shift + 9.
 		* divisibility(Option<u8>): The precision of the runes, can be empty. It is 0 by default.
 		* premine(Option<u128>): The initial quantity of the smallest unit to mint. For example, if the divisibility is 2, then 10000 represents 100.00.
 		* logo(Option<LogoParams>): The rune logo image, must match the inputs provided during fee estimation:
 			- content_type(String): The format of the image, such as image/png, image/jpeg, etc.
-			- content_base64(String): The base64-encoded content of the image.
+			- content_base64(String): The base64-encoded content of the image, which must not exceed 128 KB..
 		* symbol(Option<String>): It's optional. The first character will be taken as the symbol if it is not None.
 		* turbo(bool): It indicates whether the rune chooses to participate in protocol changes, regardless of the nature of those changes.
 		* terms(Option<OrdinalsTerms>): It's used when etching is mintable, the struct fields are as follows:
@@ -404,6 +404,16 @@ let burn_args = GenerateTicketReq {
 
 #### Workflow: 
 ***0***. The route uses the sub-account payment method. To use this api, the redeem fee must first be transferred to the sub-account. To check your sub-account, please use [get_fee_account](https://docs.omnity.network/docs/Omnity-Hub/runes#get_fee_account). To check the amount of the redeem fee, please use [get_redeem_fee](https://docs.omnity.network/docs/Omnity-Hub/runes#get_redeem_fee).
+```md title="Transfer Redeem Fee To The Sub-account Request Example:"
+❯ dfx canister call icp_route get_readable_fee_account '(opt principal "m5xqm-szf2q-6pzbe-r5cmv-hnit5-rx45g-mh6tw-b6nnn-3caj5-hqnok-2ae")' --ic
+("a128e5464b8d3583b680fac266ad9b8a578d746d274da8781791631756dad8fb")
+
+❯ dfx canister call icp_route get_redeem_fee '("Bitcoin")' --ic
+(opt (60_010_000 : nat64))
+
+❯ dfx ledger transfer --memo 1 --e8s 60_010_000 --ic a128e5464b8d3583b680fac266ad9b8a578d746d274da8781791631756dad8fb
+Transfer sent at block height 19032899
+```
 
 ***1***. The operation will be executed on icp based on the TxAction, for example, for TxAction::Redeem, on the icp side, the corresponding wrapped icrc runes token will be burned by calling the ledger.approve for the sender, and from the bitcoin side, the runes indexer will verify the sender account to see if there is original runes tokens, if so, will transfer from the generated bitcoin account to the receiver account.
 
@@ -454,3 +464,8 @@ Get the token ledger canister id based on token_id.
 Get the fee information needed for redeeming chain_id on icp.
 ```
 ***Sources*** : [`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L23)
+
+### get_readable_fee_account
+```md title="get_readable_fee_account(principal: Option<Principal>) -> String"
+Generates a readable account identifier for a fee-related account using the provided principal or defaults to the caller's principal if none is specified.
+```
