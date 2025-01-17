@@ -237,7 +237,7 @@ When terms is not null, the server will validate it as follows: both amount and 
 The return is the tx_hash of the commit transaction.
 
 Parameters:
-fee_rate: The fee rate the user is willing to pay (must match the value entered during the fee estimation).
+fee_rate: The fee rate the user is willing to pay (it should be the same as the first argument as get_estimate_fee).
 args: The content for etching runes, represented as a structured parameter:
 		* rune_name(String): The name of the rune. Please use the bullet point ( • ) by pressing Option + 8 on a Mac, instead of the interpunct or middle dot ( · ), which is typed using Option + Shift + 9.
 		* divisibility(Option<u8>): The precision of the runes, can be empty. It is 0 by default.
@@ -255,9 +255,16 @@ args: The content for etching runes, represented as a structured parameter:
 		
 ```
 ***Sources*** : [`EtchingArgs`](https://github.com/octopus-network/omnity-interoperability)
+```md title="Request Example:"
+# Assume you have fetched the fee using estimate_etching_fee, with a value of 50_410_029. Next, call the icrc2_approve method of the ICP canister to authorize our canister (7rvjr-3qaaa-aaaar-qaeyq-cai) to spend the transaction fee.
+> dfx canister call ryjl3-tyaaa-aaaaa-aaaba-cai icrc2_approve '(record { spender = record {owner = principal "7rvjr-3qaaa-aaaar-qaeyq-cai"; subaccount = null}; amount =   50_410_029; })' --ic
+
+# Proceed with etching after calling the icrc2_approve method.
+> dfx canister call 7rvjr-3qaaa-aaaar-qaeyq-cai etching '(5 ,record { rune_name = "BLOCKMINER•FUN"; divisibility = opt 1; premine = opt 21000000; logo = opt record { content_type = "image/svg+xml"; content_base64 = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNjAwIDYwMCI+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI2MDAiIHN0eWxlPSJmaWxsOiAjMGQxMDE3OyIvPgogIDxnPgogICAgPHBvbHlnb24gcG9pbnRzPSIxMDcuNjQgMzE0LjMyIDEzNy45OCAzMjkuNzUgMTM4Ljk5IDIyOS42NyAxMDYuOTggMjQ1Ljk1IDEwNy42NCAzMTQuMzIiIHN0eWxlPSJmaWxsOiAjNjViNzQxOyIvPgogICAgPHBvbHlnb24gcG9pbnRzPSI0OTIuMzYgMzE0LjMyIDQ2Mi4wMiAzMjkuNzUgNDYxLjAxIDIyOS42NyA0OTMuMDIgMjQ1Ljk1IDQ5Mi4zNiAzMTQuMzIiIHN0eWxlPSJmaWxsOiAjNjViNzQxOyIvPgogICAgPHBhdGggZD0iTTQ4MS40MSwxODMuMTNoLTMxLjUxYy0uOTktNzEuMjYtNjcuNzEtMTI4Ljc2LTE0OS44OS0xMjguNzZzLTE0OC45MSw1Ny41LTE0OS44OSwxMjguNzZoLTMxLjUxYy02Ljk2LDAtMTIuNjEsNS42NS0xMi42MSwxMi42MXYxNWMwLDYuOTYsNS42NSwxMi42MSwxMi42MSwxMi42MWgzNjIuODFjNi45NiwwLDEyLjYxLTUuNjUsMTIuNjEtMTIuNjF2LTE1YzAtNi45Ni01LjY1LTEyLjYxLTEyLjYxLTEyLjYxWk0xODcuMDgsMTc1Ljg0aC03LjExbC0zLjU1LTYuMTUsMy41NS02LjE1aDcuMTFsMy41NSw2LjE1LTMuNTUsNi4xNVpNNDIwLjAyLDE3NS44NGgtNy4xMWwtMy41NS02LjE1LDMuNTUtNi4xNWg3LjExbDMuNTUsNi4xNS0zLjU1LDYuMTVaIiBzdHlsZT0iZmlsbDogIzY1Yjc0MTsiLz4KICAgIDxyZWN0IHg9IjIyMi44MSIgeT0iNDMuOTQiIHdpZHRoPSIxNTQuMzgiIGhlaWdodD0iMTMyLjQ3IiByeD0iNS4yOSIgcnk9IjUuMjkiIHN0eWxlPSJmaWxsOiAjNTk4OTNmOyIvPgogICAgPHJlY3QgeD0iMjU1LjgyIiB5PSIyMi41IiB3aWR0aD0iODguMzYiIGhlaWdodD0iMTMyLjQ3IiByeD0iNS4yOSIgcnk9IjUuMjkiIHN0eWxlPSJmaWxsOiAjNjViNzQxOyIvPgogICAgPGNpcmNsZSBjeD0iMzAwIiBjeT0iMTQ2LjE2IiByPSI2My42MyIgc3R5bGU9ImZpbGw6ICM1OTg5M2Y7IHN0cm9rZTogIzBkMTAxNzsgc3Ryb2tlLW1pdGVybGltaXQ6IDEwOyBzdHJva2Utd2lkdGg6IDJweDsiLz4KICAgIDxjaXJjbGUgY3g9IjMwMCIgY3k9IjE0NC41NiIgcj0iNDEuMTciIHN0eWxlPSJmaWxsOiAjNjViNzQxOyIvPgogICAgPHBvbHlnb24gcG9pbnRzPSIzMDAuMzMgNTc3LjUgNDQ3LjM0IDQ0NC4wMyA0NDcuMzQgMjM0LjgyIDE1Mi42NiAyMzQuODIgMTU0Ljg5IDIzNC44MiAxNTIuNjYgNDQ1LjkxIDMwMC4zMyA1NzcuNSIgc3R5bGU9ImZpbGw6IG5vbmU7IHN0cm9rZTogIzY1Yjc0MTsgc3Ryb2tlLW1pdGVybGltaXQ6IDEwOyBzdHJva2Utd2lkdGg6IDlweDsiLz4KICAgIDxwYXRoIGQ9Ik0xNTEuNSwyODguMXYyNi42NGw0NS4xMiw0MS45N3YxMDMuNThsNTUuOTYsNTIuMDZoOTMuNWw1NS43My01MS44NXYtMTAzLjQ5bDQ2LjctNDMuNDV2LTI1LjU3bC0yOTcsLjFaTTM1Mi42MSw0MTMuMzJjLTEwLjc3LDE0LjItMjcuNTksMjkuMDYtNTMuNDYsMjkuMDZzLTQyLjQzLTE0Ljg2LTUzLjYtMjkuMDZ2LTE1LjA4YzEzLDE1Ljc1LDMwLjA4LDI3Ljk1LDUzLjczLDI3Ljk1czQwLjMzLTExLjk4LDUzLjMzLTI3Ljk1djE1LjA4WiIgc3R5bGU9ImZpbGw6ICM2NWI3NDE7Ii8+CiAgICA8cGF0aCBkPSJNMTQ5LjE5LDIyNy42N3Y2Ny44N2gxMDUuN2w0Ni4yOCw2MS40Ni42My0uMjIsNDYuODEtNjIuODFoMTAyLjJ2LTY2LjNIMTQ5LjE5Wk0zOTMuNTgsMjc3LjU1aC0xODcuMTZ2LTM0LjU0aDE4Ny4xNnYzNC41NFoiIHN0eWxlPSJmaWxsOiAjNTk4OTNmOyIvPgogIDwvZz4KPC9zdmc+"; }; symbol = opt "BKM"; terms = null; turbo = true })' --ic
+```
 
 #### Workflow: 
-estimate_etching_fee（Optional） -> etching -> get_etching（Optional）
+estimate_etching_fee（Optional） -> etching(The icrc2_approve method should be called beforehand) -> get_etching（Optional）
 
 ### estimate_etching_fee
 ```md title="estimate_etching_fee(fee_rate: u32, rune_name: String, logo: Option<LogoParams>) -> Result<u128, String>"
