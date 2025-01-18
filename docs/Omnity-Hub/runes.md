@@ -446,12 +446,6 @@ Returns the status of the wrapped token minting operation:
 [`TicketId`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L26)
 [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/icp/src/state.rs#L15)
 
-### get_fee_account
-```md title="get_fee_account(principal: Option<Principal>) -> AccountIdentifier"
-The payment account corresponding to the principal to which you can pay the redeem fee.
-```
-***Sources*** : [`AccountIdentifier`](https://github.com/octopus-network/omnity-interoperability/blob/47295443c547d7f43c49dc350bfb6055a2e6700f/route/icp/src/main.rs#L9)
-
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
 Retrieve a list of chains that connect with icp.
