@@ -5,53 +5,52 @@ sidebar_position: 3
 # Runes Indexer
 **Query Only**
 
-**[The ord canister](https://github.com/octopus-network/ord-canister)** periodically fetch bitcoin blocks from btc-rpc-proxy since 840000 using http-outcall and resolve all transactions to runes utxos. The main purpose of this canister is providing an online decentralized runes indexer for querying all etched runes assets given a utxo. See how it is used in [Omnity](https://github.com/octopus-network/omnity-interoperability/blob/main/customs/oracle_canister/src/oracle.rs#L26).
+**[Runes Indexer](https://github.com/octopus-network/runes-indexer)** is a canister deployed on the ic that continuously fetches bitcoin blocks through https outcalls from bitcoin rpc. The blocks are verified using ic's bitcoin integration. Once verified, the indexer parses and indexes runes information within each block. See how it is used in [Omnity](https://github.com/octopus-network/omnity-interoperability/tree/main/proxy/runes_proxy).
+
+[This guide](https://github.com/octopus-network/runes-indexer/blob/master/development-guide.md) assists developers in setting up their local development environment and running tests for Runes Indexer.
 
 |  | Canister Id |
 | --- | --- |
-| ORD_CANISTER | o25oi-jaaaa-aaaal-ajj6a-cai |
+| CANISTER | kzrva-ziaaa-aaaar-qamyq-cai |
 
-### get_runes_by_utxo
-```md title="get_runes_by_utxo(txid: String, vout: u32) -> Result<Vec<RuneBalance>, OrdError>"
-Retrieve a list of RuneBalance contains information about the balance of the runes associated with a particular utxo from the vout and txid.
-```
-```jsx title="Rust Usage Example:"
-use rune_indexer_interface::*;
-let indexer = Principal::from_text("o25oi-jaaaa-aaaal-ajj6a-cai").unwrap();
-let (result,): (Result<Vec<RuneBalance>, OrdError>,) = ic_cdk::call(indexer, "get_runes_by_utxo", ("ee8345590d85047c66a0e131153e5202b9bda3990bd07decd9df0a9bb2589348", 0)).await.unwrap();
+### get_latest_block
+```md title="get_latest_block() -> (u32, String)"
+Returns the latest indexed block height and hash.
 ```
 ***Sources*** : 
-[`RuneBalance`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L24)
-[`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
-
-### query_runes
-```md query_runes(outpoints: Vec<String>) -> Result<Vec<Option<Vec<OrdRuneBalance>>>, OrdError>"
-The replacement for get_runes_balances (which previously had no valid return if there were fewer than 4 confirmations) now includes the number of block confirmations in the return. It is up to the application to decide whether to use the returned data based on the number of confirmations.
-```
-***Sources*** : 
-[`OrdRuneBalance`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L30)
-[`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
+[`codes`](https://github.com/octopus-network/runes-indexer/blob/master/canister/src/main.rs#L14)
+[`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_latest_block)
 
 ### get_etching
-```md get_etching(txid: String) -> Result<Option<OrdEtching>, OrdError>"
-Check whether a transaction involves etching runes.
+```md get_etching(txid: String) -> Option<GetEtchingResult>"
+Retrieves the rune_id that was etched in a specific transaction.
 It includes the number of block confirmations in the return. It is up to the application to decide whether to use the returned data based on the number of confirmations.
 ```
 ***Sources*** : 
-[`OrdEtching`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L39)
-[`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
+[`codes`](https://github.com/octopus-network/runes-indexer/blob/master/canister/src/main.rs#L21)
+[`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_etching)
 
-### get_rune_entry_by_rune_id
-```md get_rune_entry_by_rune_id(rune_id: String) -> Result<OrdRuneEntry, OrdError>"
-Query rune info by rune_id.
+### query_rune
+```md get_rune(str_spaced_rune: String) -> Option<RuneEntry>"
+Retrieves detailed information about a rune using its spaced name.
 It includes the number of block confirmations in the return. It is up to the application to decide whether to use the returned data based on the number of confirmations.
 ```
 ***Sources*** : 
-[`OrdRuneEntry`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L53)
-[`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
+[`codes`](https://github.com/octopus-network/runes-indexer/blob/master/canister/src/main.rs#L33)
+[`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_rune)
 
-### get_height
-```md title="get_height() -> Result<(u32, String), OrdError>"
-Retrieve the current block height of the indexer and it is the latest height on the bitcoin chain and its hash.
+### get_rune_by_id
+```md get_rune_by_id(str_rune_id: String) -> Option<RuneEntry>"
+Similar to get_rune, but uses the rune_id as identifier instead of the spaced name.
 ```
-***Sources*** : [`OrdError`](https://github.com/octopus-network/ord-canister/blob/master/interface/src/lib.rs#L70)
+***Sources*** : 
+[`codes`](https://github.com/octopus-network/runes-indexer/blob/master/canister/src/main.rs#L63)
+[`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_rune_by_id)
+
+### get_rune_balances_for_outputs
+```md title="get_rune_balances_for_outputs(outpoints: Vec<String>) -> Result<Vec<Option<Vec<RuneBalance>>>, Error> "
+Retrieves rune balances for a list of transaction outputs.
+```
+***Sources*** : 
+[`codes`](https://github.com/octopus-network/runes-indexer/blob/master/canister/src/main.rs#L92)
+[`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_rune_balances_for_outputs)
