@@ -22,7 +22,7 @@ Returns the latest indexed block height and hash.
 [`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_latest_block)
 
 ### get_etching
-```md get_etching(txid: String) -> Option<GetEtchingResult>"
+```md title="get_etching(txid: String) -> Option<GetEtchingResult>"
 Retrieves the rune_id that was etched in a specific transaction.
 It includes the number of block confirmations in the return. It is up to the application to decide whether to use the returned data based on the number of confirmations.
 ```
@@ -30,8 +30,8 @@ It includes the number of block confirmations in the return. It is up to the app
 [`codes`](https://github.com/octopus-network/runes-indexer/blob/master/canister/src/main.rs#L21)
 [`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_etching)
 
-### query_rune
-```md get_rune(str_spaced_rune: String) -> Option<RuneEntry>"
+### get_rune
+```md title="get_rune(str_spaced_rune: String) -> Option<RuneEntry>"
 Retrieves detailed information about a rune using its spaced name.
 It includes the number of block confirmations in the return. It is up to the application to decide whether to use the returned data based on the number of confirmations.
 ```
@@ -40,7 +40,7 @@ It includes the number of block confirmations in the return. It is up to the app
 [`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_rune)
 
 ### get_rune_by_id
-```md get_rune_by_id(str_rune_id: String) -> Option<RuneEntry>"
+```md title="get_rune_by_id(str_rune_id: String) -> Option<RuneEntry>"
 Similar to get_rune, but uses the rune_id as identifier instead of the spaced name.
 ```
 ***Sources*** : 
