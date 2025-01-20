@@ -11,6 +11,7 @@ See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbF
 - **[Hub](https://github.com/octopus-network/omnity-interoperability/tree/main/hub)** A canister (smart contract) on [icp](https://internetcomputer.org/) that handles chain and token registration and ticket (transaction) execution, and it also lists settlement chains and execution chains.
 - **[Bitcoin Runes](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin_runes)** A settlement chain canister that manages the logic on the bitcoin network, it is where runes assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
 - **[Bitcoin Brc20](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin_brc20)** A settlement chain canister that manages the logic on the bitcoin network, it is where brc20 assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
+- **[Dogecoin](https://github.com/octopus-network/omnity-interoperability)** A settlement chain canister that manages the logic on the dogecoin network.
 - **[sICP](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/icp)** A settlement chain canister that manages on icp network.
 - **[eICP](https://github.com/octopus-network/omnity-interoperability/tree/main/route/icp)** A execution chain canister that manages the logic on icp network.
 - **[EVM](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm)** The evm route includes layer 2 evm-compatible instances and ethereum as execution chains.
@@ -22,6 +23,7 @@ See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbF
 
 - For those interested in bridging brc20 tokens, please go to **[BRC20](https://docs.omnity.network/docs/Omnity-Hub/brc20)**.
 - For those interested in bridging icp icrc tokens, please go to **[ICP ICRC](https://docs.omnity.network/docs/Omnity-Hub/icp_icrc)**.
+- For those interested in bridging dogecoin tokens, please go to **[Dogecoin](https://docs.omnity.network/docs/Omnity-Hub/dogecoin)**.
 - If you are interested in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://docs.omnity.network/docs/Omnity-Hub/explorer)**.
 - If you are interested in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), a canister for indexing runes utxos on bitcoin, please go to **[Runes Indexer](https://docs.omnity.network/docs/Omnity-Hub/runes_indexer)**.
 - For those interested in locking bitcoin natively on layer 1 and mint the wrapped bitcoin on the target chains, please go to **[CosmWasm](https://docs.omnity.network/docs/Omnity-Hub/cosmwasm)** | **[Ton](https://docs.omnity.network/docs/Omnity-Hub/ton)**.
