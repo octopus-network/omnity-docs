@@ -28,129 +28,363 @@ Both of the goals can be achieved by using generate_ticket on each side based on
 ### add_runes_token
 Add new runes tokens token.
 ```md title="add_runes_token(args: AddRunesTokenReq) -> Result<(), SelfServiceError>"
+Parameters:
+args: AddRunesTokenReq - a struct containing:
+			* rune_id: String
+			* symbol: String
+			* icon: String
+			* dest_chain: ChainId
 
+Returns:
+Result: a variant containing either:
+        Ok: the operation succeeded, but there is no additional value or data to return
+        SelfServiceError: the operation failed, and the SelfServiceError provides details about the failure
+        
 ```
 
 ----------------------------------------------------------------------------
 **Query:**
 ### get_total_tx
 Get the total number of transactions on Omnity. 
-```md title="get_total_tx() -> Result<u64, OmnityError>"
-
+```md title="get_total_tx() -> Result<u64, Error>"
+Returns:
+Result: a variant containing either:
+        u64: the total number of transactions
+        Error: an error message as a string will be returned if the operation fails
 ``` 
 
 ### query_tx_hash
 Query the transaction hash for the ticket_id.
 ```md title="query_tx_hash(ticket_id: TicketId) -> Result<TxHash, Error>"
-
+Returns:
+Result: a variant containing either:
+        TxHash: the transaction hash
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_self_service_fee
 Obtain the fees for adding both a chain and a token.
 ```md title="get_self_service_fee() -> SelfServiceFee"
-
+Returns:
+Result: a variant containing either:
+        SelfServiceFee: a struct containing:
+			* add_token_fee: u64
+			* add_chain_fee: u64
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_chains
 Specify filters to narrow down the list of chains based on the chain_type and chain_state and manage pagination by providing an offset and limit.
 ```md title="get_chains(chain_type: Option<ChainType>, chain_state: Option<ChainState>, offset: usize, limit: usize) -> Result<Vec<Chain>, Error>"
+Parameters:
+chain_type: Option<ChainType>
+chain_state: Option<ChainState>
+offset: usize
+limit: usize
 
+Returns:
+Result: a variant containing either:
+        Vec<Chain>: a struct containing:
+			* chain_id: ChainId
+			* canister_id: String
+			* chain_type: ChainType
+			* chain_state: ChainState
+			* contract_address: Option<String>
+			* counterparties: Option<Vec<ChainId>>
+			* fee_token: Option<TokenId>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_chain
 Retrieve the metadata for the chain_id.
 ```md title="get_chain(chain_id: String) -> Result<Chain, Error>"
-
+Returns:
+Result: a variant containing either:
+        Chain: a struct containing:
+			* chain_id: ChainId,
+			* canister_id: String
+			* chain_type: ChainType
+			* chain_state: ChainState
+			* contract_address: Option<String>
+			* counterparties: Option<Vec<ChainId>>
+			* fee_token: Option<TokenId>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_tokens
 Specify filters to narrow down the list of tokens metadata based on the either ChainId or TokenId and manage pagination by providing an offset and limit.
 ```md title="get_tokens(chain_id: Option<ChainId>, token_id: Option<TokenId>, offset: usize, limit: usize) -> Result<Vec<TokenResp>, Error>"
+Parameters:
+chain_id: Option<ChainId>
+token_id: Option<TokenId>
+offset: usize
+limit: usize
 
+Returns:
+Result: a variant containing either:
+        Vec<TokenResp>: a struct containing:
+			* token_id: TokenId
+			* name: String
+			* symbol: String
+			* decimals: u8
+			* icon: Option<String>
+			* rune_id: Option<String>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_fees
 Specify filters to narrow down the list of fees based on the either ChainId or TokenId and manage pagination by providing an offset and limit.
 ```md title="get_fees(chain_id: Option<ChainId>,token_id: Option<TokenId>,offset: usize,limit: usize) -> Result<Vec<(ChainId, TokenId, u128)>, Error>"
+Parameters:
+chain_id: Option<ChainId>
+token_id: Option<TokenId>
+offset: usize
+limit: usize
+
+Returns:
+Result: a variant containing either:
+        Vec<(ChainId, TokenId, u128)>: chain id, token id, the fee amount
+        Error: an error message as a string will be returned if the operation fails
 
 ```
 
 ### get_chain_tokens
 Specify filters to narrow down the list of token amount on a chain based on the either ChainId or TokenId and manage pagination by providing an offset and limit.
 ```md title="get_chain_tokens(chain_id: Option<ChainId>,token_id: Option<TokenId>,offset: usize,limit: usize) -> Result<Vec<TokenOnChain>, Error>"
+Parameters:
+chain_id: Option<ChainId>
+token_id: Option<TokenId>
+offset: usize
+limit: usize
 
+Returns:
+Result: a variant containing either:
+        Vec<TokenOnChain>: a struct containing: 
+					* chain_id: ChainId
+					* token_id: TokenId
+					* amount: u128
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_tx
 Retrieve the metadata for the transaction using the TicketId.
 ```md title="get_tx(ticket_id: TicketId) -> Result<Ticket, Error>"
+Parameters:
+ticket_id: TicketId
 
+Returns:
+Result: a variant containing either:
+        Vec<Ticket>: a struct containing: 
+					* ticket_id: TicketId,
+					* ticket_type: TicketType
+					* ticket_time: Timestamp
+					* src_chain: ChainId
+					* dst_chain: ChainId
+					* action: TxAction
+					* token: TokenId
+					* amount: String
+					* sender: Option<Account>
+					* receiver: Account
+					* memo: Option<Vec<u8>>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_txs_with_chain
 Retrieve a list of transactions based on src_chain, dst_chain, token_id, time_range and manage pagination by providing an offset and limit.
 ```md title="get_txs_with_chain(src_chain: Option<ChainId>, dst_chain: Option<ChainId>, token_id: Option<TokenId>, time_range: Option<(u64, u64)>, offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
+Parameters:
+src_chain: Option<ChainId>
+dst_chain: Option<ChainId>
+token_id: Option<TokenId>
+time_range: Option<(u64, u64)>
+offset: usize
+limit: usize
 
+Returns:
+Result: a variant containing either:
+        Vec<Ticket>: a struct containing: 
+					* ticket_id: TicketId,
+					* ticket_type: TicketType
+					* ticket_time: Timestamp
+					* src_chain: ChainId
+					* dst_chain: ChainId
+					* action: TxAction
+					* token: TokenId
+					* amount: String
+					* sender: Option<Account>
+					* receiver: Account
+					* memo: Option<Vec<u8>>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_txs_with_account
 Retrieve a list of transactions based on sender, receiver, token_id, time_range and manage pagination by providing an offset and limit.
 ```md title="get_txs_with_account(sender: Option<ChainId>, receiver: Option<ChainId>, token_id: Option<TokenId>, time_range: Option<(u64, u64)>, offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
+Parameters:
+sender: Option<ChainId>
+receiver: Option<ChainId>
+token_id: Option<TokenId>
+time_range: Option<(u64, u64)>
+offset: usize
+limit: usize
 
+Returns:
+Result: a variant containing either:
+        Vec<Ticket>: a struct containing: 
+					* ticket_id: TicketId,
+					* ticket_type: TicketType
+					* ticket_time: Timestamp
+					* src_chain: ChainId
+					* dst_chain: ChainId
+					* action: TxAction
+					* token: TokenId
+					* amount: String
+					* sender: Option<Account>
+					* receiver: Account
+					* memo: Option<Vec<u8>>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_txs
 Retrieve all historical transactions from the start.
 ```md title="get_txs(offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
+Parameters:
+offset: usize - this is used for pagination. It tells the api where to start fetching tickets from. for example, if you already fetched 100 tickets, setting offset to 100 would return the next 100 tickets
+limit: usize - this specifies the maximum number of tickets to fetch in a single call. It's like setting the page size for your results (e.g., get 50 tickets at a time).
 
+Returns:
+Result: a variant containing either:
+        Vec<Ticket>: a struct containing: 
+					* ticket_id: TicketId,
+					* ticket_type: TicketType
+					* ticket_time: Timestamp
+					* src_chain: ChainId
+					* dst_chain: ChainId
+					* action: TxAction
+					* token: TokenId
+					* amount: String
+					* sender: Option<Account>
+					* receiver: Account
+					* memo: Option<Vec<u8>>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_chain_metas
 Retrieve all chain metadata and manage pagination by providing an offset and limit.
 ```md title="get_chain_metas(offset: usize, limit: usize) -> Result<Vec<ChainMeta>, Error>"
+Parameters:
+offset: usize - this is used for pagination. It tells the api where to start fetching tickets from. for example, if you already fetched 100 tickets, setting offset to 100 would return the next 100 tickets
+limit: usize - this specifies the maximum number of tickets to fetch in a single call. It's like setting the page size for your results (e.g., get 50 tickets at a time).
 
+Returns:
+Result: a variant containing either:
+        Vec<ChainMeta>: a struct containing: 
+					* chain_id: ChainId
+					* canister_id: String
+					* chain_type: ChainType
+					* chain_state: ChainState
+					* contract_address: Option<String>
+					* counterparties: Option<Vec<ChainId>>
+					* fee_token: Option<TokenId>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_chain_size
 Get the total number of chains on Omnity.
 ```md title="get_chain_size() -> Result<u64, Error>"
-
+Returns:
+Result: a variant containing either:
+        u64: the total number of chains
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_token_metas
 Retrieve all token metadata and manage pagination by providing an offset and limit.
 ```md title="get_token_metas(offset: usize, limit: usize) -> Result<Vec<TokenMeta>, Error>"
+Parameters:
+offset: usize - this is used for pagination. It tells the api where to start fetching tickets from. for example, if you already fetched 100 tickets, setting offset to 100 would return the next 100 tickets
+limit: usize - this specifies the maximum number of tickets to fetch in a single call. It's like setting the page size for your results (e.g., get 50 tickets at a time).
 
+Returns:
+Result: a variant containing either:
+        Vec<TokenMeta>: a struct containing: 
+					* token_id: TokenId
+					* name: String
+					* symbol: String
+					* issue_chain: ChainId
+					* decimals: u8
+					* icon: Option<String>
+					* metadata: HashMap<String, String>
+					* dst_chains: Vec<ChainId>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_token_size
 Get the total number of tokens on Omnity.
 ```md title="get_token_size() -> Result<u64, Error>"
-
+Returns:
+Result: a variant containing either:
+        u64: the total number of tokens
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### sync_ticket_size
 Get the total number of transactions on Omnity.
 ```md title="sync_ticket_size() -> Result<u64, Error>"
-
+Returns:
+Result: a variant containing either:
+        u64: the total number of tickets excluding the pending ones
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### sync_tickets
 Retrieve all ticket data and manage pagination by providing an offset and limit.
 ```md title="sync_tickets(offset: usize, limit: usize) -> Result<Vec<(u64, Ticket)>, Error>"
+Parameters:
+offset: usize - this is used for pagination. It tells the api where to start fetching tickets from. for example, if you already fetched 100 tickets, setting offset to 100 would return the next 100 tickets
+limit: usize - this specifies the maximum number of tickets to fetch in a single call. It's like setting the page size for your results (e.g., get 50 tickets at a time).
 
+Returns:
+Result: a variant containing either:
+        Vec<(u64, Ticket)>: a list of tuple containing: 
+			* u64 - the ticket's sequence number
+			* Ticket - the detailed information associated with the ticket:
+				* ticket_id: TicketId,
+				* ticket_type: TicketType
+				* ticket_time: Timestamp
+				* src_chain: ChainId
+				* dst_chain: ChainId
+				* action: TxAction
+				* token: TokenId
+				* amount: String
+				* sender: Option<Account>
+				* receiver: Account
+				* memo: Option<Vec<u8>>
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_pending_ticket_size
 Get the total number of pending tickets on Omnity.
 ```md title="get_pending_ticket_size() -> Result<u64, Error>"
-
+Returns:
+Result: a variant containing either:
+        u64: the number of pending tickets
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 ### get_pending_tickets
 Retrieve all pending ticket data.
 ```md title="get_pending_tickets(offset: usize, limit: usize) -> Result<Vec<(TicketId, Ticket)>, Error>"
+Parameters:
+offset: usize - this is used for pagination. It tells the api where to start fetching tickets from. for example, if you already fetched 100 tickets, setting offset to 100 would return the next 100 tickets
+limit: usize - this specifies the maximum number of tickets to fetch in a single call. It's like setting the page size for your results (e.g., get 50 tickets at a time).
 
+Returns:
+Result: a variant containing either:
+        Vec<(TicketId, Ticket)>: a list of tuple containing: 
+			* TicketId - the ticket id
+			* Ticket - the detailed information associated with the ticket.
+        Error: an error message as a string will be returned if the operation fails
 ```
 
 

@@ -107,7 +107,7 @@ MintTokenStatus: a enum containing:
 Retrieve a list of chains that connect with the osmosis route.
 ```md title="get_chain_list() -> Vec<Chain>"
 Returns:
-Vec<Chain>: struct containing:
+Vec<Chain>: struct :
         chain_id: ChainId
         canister_id: String
         chain_type: ChainType
