@@ -124,7 +124,7 @@ outpoint: Vec<String> - array of outpoints in format "txid:vout"
 
 Returns:
 Result: variant containing either:
-Ok: Vector of optional rune balance records:
+Ok: vector of optional rune balance records:
         * confirmations: u32
         * divisibility: u8
         * amount: u128
@@ -166,3 +166,5 @@ Err: error information if the query fails
 ***Sources*** : 
 [`codes`](https://github.com/octopus-network/runes-indexer/blob/master/canister/src/main.rs#L92)
 [`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_rune_balances_for_outputs)
+
+Last updated on January 23, 2025

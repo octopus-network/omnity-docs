@@ -20,8 +20,13 @@ sidebar_position: 2
 
 ## Update
 ### generate_ticket
-```md title="generate_ticket(hash: String) -> Result<(), String>"
 Generate an cross-chain transaction from the layer 2 evm-compatible instances and ethereum. 
+```md title="generate_ticket(hash: String) -> Result<(), String>"
+Parameters:
+hash: String - transaction id
+
+Returns:
+String: error information if the query fails
 ```
 #### Workflow: 
 ***1***. Call the corresponding solidity function(e.g., burnToken) from your own contract in the UI and get the calculated function_hash:
@@ -106,6 +111,9 @@ Find more options for target_chain_id [here](https://docs.omnity.network/docs/re
 
 ***3***. Go to **[Omnity Explorer](https://explorer.omnity.network/)** to track the generated ticket status.
 
+
+
+
 ## Query
 ### mint_token_status
 ```md title="mint_token_status(ticket_id: String) -> MintTokenStatus"
@@ -113,22 +121,20 @@ Returns the status of the wrapped token minting operation on the layer 2 chain:
 * Finalized { tx_hash: String } represents the operation is succeeded with the transaction hash on the layer 2 chain.
 * Unknown represents the operation is not completed.
 ```
-***Sources*** : [`MintTokenStatus`](https://github.com/octopus-network/omnity-interoperability/blob/main/types/src/lib.rs#L778)
 
 ### get_chain_list
 ```md title="get_chain_list() -> Vec<Chain>"
 Retrieve a list of chains that connect with the layer 2 chain.
 ```
-***Sources*** : [`Chain`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/types.rs#L570)
 
 ### get_token_list
 ```md title="get_token_list() -> Vec<TokenResp>"
 Retrieve a list of tokens available on the layer 2 chain.
 ```
-***Sources*** : [`TokenResp`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/types.rs#L557)
 
 ### get_fee
 ```md title="get_fee(chain_id: ChainId) -> Option<u64>"
 Retrieve the transaction fee based on chain_id as the target chain.
 ```
-***Sources*** : [`ChainId`](https://github.com/octopus-network/omnity-interoperability/blob/main/route/evm/src/types.rs#L24)
+
+Last updated on January 25, 2025
