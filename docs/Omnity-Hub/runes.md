@@ -26,119 +26,151 @@ Both of the goals can be achieved by using generate_ticket on each side based on
 ## Hub
 **Update:**
 ### add_runes_token
-```md title="add_runes_token(args: AddRunesTokenReq) -> Result<(), SelfServiceError>"
 Add new runes tokens token.
+```md title="add_runes_token(args: AddRunesTokenReq) -> Result<(), SelfServiceError>"
+
 ```
 
 ----------------------------------------------------------------------------
 **Query:**
 ### get_total_tx
-```md title="get_total_tx() -> Result<u64, OmnityError>"
 Get the total number of transactions on Omnity. 
+```md title="get_total_tx() -> Result<u64, OmnityError>"
+
 ``` 
 
 ### query_tx_hash
-```md title="query_tx_hash(ticket_id: TicketId) -> Result<TxHash, Error>"
 Query the transaction hash for the ticket_id.
+```md title="query_tx_hash(ticket_id: TicketId) -> Result<TxHash, Error>"
+
 ```
 
 ### get_self_service_fee
-```md title="get_self_service_fee() -> SelfServiceFee"
 Obtain the fees for adding both a chain and a token.
+```md title="get_self_service_fee() -> SelfServiceFee"
+
 ```
 
 ### get_chains
-```md title="get_chains(chain_type: Option<ChainType>, chain_state: Option<ChainState>, offset: usize, limit: usize) -> Result<Vec<Chain>, Error>"
 Specify filters to narrow down the list of chains based on the chain_type and chain_state and manage pagination by providing an offset and limit.
+```md title="get_chains(chain_type: Option<ChainType>, chain_state: Option<ChainState>, offset: usize, limit: usize) -> Result<Vec<Chain>, Error>"
+
 ```
 
 ### get_chain
-```md title="get_chain(chain_id: String) -> Result<Chain, Error>"
 Retrieve the metadata for the chain_id.
+```md title="get_chain(chain_id: String) -> Result<Chain, Error>"
+
 ```
 
 ### get_tokens
-```md title="get_tokens(chain_id: Option<ChainId>, token_id: Option<TokenId>, offset: usize, limit: usize) -> Result<Vec<TokenResp>, Error>"
 Specify filters to narrow down the list of tokens metadata based on the either ChainId or TokenId and manage pagination by providing an offset and limit.
+```md title="get_tokens(chain_id: Option<ChainId>, token_id: Option<TokenId>, offset: usize, limit: usize) -> Result<Vec<TokenResp>, Error>"
+
 ```
 
 ### get_fees
-```md title="get_fees(chain_id: Option<ChainId>,token_id: Option<TokenId>,offset: usize,limit: usize) -> Result<Vec<(ChainId, TokenId, u128)>, Error>"
 Specify filters to narrow down the list of fees based on the either ChainId or TokenId and manage pagination by providing an offset and limit.
+```md title="get_fees(chain_id: Option<ChainId>,token_id: Option<TokenId>,offset: usize,limit: usize) -> Result<Vec<(ChainId, TokenId, u128)>, Error>"
+
 ```
 
 ### get_chain_tokens
-```md title="get_chain_tokens(chain_id: Option<ChainId>,token_id: Option<TokenId>,offset: usize,limit: usize) -> Result<Vec<TokenOnChain>, Error>"
 Specify filters to narrow down the list of token amount on a chain based on the either ChainId or TokenId and manage pagination by providing an offset and limit.
+```md title="get_chain_tokens(chain_id: Option<ChainId>,token_id: Option<TokenId>,offset: usize,limit: usize) -> Result<Vec<TokenOnChain>, Error>"
+
 ```
 
 ### get_tx
-```md title="get_tx(ticket_id: TicketId) -> Result<Ticket, Error>"
 Retrieve the metadata for the transaction using the TicketId.
+```md title="get_tx(ticket_id: TicketId) -> Result<Ticket, Error>"
+
 ```
 
 ### get_txs_with_chain
-```md title="get_txs_with_chain(src_chain: Option<ChainId>, dst_chain: Option<ChainId>, token_id: Option<TokenId>, time_range: Option<(u64, u64)>, offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
 Retrieve a list of transactions based on src_chain, dst_chain, token_id, time_range and manage pagination by providing an offset and limit.
+```md title="get_txs_with_chain(src_chain: Option<ChainId>, dst_chain: Option<ChainId>, token_id: Option<TokenId>, time_range: Option<(u64, u64)>, offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
+
 ```
 
 ### get_txs_with_account
-```md title="get_txs_with_account(sender: Option<ChainId>, receiver: Option<ChainId>, token_id: Option<TokenId>, time_range: Option<(u64, u64)>, offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
 Retrieve a list of transactions based on sender, receiver, token_id, time_range and manage pagination by providing an offset and limit.
+```md title="get_txs_with_account(sender: Option<ChainId>, receiver: Option<ChainId>, token_id: Option<TokenId>, time_range: Option<(u64, u64)>, offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
+
 ```
 
 ### get_txs
-```md title="get_txs(offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
 Retrieve all historical transactions from the start.
+```md title="get_txs(offset: usize, limit: usize) -> Result<Vec<Ticket>, Error>"
+
 ```
 
 ### get_chain_metas
-```md title="get_chain_metas(offset: usize, limit: usize) -> Result<Vec<ChainMeta>, Error>"
 Retrieve all chain metadata and manage pagination by providing an offset and limit.
+```md title="get_chain_metas(offset: usize, limit: usize) -> Result<Vec<ChainMeta>, Error>"
+
 ```
 
 ### get_chain_size
-```md title="get_chain_size() -> Result<u64, Error>"
 Get the total number of chains on Omnity.
+```md title="get_chain_size() -> Result<u64, Error>"
+
 ```
 
 ### get_token_metas
-```md title="get_token_metas(offset: usize, limit: usize) -> Result<Vec<TokenMeta>, Error>"
 Retrieve all token metadata and manage pagination by providing an offset and limit.
+```md title="get_token_metas(offset: usize, limit: usize) -> Result<Vec<TokenMeta>, Error>"
+
 ```
 
 ### get_token_size
-```md title="get_token_size() -> Result<u64, Error>"
 Get the total number of tokens on Omnity.
+```md title="get_token_size() -> Result<u64, Error>"
+
 ```
 
 ### sync_ticket_size
-```md title="sync_ticket_size() -> Result<u64, Error>"
 Get the total number of transactions on Omnity.
+```md title="sync_ticket_size() -> Result<u64, Error>"
+
 ```
 
 ### sync_tickets
-```md title="sync_tickets(offset: usize, limit: usize) -> Result<Vec<(u64, Ticket)>, Error>"
 Retrieve all ticket data and manage pagination by providing an offset and limit.
+```md title="sync_tickets(offset: usize, limit: usize) -> Result<Vec<(u64, Ticket)>, Error>"
+
 ```
 
 ### get_pending_ticket_size
-```md title="get_pending_ticket_size() -> Result<u64, Error>"
 Get the total number of pending tickets on Omnity.
+```md title="get_pending_ticket_size() -> Result<u64, Error>"
+
 ```
 
 ### get_pending_tickets
-```md title="get_pending_tickets(offset: usize, limit: usize) -> Result<Vec<(TicketId, Ticket)>, Error>"
 Retrieve all pending ticket data.
-```
+```md title="get_pending_tickets(offset: usize, limit: usize) -> Result<Vec<(TicketId, Ticket)>, Error>"
 
+```
 
 
 ## Bitcoin
 **Update:**
 ### generate_ticket
-```md title="generate_ticket(args: GenerateTicketArgs) -> Result<(), GenerateTicketError>"
 Generate an cross-chain transaction from the bitcoin network on Omnity.
+```md title="generate_ticket(args: GenerateTicketArgs) -> Result<(), GenerateTicketError>"
+Parameters:
+req: GenerateTicketArgs - struct containing:
+		* target_chain_id: String
+		* receiver: String
+		* rune_id: String
+		* amount: String
+        * txid: String - the transaction id from the bitcoin transaction    
+
+Returns:
+Result: a variant containing either:
+        Ok: the operation succeeded, but there is no additional value or data to return
+        GenerateTicketError: the operation failed, and the GenerateTicketError provides details about the failure
 ```
 
 ```md title="Rust Input Example:"
@@ -161,8 +193,8 @@ let args = GenerateTicketArgs {
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
 
 ### etching
-```md title="etching(fee_rate: u64, args: EtchingArgs) -> Result<String, String>"
-Initiate etching. 
+Initiate etching.
+```md title="etching(fee_rate: u64, args: EtchingArgs) -> Result<String, String>" 
 This api requires ICP tokens as the etching fee, determined by the result of the estimate_etching_fee function.
 When terms is not null, the server will validate it as follows: both amount and cap must be greater than 0, and either height or offset must not be null.
 The return is the tx_hash of the commit transaction.
@@ -198,8 +230,8 @@ args: The content for etching runes, represented as a structured parameter:
 estimate_etching_fee（Optional） -> etching(The icrc2_approve method should be called beforehand) -> get_etching（Optional）
 
 ### estimate_etching_fee
-```md title="estimate_etching_fee(fee_rate: u32, rune_name: String, logo: Option<LogoParams>) -> Result<u128, String>"
 Estimate the etching fee.
+```md title="estimate_etching_fee(fee_rate: u32, rune_name: String, logo: Option<LogoParams>) -> Result<u128, String>"
 The return is either a number or an error message. The number represents the amount of the smallest unit of ICP tokens required for payment. For example, 100000000 indicates 1 ICP.
 
 Parameters:
@@ -213,14 +245,14 @@ Parameters:
 ----------------------------------------------------------------------------
 **Query:**
 ### get_etching_by_user
-```md title="get_etching_by_user(user_addr: Principal) -> Vec<SendEtchingInfo>"
 Retrieve all rune etching information associated with the given user_addr.
+```md title="get_etching_by_user(user_addr: Principal) -> Vec<SendEtchingInfo>"
+Return SendEtchingInfo: see get_etching
 ```
 
 ### get_etching
-```md title="get_etching(commit_txid: String) -> Option<SendEtchingInfo>"
 Query rune etching status.
-
+```md title="get_etching(commit_txid: String) -> Option<SendEtchingInfo>"
 Parameters: commit_txid: The return from etching.
 
 Return SendEtchingInfo: 
@@ -239,40 +271,82 @@ Return SendEtchingInfo:
 ```
 
 ### release_token_status
+Returns the status of the runes tokens withdrawal operation
 ```md title="release_token_status(ticket_id: String) -> ReleaseTokenStatus"
-Returns the status of the runes tokens withdrawal operation:
-* Confirmed(String) represents the operation is succeeded with the transaction hash on bitcoin network.
+Returns:
+ReleaseTokenStatus: a enum containing:
+        * Unknown - the request id is either invalid or too old
+        * Pending - the request is in the batch queue
+        * Signing - waiting for a signature on a transaction satisfy this request
+        * Sending(String) - sending the transaction satisfying this request
+        * Submitted(String) - awaiting for confirmations on the transaction satisfying this request
+        * Confirmed(String) - confirmed a transaction satisfying this request
 ```
 
 ### get_btc_address
-```md title="get_btc_address(args: GetBtcAddressArgs) -> String"
 Generate a bitcoin address using the target chain and receiver as the derivation path, and use it as the token locking account.
+```md title="get_btc_address(args: GetBtcAddressArgs) -> String"
+Parameters:
+arg: GetBtcAddressArgs - a struct containing:
+					target_chain_id: String
+					receiver: String
 ```
 
 ### generate_ticket_status
-```md title="generate_ticket_status(ticket_id: String) -> GenTicketStatus"
 Retrieve the status of ticket_id generation operation.
+```md title="generate_ticket_status(ticket_id: String) -> GenTicketStatus"
+Returns:
+GenTicketStatus - an enum containing:
+	Unknown,
+    Pending(GenTicketRequestV2)
+    Confirmed(GenTicketRequestV2)
+    Finalized(GenTicketRequestV2)
 ```
 
 ### get_runes_oracles
-```md title="get_runes_oracles() -> Vec<Principal>"
 Get the list of runes oracles canister ids.
+```md title="get_runes_oracles() -> Vec<Principal>"
+Returns:
+Vec<Principal>: a list of the runes oracle canister ids
 ```
 
 ### estimate_redeem_fee
-```md title="estimate_redeem_fee(arg: EstimateFeeArgs) -> RedeemFee"
 Get the estimated fee needed for redeeming chain_id on bitcoin network.
+```md title="estimate_redeem_fee(arg: EstimateFeeArgs) -> RedeemFee"
+Parameters:
+arg: EstimateFeeArgs - a struct containing:
+		rune_id: RuneId
+		amount: Option<u128>
+
+Returns:
+RedeemFee(bitcoin_fee: u64): - the fee amount
 ```
 
 ### get_chain_list
-```md title="get_chain_list() -> Vec<Chain>"
 Retrieve a list of chains that connect with the bitcoin network.
+```md title="get_chain_list() -> Vec<Chain>"
+Returns:
+Vec<Chain>: struct containing:
+        chain_id: ChainId
+        canister_id: String
+        chain_type: ChainType
+        chain_state: ChainState
+        contract_address: Option<String>
+        counterparties: Option<Vec<ChainId>>
+        fee_token: Option<TokenId>
 ```
 
 
 ### get_token_list
-```md title="get_token_list() -> Vec<TokenResp>"
 Retrieve a list of tokens available on the bitcoin network.
+```md title="get_token_list() -> Vec<TokenResp>"
+Returns:
+Vec<TokenResp>: struct containing:
+        token_id: TokenId
+        symbol: String
+        decimals: u8
+        icon: Option<String>
+        rune_id: Option<String>
 ```
 
 
@@ -280,8 +354,21 @@ Retrieve a list of tokens available on the bitcoin network.
 ## eICP
 **Update:**
 ### generate_ticket_v2
-```md title="generate_ticket(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"
 Generate an cross-chain transaction from icp network on Omnity.
+```md title="generate_ticket(args: GenerateTicketReq) -> Result<GenerateTicketOk, GenerateTicketError>"
+Parameters:
+req: GenerateTicketReq - struct containing:
+        * target_chain_id: String
+        * receiver: String
+        * token_id: String
+        * amount: u128
+        * from_subaccount: Option<Subaccount>
+        * action: TxAction
+        
+Returns:
+Result: a variant containing either:
+        GenerateTicketOk: a ticket_id String information will be returned if the operation succeeds
+        GenerateTicketError: the operation failed, and the GenerateTicketError provides details about the failure
 ```
 
 ```md title="Rust Input Example:"
@@ -351,33 +438,53 @@ let burn_args = GenerateTicketReq {
 
 **Query:**
 ### mint_token_status
+Returns the status of the wrapped token minting operation
 ```md title="mint_token_status(ticket_id: TicketId) -> MintTokenStatus"
-Returns the status of the wrapped token minting operation:
+Returns:
+MintTokenStatus: a enum containing:
 * Finalized { block_index: u64 } represents the operation is succeeded with the transaction block index on the icp.
 * Unknown represents the operation is not completed.
 ```
 
 ### get_chain_list
-```md title="get_chain_list() -> Vec<Chain>"
 Retrieve a list of chains that connect with icp.
+```md title="get_chain_list() -> Vec<Chain>"
+Returns:
+Vec<Chain>: struct containing:
+        chain_id: ChainId
+        canister_id: String
+        chain_type: ChainType
+        chain_state: ChainState
+        contract_address: Option<String>
+        counterparties: Option<Vec<ChainId>>
+        fee_token: Option<TokenId>
 ```
 
 ### get_token_list
-```md title="get_token_list() -> Vec<TokenResp>"
 Retrieve a list of tokens available on icp.
+```md title="get_token_list() -> Vec<TokenResp>"
+Returns:
+Vec<TokenResp>: struct containing:
+        token_id: TokenId
+        symbol: String
+        decimals: u8
+        icon: Option<String>
+        rune_id: Option<String>
 ```
 
 ### get_token_ledger
-```md title="get_token_ledger(token_id: String) -> Option<Principal> "
 Get the token ledger canister id based on token_id.
+```md title="get_token_ledger(token_id: String) -> Option<Principal> "
+Returns:
+Option<Principal>: the token canister id
 ```
 
 ### get_redeem_fee
+Retrieve the fee information required for redeeming tokens on the icp.
 ```md title="get_redeem_fee(chain_id: ChainId) -> Option<u64>"
-Retrieve the fee information required for redeeming tokens on the ICP.
-```
+Parameters:
+chain_id: ChainId - the target chain
 
-### get_readable_fee_account
-```md title="get_readable_fee_account(principal: Option<Principal>) -> String"
-Generates a readable account identifier for a fee-related account using the provided principal or defaults to the caller's principal if none is specified.
+Returns:
+Option<u64>: the fee amount
 ```

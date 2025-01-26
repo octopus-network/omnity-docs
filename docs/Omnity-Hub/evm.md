@@ -112,29 +112,54 @@ Find more options for target_chain_id [here](https://docs.omnity.network/docs/re
 ***3***. Go to **[Omnity Explorer](https://explorer.omnity.network/)** to track the generated ticket status.
 
 
-
-
 ## Query
 ### mint_token_status
+Returns the status of the wrapped token minting operation on the layer 2 chain
 ```md title="mint_token_status(ticket_id: String) -> MintTokenStatus"
-Returns the status of the wrapped token minting operation on the layer 2 chain:
+Parameters:
+ticket_id: String - the ticket id
+
+Returns:
+MintTokenStatus: a enum containing:
 * Finalized { tx_hash: String } represents the operation is succeeded with the transaction hash on the layer 2 chain.
 * Unknown represents the operation is not completed.
 ```
 
 ### get_chain_list
-```md title="get_chain_list() -> Vec<Chain>"
 Retrieve a list of chains that connect with the layer 2 chain.
+```md title="get_chain_list() -> Vec<Chain>"
+Returns:
+Vec<Chain>: struct containing:
+        chain_id: ChainId
+        canister_id: String
+        chain_type: ChainType
+        chain_state: ChainState
+        contract_address: Option<String>
+        counterparties: Option<Vec<ChainId>>
+        fee_token: Option<TokenId>
 ```
 
 ### get_token_list
-```md title="get_token_list() -> Vec<TokenResp>"
 Retrieve a list of tokens available on the layer 2 chain.
+```md title="get_token_list() -> Vec<TokenResp>"
+Returns:
+Vec<TokenResp>: struct containing:
+        token_id: TokenId
+        symbol: String
+        decimals: u8
+        icon: Option<String>
+        rune_id: Option<String>
+        evm_contract: Option<String>
 ```
 
 ### get_fee
-```md title="get_fee(chain_id: ChainId) -> Option<u64>"
 Retrieve the transaction fee based on chain_id as the target chain.
+```md title="get_fee(chain_id: ChainId) -> Option<u64>"
+Parameters:
+chain_id: ChainId(String) - the target chain
+
+Returns:
+Option<u64>: the fee amount
 ```
 
 Last updated on January 25, 2025

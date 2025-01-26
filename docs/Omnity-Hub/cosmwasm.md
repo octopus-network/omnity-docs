@@ -123,13 +123,13 @@ e.g.: fee_token=null; canister_id="nnqqa-aaaaa-aaaar-qamla-cai"; chain_id="Dogec
 Retrieve a list of tokens available on the osmosis route.
 ```md title="get_token_list() -> Vec<TokenResp>"
 Returns:
-Vec<Chain>: struct containing:
+Vec<TokenResp>: struct containing:
         token_id: TokenId
         symbol: String
         decimals: u8
         icon: Option<String>
         rune_id: Option<String>
-        ton_contract: Option<String>
+        token_denom: Option<String>
 
 e.g.: decimals=8; token_id="dogecoin-native-DOGE"; token_denom=opt "factory/osmo10c4y9csfs8q7mtvfg4p9gd8d0acx0hpc2mte9xqzthd7rd3348tsfhaesm/dogecoin-native-DOGE"; icon=opt "https://cryptologos.cc/logos/dogecoin-doge-logo.svg"; rune_id=null; symbol="DOGE"
 ```

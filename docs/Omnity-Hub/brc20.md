@@ -27,11 +27,11 @@ Result: a variant containing either:
 ```
 ```md title="Rust Input Example:"
 let args = GenerateTicketArgs {
-		    txid: "271a75f2e4206106f47f81ab7cc8e6a9426f5aabb6eb59f3e2cfbea9ea8c0c60".to_string(),
-        amount: 203,
-        target_chain_id: "Bitfinity".to_string(),
-        token_id: "Bitcoinbrc20-brc20-YCBS".to_string(),
-		    receiver: "0x61359C8034534d4B586AC7E09Bb87Bb8Cb2F1561".to_string(),
+		        txid: "271a75f2e4206106f47f81ab7cc8e6a9426f5aabb6eb59f3e2cfbea9ea8c0c60".to_string(),
+                amount: 203,
+                target_chain_id: "Bitfinity".to_string(),
+                token_id: "Bitcoinbrc20-brc20-YCBS".to_string(),
+		        receiver: "0x61359C8034534d4B586AC7E09Bb87Bb8Cb2F1561".to_string(),
 	    };
 ```
 

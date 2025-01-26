@@ -76,13 +76,13 @@ e.g.: fee_token=opt "BFT"; canister_id="pw3ee-pyaaa-aaaar-qahva-cai"; chain_id="
 Retrieve a list of tokens available on this icp settlement canister.
 ```md title="get_token_list() -> Vec<Token>"
 Returns:
-Vec<Chain>: struct containing:
+Vec<Token>: struct containing:
         token_id: TokenId
+        name: String
         symbol: String
         decimals: u8
         icon: Option<String>
-        rune_id: Option<String>
-        ton_contract: Option<String>
+        metadata: HashMap<String, String>
 
 e.g.: decimals=8; token_id="sICP-icrc-BOB"; metadata=vec {record {"ledger_id"; "7pail-xaaaa-aaaas-aabmq-cai"}}; icon=opt "https://raw.githubusercontent.com/octopus-network/omnity-token-imgs/refs/heads/main/BOB.png"; name="BOB"; symbol="BOB"
 ```
