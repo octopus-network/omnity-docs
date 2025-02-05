@@ -451,7 +451,7 @@ args: The content for etching runes, represented as a structured parameter:
 			- offset(Option<u64>, Option<u64>): A tuple representing the relative height range for minting.
 		
 ```
-***Sources*** : [`EtchingArgs`](https://github.com/octopus-network/omnity-interoperability)
+
 ```md title="Request Example:"
 # Assume you have fetched the fee using estimate_etching_fee, with a value of 50_410_029. Next, call the icrc2_approve method of the ICP canister to authorize our canister (7rvjr-3qaaa-aaaar-qaeyq-cai) to spend the transaction fee.
 ❯ dfx canister call ryjl3-tyaaa-aaaaa-aaaba-cai icrc2_approve '(record { spender = record {owner = principal "7rvjr-3qaaa-aaaar-qaeyq-cai"; subaccount = null}; amount =   50_410_029; })' --ic
@@ -461,7 +461,13 @@ args: The content for etching runes, represented as a structured parameter:
 ```
 
 #### Workflow: 
-estimate_etching_fee（Optional） -> etching(The icrc2_approve method should be called beforehand) -> get_etching（Optional）
+*** estimate_etching_fee（Optional） -> etching(The icrc2_approve method should be called beforehand) -> get_etching（Optional）***
+* To check your rune information, please visit [Unisat](https://unisat.io/runes/detail/OMNITY%E2%80%A2ETCHING%E2%80%A2TEST).
+* For icp ledger creation: if you've already etched your runes elsewhere and want to add them to the Omnity system, you can do so either through our [UI](https://bridge.omnity.network/runes/add%20runes) or via our apis. To make the process more convenient, we've integrated the rune-adding functionality directly into the etching api, so you won’t need to repeat the process. We have 3 apis for this function are currently open for use from Hub:
+		* add_runes_token – Adds tokens to Omnity.
+		* add_dest_chain_for_token – Connects the token to the chain.
+		* link_chains - Connecting two chains.
+* When the api is called, the workflow proceeds as follows: Execute the commit transaction- > Wait for 6 blocks -> Execute the reveal transaction -> Wait for 4 blocks for the transaction -> Create the icp token ledger. So the total time would typically take around 10 blocks. After creating the ledger, if there is a premine, a cross-chain transaction will be initiated, requiring confirmation of 4 additional blocks. Approximately 1 to 2 hours.
 
 ### estimate_etching_fee
 Estimate the etching fee.
