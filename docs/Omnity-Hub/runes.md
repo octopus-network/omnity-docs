@@ -26,14 +26,44 @@ Both of the goals can be achieved by using generate_ticket on each side based on
 ## Hub
 **Update:**
 ### add_runes_token
-Add new runes tokens token.
+Add new runes tokens to Omnity
 ```md title="add_runes_token(args: AddRunesTokenReq) -> Result<(), SelfServiceError>"
 Parameters:
 args: AddRunesTokenReq - a struct containing:
 			* rune_id: String
 			* symbol: String
 			* icon: String
-			* dest_chain: ChainId
+			* dest_chain: ChainId - A String
+
+Returns:
+Result: a variant containing either:
+        Ok: the operation succeeded, but there is no additional value or data to return
+        SelfServiceError: the operation failed, and the SelfServiceError provides details about the failure
+        
+```
+
+### link_chains
+Connecting two chains
+```md title="link_chains(args: LinkChainReq) -> Result<(), SelfServiceError>"
+Parameters:
+args: LinkChainReq - a struct containing:
+			* chain1: ChainId - A String
+			* chain2: ChainId - A String
+
+Returns:
+Result: a variant containing either:
+        Ok: the operation succeeded, but there is no additional value or data to return
+        SelfServiceError: the operation failed, and the SelfServiceError provides details about the failure
+        
+```
+
+### add_dest_chain_for_token
+Connects the token to the chain
+```md title="add_dest_chain_for_token(args: AddDestChainArgs) -> Result<(), SelfServiceError>"
+Parameters:
+args: AddDestChainArgs - a struct containing:
+			* token_id: String
+			* dest_chain: ChainId - A String
 
 Returns:
 Result: a variant containing either:
@@ -462,12 +492,12 @@ args: The content for etching runes, represented as a structured parameter:
 
 #### Workflow: 
 *** estimate_etching_fee（Optional） -> etching(The icrc2_approve method should be called beforehand) -> get_etching（Optional）***
-* To check your rune information, please visit [Unisat](https://unisat.io/runes/detail/OMNITY%E2%80%A2ETCHING%E2%80%A2TEST).
+* When the api is called, the workflow proceeds as follows: Execute the commit transaction- > Wait for 6 blocks -> Execute the reveal transaction -> Wait for 4 blocks for the transaction -> Create the icp token ledger. So the total time would typically take around 10 blocks. After creating the ledger, if there is a premine, a cross-chain transaction will be initiated. Approximately 1 to 2 hours.
 * For icp ledger creation: if you've already etched your runes elsewhere and want to add them to the Omnity system, you can do so either through our [UI](https://bridge.omnity.network/runes/add%20runes) or via our apis. To make the process more convenient, we've integrated the rune-adding functionality directly into the etching api, so you won’t need to repeat the process. We have 3 apis for this function are currently open for use from Hub:
 		* add_runes_token – Adds tokens to Omnity.
 		* add_dest_chain_for_token – Connects the token to the chain.
 		* link_chains - Connecting two chains.
-* When the api is called, the workflow proceeds as follows: Execute the commit transaction- > Wait for 6 blocks -> Execute the reveal transaction -> Wait for 4 blocks for the transaction -> Create the icp token ledger. So the total time would typically take around 10 blocks. After creating the ledger, if there is a premine, a cross-chain transaction will be initiated. Approximately 1 to 2 hours.
+* To check your rune information, please visit [Unisat](https://unisat.io/runes/detail/OMNITY%E2%80%A2ETCHING%E2%80%A2TEST). After 10 blocks, if you don't have any premine runes, you can check [here](https://bridge.omnity.network/runes/mint) to see if your tokens exist in the system. If you do have premine runes, a ticket will be generated at [Omnity Hub Explorer](https://explorer.omnity.network/) after 6 blocks.
 
 ### estimate_etching_fee
 Estimate the etching fee.
