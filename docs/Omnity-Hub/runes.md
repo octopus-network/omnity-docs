@@ -559,7 +559,7 @@ Generate a bitcoin address using the target chain and receiver as the derivation
 Parameters:
 arg: GetBtcAddressArgs - a struct containing:
 					target_chain_id: String
-					receiver: String
+					receiver: String - a principal id
 ```
 
 ### generate_ticket_status
