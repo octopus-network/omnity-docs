@@ -498,6 +498,8 @@ args: The content for etching runes, represented as a structured parameter:
 		* add_dest_chain_for_token – Connects the token to the chain.
 		* link_chains - Connecting two chains.
 * To check your rune information, please visit [Unisat](https://unisat.io/runes/detail/OMNITY%E2%80%A2ETCHING%E2%80%A2TEST). After 10 blocks, if you don't have any premine runes, you can check [here](https://bridge.omnity.network/runes/mint) to see if your tokens exist in the system. If you do have premine runes, a ticket will be generated at [Omnity Hub Explorer](https://explorer.omnity.network/) after 6 blocks.
+* To check the icrc ledger canister id for the bridged runes asset, please visit [this page](https://explorer.omnity.network/tokens), select the token, and click "Chains" in the top right, as shown below.
+![token ledger ids](/img/1.png) 
 
 ### estimate_etching_fee
 Estimate the etching fee.
