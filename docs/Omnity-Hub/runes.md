@@ -561,7 +561,7 @@ Generate a bitcoin address using the target chain and receiver as the derivation
 Parameters:
 arg: GetBtcAddressArgs - a struct containing:
 					target_chain_id: String
-					receiver: String - a principal id/subaccount(icrc ledger supports account id)
+					receiver: String - a principal id/Account(in hex format, icrc ledger supports account id)
 ```
 
 ### generate_ticket_status
