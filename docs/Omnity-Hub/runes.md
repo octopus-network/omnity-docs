@@ -544,6 +544,7 @@ Return SendEtchingInfo:
  * err_info: Contains error information if there are any errors, otherwise it is empty.
  * etching_args: The etching content, consistent with the content submitted when initiating etching.
  * status: The status of the etching, indicating the current phase and state. Possible values include:
+			- Initial: Indicates that the etching request has been accept by omnity, our canister will send it to Bitcoin Network then.
 			- SendCommitSuccess: Indicates that the commit transaction for the etching has been successfully sent. The program will submit the reveal after 6 confirmations.
 			- SendCommitFailed: Indicates that the commit transaction for the etching failed, and there will be no further progress.
 			- SendRevealSuccess: Indicates that the reveal transaction has been successfully submitted. Subsequently, the corresponding cross-chain token will be added to the cross-chain bridge.
