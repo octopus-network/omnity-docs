@@ -466,44 +466,10 @@ let args = GenerateTicketArgs {
 
 ***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
 
-### etching
-Initiate etching.
-```md title="etching(fee_rate: u64, args: EtchingArgs) -> Result<String, String>" 
-This api requires ICP tokens as the etching fee, determined by the result of the estimate_etching_fee function.
-When terms is not null, the server will validate it as follows: both amount and cap must be greater than 0, and either height or offset must not be null.
-The return is the tx_hash of the commit transaction.
-
-Parameters:
-fee_rate: The fee rate the user is willing to pay (it should be the same as the first argument as get_estimate_fee).
-args: The content for etching runes, represented as a structured parameter:
-		* rune_name(String): The name of the rune. Please use the bullet point ( • ) by pressing Option + 8 on a Mac, instead of the interpunct or middle dot ( · ), which is typed using Option + Shift + 9.
-		* divisibility(Option<u8>): The precision of the runes, can be empty. It is 0 by default.
-		* premine(Option<u128>): The initial quantity of the smallest unit to mint. For example, if the divisibility is 2, then 10000 represents 100.00.
-		* logo(Option<LogoParams>): The rune logo image, must match the inputs provided during fee estimation:
-			- content_type(String): The format of the image, such as image/png, image/jpeg, etc.
-			- content_base64(String): The base64-encoded content of the image, which must not exceed 128 KB..
-		* symbol(Option<String>): It's optional. The first character will be taken as the symbol if it is not None.
-		* turbo(bool): It indicates whether the rune chooses to participate in protocol changes, regardless of the nature of those changes.
-		* terms(Option<OrdinalsTerms>): It's used when etching is mintable, the struct fields are as follows:
-			- amount(Option<u128>): The smallest unit quantity that can be minted at one time. For example, if divisibility is 2, then 10000 represents 100.00.
-			- cap(Option<u128>): The total number of times the rune can be minted.
-			- height(Option<u64>, Option<u64>): A tuple representing the absolute height range for minting.
-			- offset(Option<u64>, Option<u64>): A tuple representing the relative height range for minting.
-		
-```
-
-```md title="Request Example:"
-# Assume you have fetched the fee using estimate_etching_fee, with a value of 50_410_029. Next, call the icrc2_approve method of the ICP canister to authorize our canister (7rvjr-3qaaa-aaaar-qaeyq-cai) to spend the transaction fee.
-❯ dfx canister call ryjl3-tyaaa-aaaaa-aaaba-cai icrc2_approve '(record { spender = record {owner = principal "7rvjr-3qaaa-aaaar-qaeyq-cai"; subaccount = null}; amount =   50_410_029; })' --ic
-
-# Proceed with etching after calling the icrc2_approve method.
-❯ dfx canister call 7rvjr-3qaaa-aaaar-qaeyq-cai etching '(5 ,record { rune_name = "BLOCKMINER•FUN"; divisibility = opt 1; premine = opt 21000000; logo = opt record { content_type = "image/svg+xml"; content_base64 = "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNjAwIDYwMCI+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI2MDAiIHN0eWxlPSJmaWxsOiAjMGQxMDE3OyIvPgogIDxnPgogICAgPHBvbHlnb24gcG9pbnRzPSIxMDcuNjQgMzE0LjMyIDEzNy45OCAzMjkuNzUgMTM4Ljk5IDIyOS42NyAxMDYuOTggMjQ1Ljk1IDEwNy42NCAzMTQuMzIiIHN0eWxlPSJmaWxsOiAjNjViNzQxOyIvPgogICAgPHBvbHlnb24gcG9pbnRzPSI0OTIuMzYgMzE0LjMyIDQ2Mi4wMiAzMjkuNzUgNDYxLjAxIDIyOS42NyA0OTMuMDIgMjQ1Ljk1IDQ5Mi4zNiAzMTQuMzIiIHN0eWxlPSJmaWxsOiAjNjViNzQxOyIvPgogICAgPHBhdGggZD0iTTQ4MS40MSwxODMuMTNoLTMxLjUxYy0uOTktNzEuMjYtNjcuNzEtMTI4Ljc2LTE0OS44OS0xMjguNzZzLTE0OC45MSw1Ny41LTE0OS44OSwxMjguNzZoLTMxLjUxYy02Ljk2LDAtMTIuNjEsNS42NS0xMi42MSwxMi42MXYxNWMwLDYuOTYsNS42NSwxMi42MSwxMi42MSwxMi42MWgzNjIuODFjNi45NiwwLDEyLjYxLTUuNjUsMTIuNjEtMTIuNjF2LTE1YzAtNi45Ni01LjY1LTEyLjYxLTEyLjYxLTEyLjYxWk0xODcuMDgsMTc1Ljg0aC03LjExbC0zLjU1LTYuMTUsMy41NS02LjE1aDcuMTFsMy41NSw2LjE1LTMuNTUsNi4xNVpNNDIwLjAyLDE3NS44NGgtNy4xMWwtMy41NS02LjE1LDMuNTUtNi4xNWg3LjExbDMuNTUsNi4xNS0zLjU1LDYuMTVaIiBzdHlsZT0iZmlsbDogIzY1Yjc0MTsiLz4KICAgIDxyZWN0IHg9IjIyMi44MSIgeT0iNDMuOTQiIHdpZHRoPSIxNTQuMzgiIGhlaWdodD0iMTMyLjQ3IiByeD0iNS4yOSIgcnk9IjUuMjkiIHN0eWxlPSJmaWxsOiAjNTk4OTNmOyIvPgogICAgPHJlY3QgeD0iMjU1LjgyIiB5PSIyMi41IiB3aWR0aD0iODguMzYiIGhlaWdodD0iMTMyLjQ3IiByeD0iNS4yOSIgcnk9IjUuMjkiIHN0eWxlPSJmaWxsOiAjNjViNzQxOyIvPgogICAgPGNpcmNsZSBjeD0iMzAwIiBjeT0iMTQ2LjE2IiByPSI2My42MyIgc3R5bGU9ImZpbGw6ICM1OTg5M2Y7IHN0cm9rZTogIzBkMTAxNzsgc3Ryb2tlLW1pdGVybGltaXQ6IDEwOyBzdHJva2Utd2lkdGg6IDJweDsiLz4KICAgIDxjaXJjbGUgY3g9IjMwMCIgY3k9IjE0NC41NiIgcj0iNDEuMTciIHN0eWxlPSJmaWxsOiAjNjViNzQxOyIvPgogICAgPHBvbHlnb24gcG9pbnRzPSIzMDAuMzMgNTc3LjUgNDQ3LjM0IDQ0NC4wMyA0NDcuMzQgMjM0LjgyIDE1Mi42NiAyMzQuODIgMTU0Ljg5IDIzNC44MiAxNTIuNjYgNDQ1LjkxIDMwMC4zMyA1NzcuNSIgc3R5bGU9ImZpbGw6IG5vbmU7IHN0cm9rZTogIzY1Yjc0MTsgc3Ryb2tlLW1pdGVybGltaXQ6IDEwOyBzdHJva2Utd2lkdGg6IDlweDsiLz4KICAgIDxwYXRoIGQ9Ik0xNTEuNSwyODguMXYyNi42NGw0NS4xMiw0MS45N3YxMDMuNThsNTUuOTYsNTIuMDZoOTMuNWw1NS43My01MS44NXYtMTAzLjQ5bDQ2LjctNDMuNDV2LTI1LjU3bC0yOTcsLjFaTTM1Mi42MSw0MTMuMzJjLTEwLjc3LDE0LjItMjcuNTksMjkuMDYtNTMuNDYsMjkuMDZzLTQyLjQzLTE0Ljg2LTUzLjYtMjkuMDZ2LTE1LjA4YzEzLDE1Ljc1LDMwLjA4LDI3Ljk1LDUzLjczLDI3Ljk1czQwLjMzLTExLjk4LDUzLjMzLTI3Ljk1djE1LjA4WiIgc3R5bGU9ImZpbGw6ICM2NWI3NDE7Ii8+CiAgICA8cGF0aCBkPSJNMTQ5LjE5LDIyNy42N3Y2Ny44N2gxMDUuN2w0Ni4yOCw2MS40Ni42My0uMjIsNDYuODEtNjIuODFoMTAyLjJ2LTY2LjNIMTQ5LjE5Wk0zOTMuNTgsMjc3LjU1aC0xODcuMTZ2LTM0LjU0aDE4Ny4xNnYzNC41NFoiIHN0eWxlPSJmaWxsOiAjNTk4OTNmOyIvPgogIDwvZz4KPC9zdmc+"; }; symbol = opt "BKM"; terms = null; turbo = true })' --ic
-```
-
 ### etching_v2
 Initiate etching.
 ```md title="etching_v2(args: EtchingArgs) -> Result<String, String>" 
-This api requires ICP tokens as the etching fee, determined by the result of the estimate_etching_fee_v2 function.
+This api requires icp tokens as the etching fee, determined by the result of the estimate_etching_fee_v2 function.
 When terms is not null, the server will validate it as follows: both amount and cap must be greater than 0, and either height or offset must not be null.
 The return is the tx_hash of the commit transaction.
 
@@ -534,8 +500,6 @@ args: The content for etching runes, represented as a structured parameter:
 ```
 
 #### Workflow: 
-*** estimate_etching_fee（Optional） -> etching(The icrc2_approve method should be called beforehand) -> get_etching（Optional）***
-or
 *** estimate_etching_fee_v2（Optional） -> etching_v2(The icrc2_approve method should be called beforehand) -> get_etching（Optional）***
 * When the api is called, the workflow proceeds as follows: Execute the commit transaction- > Wait for 6 blocks -> Execute the reveal transaction -> Wait for 4 blocks for the transaction -> Create the icp token ledger. So the total time would typically take around 10 blocks. After creating the ledger, if there is a premine, a cross-chain transaction will be initiated. Approximately 1 to 2 hours.
 * For icp ledger creation: if you've already etched your runes elsewhere and want to add them to the Omnity system, you can do so either through our [UI](https://bridge.omnity.network/runes/add%20runes) or via our apis. To make the process more convenient, we've integrated the rune-adding functionality directly into the etching api, so you won’t need to repeat the process. We have 3 apis for this function are currently open for use from Hub:
@@ -545,19 +509,6 @@ or
 * To check your rune information, please visit [Unisat](https://unisat.io/runes/detail/OMNITY%E2%80%A2ETCHING%E2%80%A2TEST). After 10 blocks, if you don't have any premine runes, you can check [here](https://bridge.omnity.network/runes/mint) to see if your tokens exist in the system. If you do have premine runes, a ticket will be generated at [Omnity Hub Explorer](https://explorer.omnity.network/) after 6 blocks.
 * To check the icrc ledger canister id for the bridged runes asset, please visit [this page](https://explorer.omnity.network/tokens), select the token, and click "Chains" in the top right, as shown below.
 ![token ledger ids](/img/1.png) 
-
-### estimate_etching_fee
-Estimate the etching fee.
-```md title="estimate_etching_fee(fee_rate: u32, rune_name: String, logo: Option<LogoParams>) -> Result<u128, String>"
-The return is either a number or an error message. The number represents the amount of the smallest unit of ICP tokens required for payment. For example, 100000000 indicates 1 ICP.
-
-Parameters:
- * fee_rate: The fee rate the user is willing to pay.
- * rune_name: The name of the rune the user wants to etch, including the delimiter.
- * logo: The image information of the rune. If no image needs to be uploaded, this can be left empty. This is a structured parameter containing two fields:
-			- content_type(String): The format of the image, such as image/png, image/jpeg, etc.
-			- content_base64(String): The base64-encoded content of the image.
-```
 
 ### estimate_etching_fee_v2
 Estimate the etching fee.
@@ -591,7 +542,7 @@ Return SendEtchingInfo:
  * err_info: Contains error information if there are any errors, otherwise it is empty.
  * etching_args: The etching content, consistent with the content submitted when initiating etching.
  * status: The status of the etching, indicating the current phase and state. Possible values include:
-			- Initial: Indicates that the etching request has been accept by omnity, our canister will send it to Bitcoin Network then.
+			- Initial: Indicates that the etching request has been accepted by Omnity. Our canister will then send it to the bitcoin network.
 			- SendCommitSuccess: Indicates that the commit transaction for the etching has been successfully sent. The program will submit the reveal after 6 confirmations.
 			- SendCommitFailed: Indicates that the commit transaction for the etching failed, and there will be no further progress.
 			- SendRevealSuccess: Indicates that the reveal transaction has been successfully submitted. Subsequently, the corresponding cross-chain token will be added to the cross-chain bridge.
@@ -829,4 +780,4 @@ Returns:
 Option<u64>: the fee amount
 ```
 
-Last updated on February 6, 2025
+Last updated on February 10, 2025
