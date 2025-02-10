@@ -103,6 +103,16 @@ Result: a variant containing either:
         Error: an error message as a string will be returned if the operation fails
 ```
 
+### get_fee_account
+Get the account to which the transaction fee is sent.
+```md title="get_fee_account(principal: Option<Principal>) -> AccountIdentifier"
+Parameters:
+principal: the account to which the transaction fee is sent
+
+Returns:
+AccountIdentifier: the fee account
+```
+
 ### get_chains
 Specify filters to narrow down the list of chains based on the chain_type and chain_state and manage pagination by providing an offset and limit.
 ```md title="get_chains(chain_type: Option<ChainType>, chain_state: Option<ChainState>, offset: usize, limit: usize) -> Result<Vec<Chain>, Error>"
@@ -749,6 +759,16 @@ Get the token ledger canister id based on token_id.
 ```md title="get_token_ledger(token_id: String) -> Option<Principal> "
 Returns:
 Option<Principal>: the token canister id
+```
+
+### get_fee_account
+Get the account to which the transaction fee is sent.
+```md title="get_fee_account(principal: Option<Principal>) -> AccountIdentifier"
+Parameters:
+principal: the account to which the transaction fee is sent
+
+Returns:
+AccountIdentifier: the fee account
 ```
 
 ### get_redeem_fee
