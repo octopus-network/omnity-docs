@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'OMNITY API',
+  title: 'OMNITY HUB',
   url: 'https://docusaurus.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -50,7 +50,7 @@ const config = {
             type: 'doc',
             docId: 'Omnity-Hub/intro',
             position: 'left',
-            label: 'OMNITY API',
+            label: 'OMNITY HUB',
           },
           {to: '/ree', docId: 'REE/learn', label: 'REE', position: 'left', type: 'doc'},
         ],
