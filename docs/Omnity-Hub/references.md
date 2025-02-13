@@ -4,7 +4,7 @@ sidebar_position: 15
 
 # References
 ## Chain Metadata
-***The last update of this table was on January 20, 2025.***
+***The last update of this table was on February 13, 2025.***
 
 |Chain Id|Canister Id|Contract Address|Fee Token|
 | --- | --- | --- | --- |
@@ -16,6 +16,7 @@ sidebar_position: 15
 |Bob|epmqo-ziaaa-aaaar-qagka-cai|0x21cf922c8bf60d1d11ADC8aDCFdd4BdAae9e8320|bob_ETH|
 |B²Network|gsr6g-kaaaa-aaaar-qagfq-cai|0xF3D7bc94095454D5F8538a808941729c9B3D3B7A|b2_BTC|
 |bevm|rp433-4qaaa-aaaar-qaf2q-cai|0xDA290C4D658c767fA06c27bc2AcaD59bDFCCff4A|BTC|
+|Base|tbq6s-saaaa-aaaar-qaoha-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|base_ETH|
 |Core|vopxt-5qaaa-aaaar-qajnq-cai|0x1Ad8cec9E5a4A441FE407785E188AbDeb4371468|CORE|
 |Dogecoin|nnqqa-aaaaa-aaaar-qamla-cai|none|none|
 |eICP|7ywcn-nyaaa-aaaar-qaeza-cai|none|LICP|
