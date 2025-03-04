@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 4
 ---
 
 # Runes On ICP
@@ -582,6 +582,17 @@ GenTicketStatus - an enum containing:
     Pending(GenTicketRequestV2)
     Confirmed(GenTicketRequestV2)
     Finalized(GenTicketRequestV2)
+
+GenTicketRequestV2 - a struct containing:   
+        * address - String
+        * target_chain_id - String
+        * receiver - String
+        * token_id - TokenId
+        * rune_id - RuneId
+		* amount - u128
+		* txid - Txid
+		* new_utxos - Vec<Utxo>
+		* received_at - u64
 ```
 
 ### get_runes_oracles
@@ -600,7 +611,7 @@ arg: EstimateFeeArgs - a struct containing:
 		amount: Option<u128>
 
 Returns:
-RedeemFee(bitcoin_fee: u64): - the fee amount
+RedeemFee(bitcoin_fee: u64) - the fee amount
 ```
 
 ### get_chain_list

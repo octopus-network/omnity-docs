@@ -9,23 +9,25 @@ sidebar_position: 1
 See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbFR7eTtG5Eml6JWT5RCWwrJQIs/edit?pli=1)** / **[codebase](https://github.com/octopus-network/omnity-interoperability)** for more details. It includes:
 
 - **[Hub](https://github.com/octopus-network/omnity-interoperability/tree/main/hub)** A canister (smart contract) on [icp](https://internetcomputer.org/) that handles chain and token registration and ticket (transaction) execution, and it also lists settlement chains and execution chains.
-- **[Bitcoin Runes](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin_runes)** A settlement chain canister that manages the logic on the bitcoin network, it is where runes assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
-- **[Dogecoin](https://github.com/octopus-network/omnity-interoperability)** A settlement chain canister that manages the logic on the dogecoin network.
-- **[sICP](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/icp)** A settlement chain canister that manages on icp network.
-- **[eICP](https://github.com/octopus-network/omnity-interoperability/tree/main/route/icp)** A execution chain canister that manages the logic on icp network.
-- **[EVM](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm)** The evm route includes layer 2 evm-compatible instances and ethereum as execution chains.
-- **[Cosmwasm](https://github.com/octopus-network/cosmwasm-route)** CosmWasm Route is the component of the system that interfaces with the execution chains supporting CosmWasm.
-- **[Solana](https://github.com/octopus-network/omnity-interoperability/tree/main/route/solana)** A execution chain canister that manages the logic on solana network.
-- **[Ton](https://github.com/octopus-network/omnity-interoperability)** A execution chain canister that manages the logic on ton network.
+- **[ICP(Settlement)](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/icp)** A settlement chain canister that manages on icp network.
+- **[Solana(Settlement)](https://github.com/octopus-network/omnity-interoperability/tree/main)** A settlement chain canister that manages the logic on solana network.
+- **[Dogecoin(Settlement)](https://github.com/octopus-network/omnity-interoperability)** A settlement chain canister that manages the logic on the dogecoin network.
+- **[Bitcoin Runes(Settlement)](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin_runes)** A settlement chain canister that manages the logic on the bitcoin network, it is where runes assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
+- **[Ton(Execution)](https://github.com/octopus-network/omnity-interoperability)** A execution chain canister that manages the logic on ton network.
+- **[ICP(Execution)](https://github.com/octopus-network/omnity-interoperability/tree/main/route/icp)** A execution chain canister that manages the logic on icp network.
+- **[Solana(Execution)](https://github.com/octopus-network/omnity-interoperability/tree/main/route/solana)** A execution chain canister that manages the logic on solana network.
+- **[EVM(Execution)](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm)** The evm route includes layer 2 evm-compatible instances and ethereum as execution chains.
+- **[Cosmwasm(Execution)](https://github.com/octopus-network/cosmwasm-route)** CosmWasm Route is the component of the system that interfaces with the execution chains supporting CosmWasm.
 
 ## Use Cases
 
 - For those interested in bridging icp icrc tokens, please go to **[ICP ICRC](https://docs.omnity.network/docs/Omnity-Hub/icp_icrc)**.
 - For those interested in bridging dogecoin tokens, please go to **[Dogecoin](https://docs.omnity.network/docs/Omnity-Hub/dogecoin)**.
+- For those interested in bridging sol tokens, please go to **[Solana(Settlement)](https://docs.omnity.network/docs/Omnity-Hub/solana_settlement)**.
 - If you are interested in what is used on [Omnity Explorer](https://explorer.omnity.network/), please go to **[Omnity Explorer](https://docs.omnity.network/docs/Omnity-Hub/explorer)**.
 - If you are interested in using our [on-chain oracle](https://github.com/octopus-network/ord-canister), a canister for indexing runes utxos on bitcoin, please go to **[Runes Indexer](https://docs.omnity.network/docs/Omnity-Hub/runes_indexer)**.
 - For those interested in locking bitcoin natively on layer 1 and mint the wrapped bitcoin on the target chains, please go to **[CosmWasm](https://docs.omnity.network/docs/Omnity-Hub/cosmwasm)** | **[Ton](https://docs.omnity.network/docs/Omnity-Hub/ton)**.
-- If you are interested in integrating with [Omnity's cross-chain services](https://bridge.omnity.network/runes), such as adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) or [minting](https://docs.omnity.network/docs/Omnity-Hub/runes#generate_ticket-1)/[etching](https://docs.omnity.network/docs/Omnity-Hub/runes#etching) runes for your convenience, please go to **[Runes On ICP](https://docs.omnity.network/docs/Omnity-Hub/runes)** | **[Solana](https://docs.omnity.network/docs/Omnity-Hub/solana)**.
+- If you are interested in integrating with [Omnity's cross-chain services](https://bridge.omnity.network/runes), such as adding runes listed on [Omnity Runescan](https://www.runescan.net/runes) or [minting](https://docs.omnity.network/docs/Omnity-Hub/runes#generate_ticket-1)/[etching](https://docs.omnity.network/docs/Omnity-Hub/runes#etching) runes for your convenience, please go to **[Runes On ICP](https://docs.omnity.network/docs/Omnity-Hub/runes)** | **[Solana(Execution)](https://docs.omnity.network/docs/Omnity-Hub/solana_execution)**.
 - If you are developing a defi project on one of the evm-compatible layer 2 networks listed on Omnity or on ethereum, and using a runes token as the project token, please go to **[Port Contract On EVM](https://docs.omnity.network/docs/Omnity-Hub/evm)** to utilize the runes feature in generate_ticket.
 
 
@@ -160,4 +162,4 @@ export default App;
 
 Can't find what you need? let us know on **[OpenChat](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/209373796018851818071085429101874032721/)**.
 
-Last updated on January 23, 2025
+Last updated on March 04, 2025
