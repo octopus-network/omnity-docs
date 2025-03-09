@@ -572,6 +572,14 @@ arg: GetBtcAddressArgs - a struct containing:
 					target_chain_id: String
 					receiver: String - a principal id/Account(in hex format, icrc ledger supports account id)
 ```
+### get_xpub_key
+MAINNET_XPUBKEY
+```md title="get_xpub_key() -> ECDSAPublicKey"
+Returns:
+arg: ECDSAPublicKey - a struct containing:
+					public_key - Vec<u8>
+					chain_code - Vec<u8>
+```
 
 ### generate_ticket_status
 Retrieve the status of ticket_id generation operation.
