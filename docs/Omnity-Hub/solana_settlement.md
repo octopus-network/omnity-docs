@@ -31,7 +31,8 @@ dfx canister call solana_customs generate_ticket '(record {token_id = "Solana-na
 ```
 
 #### Workflow: 
-***1***. Call the transport method in the Solana Port contract to lock a specified amount of SOL in the vault account. Upon successful completion of the transaction, a signature will be returned.
+***1***. Call [the transport method](https://github.com/octopus-network/omnity-port-solana/blob/main/tests/solana-port-native.ts#L49) in the [Solana Port contract](https://explorer.solana.com/address/qwMMr4jSQG8yg2fs1Pz3fymJEsh1RicjgDgMYNUA2Zb
+) to lock a specified amount of SOL in the vault account. Upon successful completion of the transaction, a signature will be returned.
 
 ***2***. Put the function_hash(signature) as a parameter into generate_ticket from your dapp.
 
@@ -101,4 +102,4 @@ Vec<Token>: struct containing:
 ```
 
 
-Last updated on March 04, 2025
+Last updated on March 09, 2025
