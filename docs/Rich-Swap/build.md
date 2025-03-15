@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# APIs[WIP]
+# APIs
 [RichSwap](https://github.com/octopus-network/richswap-canister) is the first AMM DEX exchange on [REE](https://docs.omnity.network/docs/REE/build).
 
 For Rich Swap testnet4 please visit **[Rich Swap ](https://richswap-testnet.vercel.app/swap)**.
@@ -65,10 +65,11 @@ type Result_5 = variant { Ok : WithdrawalOffer; Err : ExchangeError };
 
 pre_withdraw_liquidity : (text, text, nat) -> (Result_5) query;
 ```
-* text
-* CoinBalance
+* Input: pool_key - Pubkey
+* Input: user_addr - String
+* Input: share - u128
 
-* WithdrawalOffer
+* WithdrawalOffer: for constructing the PSBT as part of the inputs
 
 ### pre_add_liquidity
 ```md
@@ -106,10 +107,10 @@ type Result_2 = variant { Ok : LiquidityOffer; Err : ExchangeError };
 
 pre_add_liquidity : (text, CoinBalance) -> (Result_2) query;
 ```
-* text
-* CoinBalance
+* Input: pool_key - Pubkey
+* Input: side - CoinBalance
 
-* LiquidityOffer
+* LiquidityOffer: for constructing the PSBT as part of the inputs
 
 ### pre_swap
 ```md
@@ -150,10 +151,10 @@ type Result_4 = variant { Ok : SwapOffer; Err : ExchangeError };
 
 pre_swap : (text, CoinBalance) -> (Result_4) query;
 ```
-* text
-* CoinBalance
+* Input: id - Pubkey
+* Input: input - CoinBalance
 
-* SwapOffer
+* SwapOffer: for constructing the PSBT as part of the inputs
 
 ### create
 ```md
@@ -229,13 +230,13 @@ get_pool_info : (GetPoolInfoArgs) -> (opt PoolInfo) query;
 ```
 Get the META information of a certain pool.
 * key : Retrieve all pool information within the exchange, where the key is the untweaked public key of a Pay-to-Taproot (P2TR) address, ensuring that the spending conditions of the pool's utxos can be verified.
-* name
-* btc_reserved :
-* coin_reserved :
-* attributes :
-* address
-* nonce :
-* utxos :
+* name: e.g.,:HOPE•YOU•GET•RICH
+* btc_reserved : e.g.,:103845689
+* coin_reserved : e.g.,:id="840000:846"; value=54286490476
+* attributes : e.g.,: "fee_rate":7000,"burn_rate":2000,"tweaked":"5ccc93f7bf8f43941c7511203d595bbf5a83c630ca9bbace10ff9a397c0dbaa4","incomes":472860,"sqrt_k":2355907027
+* address e.g.,:bc1ptnxf8aal3apeg8r4zysr6k2mhadg833se2dm4nssl7drjlqdh2jqa4tk3p
+* nonce : e.g.,:594
+* utxos : e.g.,:vec {record {maybe_rune=opt record {id="840000:846"; value=54286490476}; sats=104318549; txid="62f607dedfb5b77b7f09cff901cc52f846306190377afc6f910d09e5b5f239a4"; vout=0}}}
 
 ### get_minimal_tx_value
 ```md
@@ -282,4 +283,4 @@ And it returns:
 * sqrt_k : it represents the user's share. Although RichSwap does not use an LP token mechanism, this value is effectively equivalent to the amount of LP tokens; specifically, it is calculated as sqrt(btc_withdraw * rune_withdraw).
 * btc_supply 
 
-Last updated on March 15, 2025
+Last updated on March 16, 2025

@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# APIs[WIP]
+# APIs
 [The Runes Exchange Environment (REE)](https://github.com/octopus-network/ree-orchestrator/tree/main) is a Turing-complete, bridgeless execution layer for BTCFi. The REE Orchestrator is responsible for managing the execution of exchange programs within REE. Please explore [How REE Works Under The Hood](https://www.youtube.com/watch?v=F4ExD4gY1E8) review its [white paper](https://docs.google.com/document/d/1d1_51f8YYRhxft_RpGssCKqS95ZE5Ylv1LDleIqVZJE/edit?tab=t.0#heading=h.9hfttub7lmzc).
 
 From the backend perspective, REE is composed of four key components:
@@ -72,7 +72,7 @@ Retrieve UTXOs with zero confirmed runes for a specific address. The following a
 
 If the address is malformed, the call is rejected.
 This endpoint returns the Outpoint of the address. It specifies the following parameters:
-* maybe_rune
+* maybe_rune: e.g.,:840000:846
 * value
 * script_pubkey_hex: 
 * outpoint: 
@@ -96,4 +96,4 @@ It specifies the following parameters:
 * pool_address : e.g.,:bc1ptnxf8aal3apeg8r4zysr6k2mhadg833se2dm4nssl7drjlqdh2jqa4tk3p
 * output_types :
 
-Last updated on March 15, 2025
+Last updated on March 16, 2025
