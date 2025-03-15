@@ -52,7 +52,8 @@ const config = {
             position: 'left',
             label: 'OMNITY HUB',
           },
-          {to: '/ree', docId: 'REE/learn', label: 'REE', position: 'left', type: 'doc'},
+          {to: '/Rich-Swap', docId: 'Rich-Swap/build', label: 'RICH SWAP', position: 'left', type: 'doc'},
+          {to: '/ree', docId: 'REE/build', label: 'REE', position: 'left', type: 'doc'},
         ],
       },
       prism: {
