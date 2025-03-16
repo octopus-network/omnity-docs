@@ -74,8 +74,8 @@ If the address is malformed, the call is rejected.
 This endpoint returns the Outpoint of the address. It specifies the following parameters:
 * maybe_rune: e.g.,:840000:846
 * value
-* script_pubkey_hex: 
-* outpoint: 
+* script_pubkey_hex: e.g.,:00142442018f491970523d89837488eabba965f2c785
+* outpoint: txid:vout - e.g.,:9870d98efd36f4bed923205b52c06e9d4d0b1613031984872ade966f2646eba2:0
 
 ### estimate_min_tx_fee
 ```md
@@ -92,8 +92,13 @@ type Result_1 = variant { Ok : nat64; Err : text };
 estimate_min_tx_fee : (EstimateMinTxFeeArgs) -> (Result_1) query;
 ```
 It specifies the following parameters:
-* input_types : 
+* input_types : e.g.,:vec![TxOutputType::P2WPKH, TxOutputType::P2TR],
 * pool_address : e.g.,:bc1ptnxf8aal3apeg8r4zysr6k2mhadg833se2dm4nssl7drjlqdh2jqa4tk3p
-* output_types :
+* output_types : e.g.,:vec![
+            TxOutputType::P2TR,
+            TxOutputType::P2WPKH,
+            TxOutputType::P2WPKH,
+            TxOutputType::OpReturn(14),
+        ]
 
 Last updated on March 16, 2025
