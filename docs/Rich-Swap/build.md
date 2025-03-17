@@ -5,7 +5,7 @@ sidebar_position: 1
 # APIs
 [RichSwap](https://github.com/octopus-network/richswap-canister) is the first AMM DEX exchange on [REE](https://docs.omnity.network/docs/REE/build).
 
-For Rich Swap testnet4 please visit **[Rich Swap ](https://richswap-testnet.vercel.app/swap)**.
+For Rich Swap testnet4 please visit **[Rich Swap Testnet](https://richswap-testnet.vercel.app/swap)**.
 
 For Rich Swap support please visit **[The Rich Swap Channel](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/1529837122)** in both English and Chinese.
 
@@ -65,7 +65,7 @@ type Result_5 = variant { Ok : WithdrawalOffer; Err : ExchangeError };
 
 pre_withdraw_liquidity : (text, text, nat) -> (Result_5) query;
 ```
-* Input: pool_key - Pubkey
+* Input: pool_key - Pubkey (pool id)
 * Input: user_addr - String
 * Input: share - u128
 
@@ -107,8 +107,8 @@ type Result_2 = variant { Ok : LiquidityOffer; Err : ExchangeError };
 
 pre_add_liquidity : (text, CoinBalance) -> (Result_2) query;
 ```
-* Input: pool_key - Pubkey
-* Input: side - CoinBalance
+* Input: id - Pubkey (pool id)
+* Input: side - CoinBalance (user's input)
 
 * LiquidityOffer: for constructing the PSBT as part of the inputs
 
@@ -151,8 +151,8 @@ type Result_4 = variant { Ok : SwapOffer; Err : ExchangeError };
 
 pre_swap : (text, CoinBalance) -> (Result_4) query;
 ```
-* Input: id - Pubkey
-* Input: input - CoinBalance
+* Input: id - Pubkey (pool id)
+* Input: input - CoinBalance (user's input)
 
 * SwapOffer: for constructing the PSBT as part of the inputs
 
@@ -189,7 +189,7 @@ Pool creation is limited to BTC paired exclusively with a RUNE.
 * Output: Pubkey - e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
 
 ## Query
-The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_list), [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/get_pool_info#), and [get_minimal_tx_value](https://docs.omnity.network/docs/Rich-Swap/get_minimal_tx_value#) are required for REE in the standard query api. 
+The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_list), [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_info), and [get_minimal_tx_value](https://docs.omnity.network/docs/Rich-Swap/build#get_minimal_tx_value) are required for REE in the standard query api. 
 
 For more details, please refer to the [Exchange Interfaces](https://github.com/octopus-network/ree-types/tree/rivers/revise-exchange-interfaces) documentation.
 
@@ -209,7 +209,7 @@ type PoolOverview = record {
 get_pool_list : (GetPoolListArgs) -> (vec PoolOverview) query;
 ```
 Fetch a list of pools with support for optional pagination.
-See the returned result in detail from [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/get_pool_info#).
+See the returned result in detail from [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_info).
 
 ### get_pool_info
 ```md

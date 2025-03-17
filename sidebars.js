@@ -33,6 +33,7 @@ const sidebars = {
       label: 'REE', 
       items: [
         'REE/build',
+        'REE/tutorial',
       ],
     },
   ],
