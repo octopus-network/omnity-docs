@@ -240,7 +240,7 @@ Get the META information of a certain pool.
 
 ### get_minimal_tx_value
 ```md
-
+get_minimal_tx_value : () -> (nat64) query;
 ```
 Retrieve the minimum transaction value allowed by Rich Swap.
 
