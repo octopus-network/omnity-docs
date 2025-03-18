@@ -206,7 +206,7 @@ type PoolOverview = record {
   nonce : nat64;
 };
 
-get_pool_list : (GetPoolListArgs) -> (vec PoolOverview) query;
+get_pool_list : (GetPoolListArgs) -> (vec PoolInfo) query;
 ```
 Fetch a list of pools with support for optional pagination.
 See the returned result in detail from [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_info).
@@ -279,8 +279,8 @@ Query the user's liquidity share ratio. It specifies the following parameters:
 * user_addr
 
 And it returns:
-* user_share 
-* sqrt_k : it represents the user's share. Although RichSwap does not use an LP token mechanism, this value is effectively equivalent to the amount of LP tokens; specifically, it is calculated as sqrt(btc_withdraw * rune_withdraw).
+* user_share : it represents the user's share. Although RichSwap does not use an LP token mechanism, this value is effectively equivalent to the amount of LP tokens
+* sqrt_k :  btc_withdraw * rune_withdraw
 * btc_supply 
 
-Last updated on March 16, 2025
+Last updated on March 18, 2025
