@@ -19,7 +19,7 @@ The client application call the [pre_swap](https://docs.omnity.network/docs/Rich
 
 ** 2. Construct a PSBT Using the Wallet API:**
 
-After the user confirms the SwapOffer, the frontend will use the wallet api to construct a psbt (Partially Signed Bitcoin Transaction) based on the provided input parameters and the [estimate_min_tx_fee](https://docs.omnity.network/docs/REE/build#estimate_min_tx_fee), following the verification of the address's utxos. Unlike BTC utxoss, which can be fetched with 0 confirmations through the Unisat api, Runes utxos must be retrieved using the [get_zero_confirmed_utxos_of_address](https://docs.omnity.network/docs/REE/build#get_zero_confirmed_utxos_of_address) method from REE. This step involves significant technical complexity. For a comprehensive guide on constructing a psbt, refer to this [example](https://docs.unisat.io/dev/unisat-developer-center/unisat-wallet#signpsbt).
+After the user confirms the SwapOffer, the frontend will use the wallet api to construct a psbt (Partially Signed Bitcoin Transaction) based on the provided input parameters and the [estimate_min_tx_fee](https://docs.omnity.network/docs/REE/build#estimate_min_tx_fee), following the verification of the address's utxos. Unlike BTC utxoss, which can be fetched with 0 confirmations through the Unisat api, Runes utxos must be retrieved using the [get_zero_confirmed_utxos_of_address](https://docs.omnity.network/docs/REE/build#get_zero_confirmed_utxos_of_address) method from REE. This step involves significant technical complexity. For a comprehensive guide on constructing a psbt, refer to this [example](https://github.com/unisat-wallet/wallet-utils/blob/master/src/tx-helpers/send-runes.ts).
 
 ** 3. Invoke REE's invoke Function:** 
 
