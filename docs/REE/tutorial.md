@@ -2,15 +2,14 @@
 sidebar_position: 2
 ---
 
-# REE Dev Guide[WIP]
+# REE Dev Guide
 
-
-## Introduction to REE and Exchange
-### What is REE?
+### Introduction to REE and Exchange
+* ***What is REE? ***
 
 REE (Runes Exchange Environment) is a decentralized, Turing-complete execution layer built specifically for Bitcoin. Unlike traditional Bitcoin Layer-2 solutions, REE enables native Bitcoin transactions without asset bridging or locking, leveraging Bitcoin's security and enhancing programmability through smart contracts.
 
-### Key differences between REE and traditional Bitcoin L2
+* ***Key differences between REE and traditional Bitcoin L2 ***
 
 | Feature          | Traditional Bitcoin L2 | REE (Bridgeless)      |
 |------------------|------------------------|-----------------------|
@@ -18,7 +17,7 @@ REE (Runes Exchange Environment) is a decentralized, Turing-complete execution l
 | Smart Contracts  | Limited programmability| Fully Turing-complete |
 | Signing          | Centralized or semi-centralized | Decentralized via ICP |
 
-### What is an Exchange (BTCFi Protocol)?
+* ***What is an Exchange (BTCFi Protocol)? ***
 
 An Exchange is a BTCFi protocol implemented as a smart contract on the REE platform. Exchanges manage asset pools, validate transaction inputs/outputs, and participate in decentralized PSBT signing and settlement directly on Bitcoin.
 
@@ -26,34 +25,32 @@ For example, [RichSwap](https://richswap.io) is an AMM-based decentralized excha
 
 
 
-## Core Concepts
-### PSBT (Partially Signed Bitcoin Transaction)
+### Core Concepts
+* ***PSBT (Partially Signed Bitcoin Transaction)  ***
 
 PSBT is a standardized Bitcoin transaction format that allows multiple participants to sign different parts independently before broadcasting a single aggregated transaction.
 
-### DPS (Decentralized PSBT Signing)
+* ***DPS (Decentralized PSBT Signing)  ***
 
 REE implements DPS by decentralizing the PSBT signing process onto the ICP blockchain, ensuring transparency and trustless transactions.
 
-### Pool and Exchange
-
-* Pool
+* ***Pool and Exchange  ***
 
 A Pool is an Exchange-managed unit holding Bitcoin assets and managing transaction states and histories. Pools are managed through ICP smart contracts.
 
-* Exchange
-
 Exchanges interact with pools, signing transactions, managing liquidity, and executing predefined protocol logic.
 
-### Orchestrator
+* ***Orchestrator   ***
+
 The Orchestrator coordinates transactions, manages signatures, validates UTXOs, and handles confirmations or rollbacks, ensuring atomicity and consistency.
 
 
 
-## Develop Your First Exchange
+###  Develop Your First Exchange
 This section guides you through setting up your environment and creating a simple Exchange (DemoExchange) on REE using Rust and ICP.
 
-### Environment Setup
+* ***Environment Setup   ***
+
 Install the required tools:
 ```bash
 sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
@@ -61,7 +58,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 npm install -g dfx
 ```
 
-### Required Exchange Interfaces
+* ***Required Exchange Interfaces   ***
+
 Every exchange must implement six core interfaces to interact with the REE Orchestrator:
 
 * Query Interfaces
@@ -150,14 +148,16 @@ These interfaces must be implemented as update calls:
    }
    ```
 
-### Implementation Notes
+* ***Implementation Notes   ***
+
 - The Orchestrator calls these functions without attaching any cycles
 - Query interfaces can be implemented as either query or update calls
 - Update interfaces must be implemented as update calls
-- All interfaces must exactly match the type definitions from the `ree_types::exchange_interfaces` module
+- All interfaces must exactly match the type definitions from the [`ree_types::exchange_interfaces`](https://github.com/octopus-network/ree-types/blob/master/src/exchange_interfaces.rs) module
 - Functions can be implemented as either async or synchronous
 
-### Register Exchange with the Orchestrator
+* ***Register Exchange with the Orchestrator   ***
+
 To integrate your Exchange, register it with the REE Orchestrator (Testnet Orchestrator canister: [ICP Dashboard](https://dashboard.internetcomputer.org/canister/hvyp5-5yaaa-aaaao-qjxha-cai)).
 
 Example Rust code:
@@ -174,7 +174,8 @@ async fn register_exchange(exchange_id: &str, orchestrator_id: &str) {
 }
 ```
 
-### Frontend Integration Example
+* ***Frontend Integration Example   ***
+
 Here's how to integrate your Exchange canister with a frontend application:
 ```javascript
 import { Actor, HttpAgent } from "@dfinity/agent";
@@ -208,7 +209,7 @@ const result = await demoExchange.execute_tx({
 });
 ```
 
-### Simple Transaction Testing
+* ***Simple Transaction Testing   ***
 1. Start your local ICP environment:
 ```bash
 dfx start
@@ -223,20 +224,20 @@ dfx deploy
 Completing these steps ensures your DemoExchange is operational and ready for further development or deployment.
 
 
-## Next Steps and Resources
+### Next Steps and Resources
 You've successfully created your first Exchange on REE! Continue your journey with additional resources and support channels.
 
-### Additional Resources
+* ***Additional Resources   ***
 - [ICP Developer Center](https://internetcomputer.org): Learn more about developing smart contracts on ICP.
 - [REE GitHub Repository](https://github.com/ree): Access open-source examples, contribute code, and report issues.
 
-### Get Technical Support
+* ***Get Technical Support   ***
 - [REE Dev Support Channel (English)](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/3944635384)
 - [REE Dev Support Channel (Chinese)](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/2543618207)
 
 
 
-### Appendix
+* ***Appendix   ***
 
 ** Common Terminology **
 
@@ -267,4 +268,4 @@ You've successfully created your first Exchange on REE! Continue your journey wi
 
 
 
-Last updated on March 17, 2025
+Last updated on March 20, 2025
