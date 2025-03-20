@@ -32,8 +32,8 @@ const sidebars = {
       type: 'category',
       label: 'REE', 
       items: [
-        'REE/build',
         'REE/tutorial',
+        'REE/build',
       ],
     },
   ],
