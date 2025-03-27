@@ -9,7 +9,7 @@ From the backend perspective, REE is composed of four key components:
 * **REE Orchestrator**: Commonly referred to as REE, this core canister is responsible for managing the execution of exchange programs within the REE platform.
 * **Runes Indexer**: A canister that indexes runes and provides information about new blocks.
 * **Mempool Connector**: A daemon that updates the fee rate and monitors rejected transactions from REE on the Mempool, notifies the REE Orchestrator.
-* **Exchanges**: Instances of the BTCFi protocol operating on the REE platform, designed to facilitate coin exchange. Each exchange must adhere to [the formal api principles](https://github.com/octopus-network/ree-types/tree/rivers/revise-exchange-interfaces?tab=readme-ov-file#exchange-interfaces) established by REE. Please refer to the [REE Dev Guide](https://docs.omnity.network/docs/REE/tutorial) for further details. There are multiple exchanges, and each exchange consists of several pools. REE manages the state of each exchange on a per-pool basis.
+* **Exchanges**: Instances of the BTCFi protocol operating on the REE platform, designed to facilitate coin exchange. Each exchange must adhere to [the formal api principles](https://github.com/octopus-network/ree-types?tab=readme-ov-file#exchange-interfaces) established by REE. Please refer to the [REE Dev Guide](https://docs.omnity.network/docs/REE/tutorial) for further details. There are multiple exchanges, and each exchange consists of several pools. REE manages the state of each exchange on a per-pool basis.
 
 For Ree support please visit **[The REE Dev Support Channel](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/3944635384)** in English and **[The REE Dev Support CN Channel](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/2543618207)** in Chinese.
 
@@ -46,7 +46,7 @@ type Result_3 = variant { Ok : text; Err : text };
 
 invoke : (InvokeArgs) -> (Result_3);
 ```
-See the [instruction example](https://github.com/octopus-network/ree-types/blob/master/ree_instruction_samples/add_liquidity.json).
+See the [instruction examples](https://github.com/octopus-network/ree-types/tree/master/intention_set_samples).
 
 The core business function of the orchestrator. It processes exchange execution requests. Review [all the checks](https://github.com/octopus-network/ree-orchestrator/blob/main/ChecksForInvoke.md) that are performed when the invoke function is called. 
 

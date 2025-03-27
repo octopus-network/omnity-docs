@@ -23,7 +23,7 @@ After the user confirms the SwapOffer, the frontend will use the wallet api to c
 
 ** 3. Invoke REE's invoke Function:** 
 
-Once the PSBT is constructed, it is passed along with the intention(see the [example](https://github.com/octopus-network/ree-types/blob/master/ree_instruction_samples/add_liquidity.json)) to call [REE's invoke function](https://docs.omnity.network/docs/REE/build#invoke). This function will subsequently trigger the **execution_tx** function of the Rich Swap exchange. The Rich Swap exchange will then perform [the necessary checks](https://github.com/octopus-network/richswap-canister?tab=readme-ov-file#how-it-works) to ensure the transaction is valid.
+Once the PSBT is constructed, it is passed along with the intention(see the [example](https://github.com/octopus-network/ree-types/blob/master/intention_set_samples/add_liquidity.json)) to call [REE's invoke function](https://docs.omnity.network/docs/REE/build#invoke). This function will subsequently trigger the **execution_tx** function of the Rich Swap exchange. The Rich Swap exchange will then perform [the necessary checks](https://github.com/octopus-network/richswap-canister?tab=readme-ov-file#how-it-works) to ensure the transaction is valid.
 
 ** 4. Broadcast the Transaction and Handle Results:**
 
@@ -191,7 +191,7 @@ Pool creation is limited to BTC paired exclusively with a RUNE.
 ## Query
 The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_list), [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_info), and [get_minimal_tx_value](https://docs.omnity.network/docs/Rich-Swap/build#get_minimal_tx_value) are required for REE in the standard query api. 
 
-For more details, please refer to the [Exchange Interfaces](https://github.com/octopus-network/ree-types/tree/rivers/revise-exchange-interfaces) documentation.
+For more details, please refer to the [Exchange Interfaces](https://github.com/octopus-network/ree-types) documentation.
 
 ### get_pool_list
 ```md
