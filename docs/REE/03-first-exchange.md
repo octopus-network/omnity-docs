@@ -37,7 +37,6 @@ Executing this command generates the following project structure:
 ```
 ./ree-demo-exchange
 ├── src
-│   ├── declarations          # Canister interface definitions
 │   ├── ree-demo-exchange-backend # Backend Canister project (Rust)
 │   └── ree-demo-exchange-frontend # Frontend project (React)
 ├── dfx.json                 # Dfx configuration file
@@ -156,7 +155,7 @@ static LENDING_POOLS: RefCell<StableBTreeMap<String, Pool, Memory>> = RefCell::n
 
 ### 5. Initialize a Demo Pool
 
-For demonstration purposes, it's useful to have a function that initializes a sample `Pool` when the canister is deployed or upgraded. This function is usually restricted to the canister's controller.
+For demonstration purposes, it's useful to have a function that initializes a sample `Pool` when the canister is deployed. This function is restricted to the canister's controller.
 
 Create a new file `lending.rs` in `ree-demo-exchange-backend/src` and implement the `init_pool` function (code provided as a reference snippet):
 
@@ -211,9 +210,9 @@ async fn init_pool() -> Result<(), String> {
 * It creates a new `Pool` instance with an empty initial state (`states: vec![]`).
 * It stores the newly created `pool` in the `LENDING_POOLS` stable map.
 
-### 6. Implement Required Exchange Methods (Partial)
+### 6. Implement Required Exchange Methods
 
-An Exchange canister interacting with a framework like REE (Rune Exchange Engine) usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
+An Exchange canister interacting with a framework like REE (Runes Exchange Environment) usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
 
 Let's implement the first three query methods. Create a new file `exchange.rs` in `ree-demo-exchange-backend/src` (code provided as reference snippets):
 
@@ -283,7 +282,7 @@ fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueRespon
 * `get_pool_info`: A `#[query]` method that takes a `pool_address`, looks up the corresponding `Pool` (assuming a helper like `get_pool()`), and returns detailed `PoolInfo` if found. It extracts data like `nonce`, asset reserves, and `utxos` from the latest `PoolState`.
 * `get_minimal_tx_value`: A `#[query]` method. In a real exchange, this value helps manage transaction flow and prevent dust spam, often scaling with the length of the pending transaction queue (`zero_confirmed_tx_queue_length`). This simplified demo returns a fixed constant value.
 
-### 7. Implementing the Deposit Functionality (Overview)
+### 7. Implementing the Deposit Functionality
 
 Now, let's outline how to implement the user deposit functionality (e.g., depositing BTC into a Pool). We'll use the **pre/invoke pattern**, common in designs like REE involving user signatures and external blockchain interactions:
 
@@ -294,20 +293,14 @@ Now, let's outline how to implement the user deposit functionality (e.g., deposi
 
 2.  **Transaction Construction & Signing:**
     * The frontend uses the parameters received from the "pre" method to construct a PSBT.
-    * The frontend prompts the user to sign the PSBT inputs belonging to them using their Bitcoin wallet or signing tool.
+    * The frontend prompts the user to sign the PSBT inputs belonging to them using their Bitcoin wallet or signing tool. (Note: Frontend implementation details need to be added here.)
 
 3.  **Invocation:**
-    * The frontend (or an Orchestrator Canister) sends the signed PSBT to an "invoke" method on the Exchange canister (e.g., `execute_tx`).
+    * The frontend sends the signed PSBT to an "invoke" method on the Orchestrator canister.
     * This method validates the PSBT (signatures, amounts, etc.) and checks requirements (like `get_minimal_tx_value`).
-    * **Crucially:** It calls an Orchestrator service (part of the REE framework or similar) to submit the valid PSBT to the Bitcoin network.
-    * It may create a temporary `PoolState` to track the pending transaction.
-    * It waits for Bitcoin network confirmation (handled by the Orchestrator, which notifies the Exchange via methods like `new_block`).
+    * **Crucially:** It calls the Orchestrator canister to submit the valid PSBT to the Bitcoin network.
+    * It waits for Bitcoin network confirmation.
     * Once confirmed, the `Pool`'s base state is updated using `finalize`.
-
-**Next Steps:**
-
-The next phase involves implementing the specific logic for the `pre_deposit` (or similar pre-computation method) and `execute_tx` methods. It also requires handling callbacks from the Orchestrator, such as `new_block` (for transaction confirmation) and `rollback_tx` (for handling blockchain reorganizations), to correctly manage `PoolState` updates.
-
 ---
 
 The rest of the content will be added later.
