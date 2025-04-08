@@ -286,7 +286,7 @@ fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueRespon
 
 Now, let's outline how to implement the user deposit functionality (e.g., depositing BTC into a Pool). We'll use the **pre/invoke pattern**, common in designs like REE involving user signatures and external blockchain interactions:
 
-1.  **Pre-computation:**
+1.  **The Pre Step:**
     * The frontend (or caller) invokes a "pre" method on the Exchange canister (e.g., `pre_deposit`).
     * This method doesn't change state but calculates the necessary parameters to build the Bitcoin transaction (PSBT - Partially Signed Bitcoin Transaction) based on the request (e.g., deposit amount) and the current `Pool` state. This includes the target `Pool` address, amount, required fees, current `nonce`, etc.
     * The canister returns these parameters to the frontend.
@@ -295,7 +295,7 @@ Now, let's outline how to implement the user deposit functionality (e.g., deposi
     * The frontend uses the parameters received from the "pre" method to construct a PSBT.
     * The frontend prompts the user to sign the PSBT inputs belonging to them using their Bitcoin wallet or signing tool. (Note: Frontend implementation details need to be added here.)
 
-3.  **Invocation:**
+3.  **Invoke:**
     * The frontend sends the signed PSBT to an "invoke" method on the Orchestrator canister.
     * This method validates the PSBT (signatures, amounts, etc.) and checks requirements (like `get_minimal_tx_value`).
     * **Crucially:** It calls the Orchestrator canister to submit the valid PSBT to the Bitcoin network.
