@@ -32,8 +32,12 @@ const sidebars = {
       type: 'category',
       label: 'REE', 
       items: [
-        'REE/tutorial',
-        'REE/build',
+        'REE/introduction',
+        'REE/core-concepts',
+        'REE/first-exchange',
+        'REE/state-management',
+        'REE/next-steps',
+
       ],
     },
   ],

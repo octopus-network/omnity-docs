@@ -1,70 +1,17 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
-# REE Dev Guide
+# Develop Your First Exchange
 
-### Introduction to REE and Exchange
-* ***What is REE? ***
+This document explains how to develop a basic Exchange Canister on the Internet Computer (IC) by walking through a specific feature from a hypothetical Lending DApp. We will focus on the scenario where a user deposits BTC into a Lending Pool to earn interest.
 
-REE (Runes Exchange Environment) is a decentralized execution layer for Bitcoin DeFi, enabling open and composable smart contracts to interact directly with Bitcoin assets—without the need for bridges, wrapped assets, or third-party wallets.
+For a more complete demo application and source code, please refer to:
 
-Unlike traditional Bitcoin Layer 2 solutions, REE preserves Bitcoin’s security while enhancing programmability through Turing-complete smart contracts, all while maintaining native Bitcoin transactions and a seamless user experience.
+* **Demo:** [https://ree-lending-demo.vercel.app/](https://ree-lending-demo.vercel.app/)
+* **GitHub:** [https://github.com/octopus-network/ree-lending-demo](https://github.com/octopus-network/ree-lending-demo)
 
-* ***Key Differences Between REE and Traditional Bitcoin L2 ***
-
-| Feature          | Traditional Bitcoin L2 | REE (Bridgeless)           |
-|------------------|------------------------|----------------------------|
-| Asset Handling   | Requires bridging/wrapping | Direct native Bitcoin assets |
-| Smart Contracts  | Limited Programmability| Fully Turing-complete|
-| Signing Mechanism| Centralized/semi-centralized | Fully decentralized (via ICP)|
-| Wallet Compatibility| Often needs new wallets| Works with native Bitcoin wallets|
-
-* ***Key Advantages of REE ***
-
-** REE offers compelling advantages for the Bitcoin DeFi ecosystem.** 
-For end-users, it delivers a seamless experience by supporting standard Bitcoin wallets and enabling faster transactions - all while maintaining Bitcoin's robust security through decentralized validation. For developers, REE provides an open-source (FOSS), highly composable environment that facilitates easy protocol interoperability and shared liquidity. Builders gain additional power through a sophisticated smart contract platform, complete with comprehensive development tools, practical implementation examples, and integrated mechanisms for implementing value capture strategies.
-
----
-
-### Core Concepts
-* ***PSBT (Partially Signed Bitcoin Transaction)  ***
-
-PSBT is a standardized Bitcoin transaction formatthat enables collaborative signing workflows on Bitcoin. The protocol's defining characteristic is its ability to let multiple parties sequentially sign individual transaction components offline, which are then aggregated into a final valid transaction for blockchain broadcast - establishing the foundation for secure multi-party transactions on Bitcoin.
-
-* ***DPS (Decentralized PSBT Signing)  ***
-
-DPS is REE's mechanism for handling transaction signing. It leverages the PSBT standard but decentralizes the signing process itself onto the ICP (Internet Computer Protocol) blockchain. This approach ensures signatures are managed transparently and trustlessly, without a central coordinator.
-
-* ***Coin  ***
-
-Within the REE environment, a **Coin** represents a unit of value based on Bitcoin's UTXO model. REE primarily recognizes native Bitcoin (BTC) and assets created using the Runes protocol as Coins.
-
-* ***Pool  ***
-
-A **Pool** functions as a managed container within an Exchange protocol. Controlled by its associated Exchange via ICP smart contracts, each Pool holds specific **Coin** assets (e.g., BTC or a particular Rune) along with the necessary state information and transaction history related to those assets.
-
-* ***Exchange  ***
-
-An **Exchange** is a specific Bitcoin DeFi (BTCFi) protocol built as a smart contract running on the REE platform. Its main role is to define the logic for asset interactions, primarily enabling the exchange of **Coins** between end-users and the **Pools** managed by the Exchange. Exchanges are responsible for validating transactions according to their predefined rules, managing the liquidity within their Pools, and participating in the DPS process to get transactions settled on the Bitcoin blockchain.
-
-*(Note: The relationship between an Exchange and its Pools is often referred to as the 'Exchange-Pool Model', which is central to how REE applications manage UTXO-based assets.)*
-
-* ***Orchestrator   ***
-
-The **Orchestrator** is a critical component within REE that oversees the entire lifecycle of a transaction. It coordinates the necessary steps, including managing signature collection through DPS, validating UTXOs involved in the transaction, and handling final confirmations or initiating rollbacks if issues arise. The Orchestrator ensures that transactions are processed atomically and maintain consistency across the system.
-
----
-
-###  Develop Your First Exchange
-Developing a Basic Exchange Canister on the Internet Computer (IC).
-
-This document provides a step-by-step guide to building a fundamental Exchange Canister on the Internet Computer, using a key feature from a hypothetical Lending DApp as an example. We’ll explore the process of enabling users to deposit BTC into a Lending Pool to earn interest, covering the essential implementation details.
-
-- Demo: [https://ree-lending-demo.vercel.app/](https://ree-lending-demo.vercel.app/)
-- GitHub: [https://github.com/octopus-network/ree-lending-demo](https://github.com/octopus-network/ree-lending-demo)
-
-#### Prerequisites
+## Prerequisites
 
 Before you begin, ensure you meet the following requirements:
 
@@ -75,9 +22,9 @@ Before you begin, ensure you meet the following requirements:
 
 This document will not cover the installation process in detail.
 
-#### Getting Started
+## Getting Started
 
-*** 1. Create a New Project ***
+### 1. Create a New Project
 
 We can use the `dfx` tool to quickly create a project template with a Rust backend canister and a React frontend:
 
@@ -100,7 +47,7 @@ Executing this command generates the following project structure:
 * `ree-demo-exchange-backend`: This directory contains the Rust canister project where we will write the core logic.
 * `ree-demo-exchange-frontend`: This directory contains the React project for the frontend user interface.
 
-*** 2. Define the Core Data Structure: Pool ***
+### 2. Define the Core Data Structure: Pool
 
 First, we need to define the core data structure representing a lending pool, `Pool`. A `Pool` primarily holds assets and records its state change history.
 
@@ -134,7 +81,7 @@ impl Pool {
 * The `Pool` struct stores metadata about the associated asset (`CoinMeta`), the pool's public key (`Pubkey`), a cached pool address (`addr`), and a list of historical states (`states`).
 * The `derivation_path` method generates a unique path based on the pool's base asset ID (`CoinId`). This is crucial for generating deterministic addresses using Chain-key technology, ensuring different pools have distinct addresses controlled by different underlying keys managed by the IC.
 
-*** 3. Manage Pool State: `PoolState` ***
+### 3. Manage Pool State: `PoolState`
 
 We need a way to represent the state of a pool at a specific point in time, usually after a transaction.
 
@@ -185,7 +132,7 @@ impl Pool {
 * The `finalize` method is used after a transaction is confirmed on the underlying blockchain. It sets the state corresponding to the confirmed `txid` as the new base state and removes older states to save storage.
 * The `commit` method appends a new `PoolState` to the history, typically after a transaction has been submitted but not yet finalized.
 
-*** 4. Store Pool Data ***
+### 4. Store Pool Data
 
 We need a persistent way to store all the created `Pool` instances, ensuring data survives canister upgrades. The IC provides `StableBTreeMap` for this purpose.
 
@@ -207,7 +154,7 @@ static LENDING_POOLS: RefCell<StableBTreeMap<String, Pool, Memory>> = RefCell::n
 * This map uses the `Pool`'s address (String) as the key and the `Pool` struct as the value.
 * It is initialized using memory obtained from a `MEMORY_MANAGER` (typically defined using `thread_local!`), ensuring the data resides in stable memory.
 
-*** 5. Initialize a Demo Pool ***
+### 5. Initialize a Demo Pool
 
 For demonstration purposes, it's useful to have a function that initializes a sample `Pool` when the canister is deployed or upgraded. This function is usually restricted to the canister's controller.
 
@@ -264,7 +211,7 @@ async fn init_pool() -> Result<(), String> {
 * It creates a new `Pool` instance with an empty initial state (`states: vec![]`).
 * It stores the newly created `pool` in the `LENDING_POOLS` stable map.
 
-*** 6. Implement Required Exchange Methods (Partial) ***
+### 6. Implement Required Exchange Methods (Partial)
 
 An Exchange canister interacting with a framework like REE (Rune Exchange Engine) usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
 
@@ -336,7 +283,7 @@ fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueRespon
 * `get_pool_info`: A `#[query]` method that takes a `pool_address`, looks up the corresponding `Pool` (assuming a helper like `get_pool()`), and returns detailed `PoolInfo` if found. It extracts data like `nonce`, asset reserves, and `utxos` from the latest `PoolState`.
 * `get_minimal_tx_value`: A `#[query]` method. In a real exchange, this value helps manage transaction flow and prevent dust spam, often scaling with the length of the pending transaction queue (`zero_confirmed_tx_queue_length`). This simplified demo returns a fixed constant value.
 
-*** 7. Implementing the Deposit Functionality (Overview) ***
+### 7. Implementing the Deposit Functionality (Overview)
 
 Now, let's outline how to implement the user deposit functionality (e.g., depositing BTC into a Pool). We'll use the **pre/invoke pattern**, common in designs like REE involving user signatures and external blockchain interactions:
 
@@ -363,56 +310,4 @@ The next phase involves implementing the specific logic for the `pre_deposit` (o
 
 ---
 
-
-
-
-### State Management 
-[To be added]
-
----
-
-### Next Steps and Resources
-Congratulations on deploying your first Exchange on REE! Continue your journey with additional resources, examples, tools, and support channels.
-
-#### Additional Resources
-
-* ***Core Development & Learning   ***
-- [IC Developer Docs](https://internetcomputer.org/docs/home)**: Official documentation for the Internet Computer Protocol, covering development concepts and guides relevant to REE canisters.
-- [REE Type Definitions](https://github.com/octopus-network/ree-types)**: This repository contains the essential data type definitions for the REE (Runes Exchange Environment).
-
-* ***Tools & Explorers   ***
-- [Testnet Runescan](https://testnet.runescan.net/)**: REE transaction explorer for the testnet.
-- [Mainnet Runescan](https://runescan.net/)**: REE transaction explorer for the mainnet.
-- [Testnet Orchestrator Dashboard](https://dashboard.internetcomputer.org/canister/hvyp5-5yaaa-aaaao-qjxha-cai)**: Interface to view the status and details of the testnet Orchestrator canister.
-
-* ***Examples & Code Repositories   ***
-
-* RichSwap AMM DEX:
-- [RichSwap Application](https://richswap.io): An AMM-based decentralized exchange allowing trustless swaps of Bitcoin and Runes assets.
-- [RichSwap Canister Code](https://github.com/octopus-network/richswap-canister): Source code for the RichSwap exchange canister.
-* REE Lending Demo:
-- [Lending Demo Application](https://ree-lending-demo.vercel.app/): A demonstration application showcasing lending functionalities built on REE.
-- [Lending Demo Code](https://github.com/octopus-network/ree-lending-demo): Source code for the REE lending demo.
-
-* ***Get Technical Support   ***
-- [REE Dev Support Channel (English)](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/3944635384)
-- [REE Dev Support Channel (Chinese)](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/2543618207)
-
-
-
-* ***Appendix   ***
-
-** Common Terminology **
-
-[To be added]
-
-** Frequently Asked Questions **
-
-[To be added]
-
-
-
-
-
-
-Last updated on April 6, 2025
+The rest of the content will be added later.
