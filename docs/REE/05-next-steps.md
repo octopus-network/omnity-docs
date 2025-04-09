@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Next Steps and Resources
 
-You've successfully created your first Exchange on REE! Continue your journey with additional resources, examples, tools, and support channels.
+Congratulations on deploying your first Exchange on REE! Continue your journey with additional resources, examples, tools, and support channels.
 
 ## Additional Resources
 
@@ -40,3 +40,7 @@ You've successfully created your first Exchange on REE! Continue your journey wi
 ### Frequently Asked Questions
 
 [To be added]
+
+
+
+Last updated on April 9, 2025

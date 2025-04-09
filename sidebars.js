@@ -37,6 +37,7 @@ const sidebars = {
         'REE/first-exchange',
         'REE/state-management',
         'REE/next-steps',
+        'REE/build',
 
       ],
     },

@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Develop Your First Exchange
 
-This document explains how to develop a basic Exchange Canister on the Internet Computer (IC) by walking through a specific feature from a hypothetical Lending DApp. We will focus on the scenario where a user deposits BTC into a Lending Pool to earn interest.
+This document explains how to develop a basic exchange canister on the Internet Computer (IC) by walking through a specific feature from a lending DApp. We will focus on the scenario where a user deposits btc into a Lending Pool to earn interest.
 
 For a more complete demo application and source code, please refer to:
 
@@ -24,7 +24,7 @@ This document will not cover the installation process in detail.
 
 ## Getting Started
 
-### 1. Create a New Project
+### 1. Create a new project
 
 We can use the `dfx` tool to quickly create a project template with a Rust backend canister and a React frontend:
 
@@ -46,7 +46,7 @@ Executing this command generates the following project structure:
 * `ree-demo-exchange-backend`: This directory contains the Rust canister project where we will write the core logic.
 * `ree-demo-exchange-frontend`: This directory contains the React project for the frontend user interface.
 
-### 2. Define the Core Data Structure: Pool
+### 2. Define the core data structure: pool
 
 First, we need to define the core data structure representing a lending pool, `Pool`. A `Pool` primarily holds assets and records its state change history.
 
@@ -56,10 +56,10 @@ Create a new file `pool.rs` in the `ree-demo-exchange-backend/src` directory and
 // Pool represents the basic structure of a lending pool
 // It maintains the pool's state history, metadata, and address information
 pub struct Pool {
-    pub states: Vec<PoolState>, // Chain of historical pool states
+    pub states: Vec<PoolState>, // chain of historical pool states
     pub meta: CoinMeta,
     pub pubkey: Pubkey,
-    pub addr: String, // Pool address (cached to avoid re-acquisition costs)
+    pub addr: String, // pool address (cached to avoid re-acquisition costs)
 }
 
 impl Pool {
@@ -78,9 +78,9 @@ impl Pool {
 **Explanation:**
 
 * The `Pool` struct stores metadata about the associated asset (`CoinMeta`), the pool's public key (`Pubkey`), a cached pool address (`addr`), and a list of historical states (`states`).
-* The `derivation_path` method generates a unique path based on the pool's base asset ID (`CoinId`). This is crucial for generating deterministic addresses using Chain-key technology, ensuring different pools have distinct addresses controlled by different underlying keys managed by the IC.
+* The `derivation_path` method generates a unique path based on the pool's base asset id (`CoinId`). This is crucial for generating deterministic addresses using Chain-key technology, ensuring different pools have distinct addresses controlled by different underlying keys managed by the IC.
 
-### 3. Manage Pool State: `PoolState`
+### 3. Manage pool state: `PoolState`
 
 We need a way to represent the state of a pool at a specific point in time, usually after a transaction.
 
@@ -90,9 +90,9 @@ Define the `PoolState` struct within `pool.rs` (code provided as a reference sni
 // PoolState represents the state of a pool
 // A new PoolState is created and added to the Pool's states chain after each transaction
 pub struct PoolState {
-    pub id: Option<Txid>, // Transaction ID that created this state (None for initial state)
-    pub nonce: u64,       // Incremental counter to prevent replay attacks
-    pub utxo: Option<Utxo>, // The UTXO holding the pool's assets
+    pub id: Option<Txid>, // transaction id that created this state (none for initial state)
+    pub nonce: u64,       // incremental counter to prevent replay attacks
+    pub utxo: Option<Utxo>, // the utxo holding the pool's assets
 }
 ```
 
@@ -131,7 +131,7 @@ impl Pool {
 * The `finalize` method is used after a transaction is confirmed on the underlying blockchain. It sets the state corresponding to the confirmed `txid` as the new base state and removes older states to save storage.
 * The `commit` method appends a new `PoolState` to the history, typically after a transaction has been submitted but not yet finalized.
 
-### 4. Store Pool Data
+### 4. Store pool data
 
 We need a persistent way to store all the created `Pool` instances, ensuring data survives canister upgrades. The IC provides `StableBTreeMap` for this purpose.
 
@@ -153,7 +153,7 @@ static LENDING_POOLS: RefCell<StableBTreeMap<String, Pool, Memory>> = RefCell::n
 * This map uses the `Pool`'s address (String) as the key and the `Pool` struct as the value.
 * It is initialized using memory obtained from a `MEMORY_MANAGER` (typically defined using `thread_local!`), ensuring the data resides in stable memory.
 
-### 5. Initialize a Demo Pool
+### 5. Initialize a demo pool
 
 For demonstration purposes, it's useful to have a function that initializes a sample `Pool` when the canister is deployed. This function is restricted to the canister's controller.
 
@@ -210,9 +210,9 @@ async fn init_pool() -> Result<(), String> {
 * It creates a new `Pool` instance with an empty initial state (`states: vec![]`).
 * It stores the newly created `pool` in the `LENDING_POOLS` stable map.
 
-### 6. Implement Required Exchange Methods
+### 6. Implement required exchange methods
 
-An Exchange canister interacting with a framework like REE (Runes Exchange Environment) usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
+An Exchange canister interacting with a framework like REE usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
 
 Let's implement the first three query methods. Create a new file `exchange.rs` in `ree-demo-exchange-backend/src` (code provided as reference snippets):
 
@@ -221,7 +221,7 @@ Let's implement the first three query methods. Create a new file `exchange.rs` i
 // Returns a list of all lending pools
 // Each pool entry contains its name (symbol) and address
 pub fn get_pool_list() -> GetPoolListResponse {
-    let pools = crate::get_pools(); // Assumes a helper function get_pools() exists
+    let pools = crate::get_pools(); // assumes a helper function get_pools() exists
     pools
         .iter()
         .map(|p| PoolBasic {
@@ -235,22 +235,22 @@ pub fn get_pool_list() -> GetPoolListResponse {
 // Returns detailed information about a specific pool identified by its address
 pub fn get_pool_info(args: GetPoolInfoArgs) -> GetPoolInfoResponse {
     let GetPoolInfoArgs { pool_address } = args;
-    let p = crate::get_pool(&pool_address)?; // Assumes a helper function get_pool() exists
+    let p = crate::get_pool(&pool_address)?; // assumes a helper function get_pool() exists
 
     Some(PoolInfo {
         key: p.pubkey.clone(),
         name: p.meta.symbol.clone(),
-        key_derivation_path: vec![p.meta.id.to_bytes()], // Simplified example path
+        key_derivation_path: vec![p.meta.id.to_bytes()], // simplified example path
         address: p.addr.clone(),
         nonce: p.states.last().map(|s| s.nonce).unwrap_or_default(),
-        btc_reserved: p.states.last().map(|s| s.btc_supply()).unwrap_or_default(), // Assumes btc_supply() helper
+        btc_reserved: p.states.last().map(|s| s.btc_supply()).unwrap_or_default(), // assumes btc_supply() exists
         coin_reserved: p
             .states
             .last()
             .map(|s| {
                 vec![CoinBalance {
                     id: p.meta.id,
-                    value: s.rune_supply() as u128, // Assumes rune_supply() helper
+                    value: s.rune_supply() as u128, // assumes rune_supply() exists
                 }]
             })
             .unwrap_or_default(),
@@ -260,7 +260,7 @@ pub fn get_pool_info(args: GetPoolInfoArgs) -> GetPoolInfoResponse {
             .and_then(|s| s.utxo.clone())
             .map(|utxo| vec![utxo])
             .unwrap_or_default(),
-        attributes: p.attrs(), // Assumes attrs() helper
+        attributes: p.attrs(), // assumes attrs() exists
     })
 }
 
@@ -272,7 +272,7 @@ pub fn get_pool_info(args: GetPoolInfoArgs) -> GetPoolInfoResponse {
 fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueResponse {
     // In this demo implementation, the minimal value is fixed
     // In a production environment, this would scale based on _args.zero_confirmed_tx_queue_length
-    pool::MIN_BTC_VALUE // Assumes a constant MIN_BTC_VALUE exists
+    pool::MIN_BTC_VALUE // assumes MIN_BTC_VALUE exists
 }
 ```
 
@@ -286,12 +286,12 @@ fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueRespon
 
 Now, let's outline how to implement the user deposit functionality (e.g., depositing BTC into a Pool). We'll use the **pre/invoke pattern**, common in designs like REE involving user signatures and external blockchain interactions:
 
-1.  **The Pre Step:**
+1.  **The pre step:**
     * The frontend (or caller) invokes a "pre" method on the Exchange canister (e.g., `pre_deposit`).
     * This method doesn't change state but calculates the necessary parameters to build the Bitcoin transaction (PSBT - Partially Signed Bitcoin Transaction) based on the request (e.g., deposit amount) and the current `Pool` state. This includes the target `Pool` address, amount, required fees, current `nonce`, etc.
     * The canister returns these parameters to the frontend.
 
-2.  **Transaction Construction & Signing:**
+2.  **Transaction construction & signing:**
     * The frontend uses the parameters received from the "pre" method to construct a PSBT.
     * The frontend prompts the user to sign the PSBT inputs belonging to them using their Bitcoin wallet or signing tool. (Note: Frontend implementation details need to be added here.)
 
@@ -303,4 +303,10 @@ Now, let's outline how to implement the user deposit functionality (e.g., deposi
     * Once confirmed, the `Pool`'s base state is updated using `finalize`.
 ---
 
-The rest of the content will be added later.
+More content will be added.
+
+
+
+
+
+Last updated on April 9, 2025
