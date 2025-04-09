@@ -1,70 +1,17 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
-# REE Dev Guide
+# Develop Your First Exchange
 
-### Introduction to REE and Exchange
-* ***What is REE? ***
+This document explains how to develop a basic exchange canister on the Internet Computer (IC) by walking through a specific feature from a lending DApp. We will focus on the scenario where a user deposits btc into a Lending Pool to earn interest.
 
-REE (Runes Exchange Environment) is a decentralized execution layer for Bitcoin DeFi, enabling open and composable smart contracts to interact directly with Bitcoin assets—without the need for bridges, wrapped assets, or third-party wallets.
+For a more complete demo application and source code, please refer to:
 
-Unlike traditional Bitcoin Layer 2 solutions, REE preserves Bitcoin’s security while enhancing programmability through Turing-complete smart contracts, all while maintaining native Bitcoin transactions and a seamless user experience.
+* **Demo:** [https://ree-lending-demo.vercel.app/](https://ree-lending-demo.vercel.app/)
+* **GitHub:** [https://github.com/octopus-network/ree-lending-demo](https://github.com/octopus-network/ree-lending-demo)
 
-* ***Key Differences Between REE and Traditional Bitcoin L2 ***
-
-| Feature          | Traditional Bitcoin L2 | REE (Bridgeless)           |
-|------------------|------------------------|----------------------------|
-| Asset Handling   | Requires bridging/wrapping | Direct native Bitcoin assets |
-| Smart Contracts  | Limited Programmability| Fully Turing-complete|
-| Signing Mechanism| Centralized/semi-centralized | Fully decentralized (via ICP)|
-| Wallet Compatibility| Often needs new wallets| Works with native Bitcoin wallets|
-
-* ***Key Advantages of REE ***
-
-** REE offers compelling advantages for the Bitcoin DeFi ecosystem.** 
-For end-users, it delivers a seamless experience by supporting standard Bitcoin wallets and enabling faster transactions - all while maintaining Bitcoin's robust security through decentralized validation. For developers, REE provides an open-source (FOSS), highly composable environment that facilitates easy protocol interoperability and shared liquidity. Builders gain additional power through a sophisticated smart contract platform, complete with comprehensive development tools, practical implementation examples, and integrated mechanisms for implementing value capture strategies.
-
----
-
-### Core Concepts
-* ***PSBT (Partially Signed Bitcoin Transaction)  ***
-
-PSBT is a standardized Bitcoin transaction formatthat enables collaborative signing workflows on Bitcoin. The protocol's defining characteristic is its ability to let multiple parties sequentially sign individual transaction components offline, which are then aggregated into a final valid transaction for blockchain broadcast - establishing the foundation for secure multi-party transactions on Bitcoin.
-
-* ***DPS (Decentralized PSBT Signing)  ***
-
-DPS is REE's mechanism for handling transaction signing. It leverages the PSBT standard but decentralizes the signing process itself onto the ICP (Internet Computer Protocol) blockchain. This approach ensures signatures are managed transparently and trustlessly, without a central coordinator.
-
-* ***Coin  ***
-
-Within the REE environment, a **Coin** represents a unit of value based on Bitcoin's UTXO model. REE primarily recognizes native Bitcoin (BTC) and assets created using the Runes protocol as Coins.
-
-* ***Pool  ***
-
-A **Pool** functions as a managed container within an Exchange protocol. Controlled by its associated Exchange via ICP smart contracts, each Pool holds specific **Coin** assets (e.g., BTC or a particular Rune) along with the necessary state information and transaction history related to those assets.
-
-* ***Exchange  ***
-
-An **Exchange** is a specific Bitcoin DeFi (BTCFi) protocol built as a smart contract running on the REE platform. Its main role is to define the logic for asset interactions, primarily enabling the exchange of **Coins** between end-users and the **Pools** managed by the Exchange. Exchanges are responsible for validating transactions according to their predefined rules, managing the liquidity within their Pools, and participating in the DPS process to get transactions settled on the Bitcoin blockchain.
-
-*(Note: The relationship between an Exchange and its Pools is often referred to as the 'Exchange-Pool Model', which is central to how REE applications manage UTXO-based assets.)*
-
-* ***Orchestrator   ***
-
-The **Orchestrator** is a critical component within REE that oversees the entire lifecycle of a transaction. It coordinates the necessary steps, including managing signature collection through DPS, validating UTXOs involved in the transaction, and handling final confirmations or initiating rollbacks if issues arise. The Orchestrator ensures that transactions are processed atomically and maintain consistency across the system.
-
----
-
-###  Develop Your First Exchange
-Developing a Basic Exchange Canister on the Internet Computer (IC).
-
-This document provides a step-by-step guide to building a fundamental Exchange Canister on the Internet Computer, using a key feature from a hypothetical Lending DApp as an example. We’ll explore the process of enabling users to deposit BTC into a Lending Pool to earn interest, covering the essential implementation details.
-
-- Demo: [https://ree-lending-demo.vercel.app/](https://ree-lending-demo.vercel.app/)
-- GitHub: [https://github.com/octopus-network/ree-lending-demo](https://github.com/octopus-network/ree-lending-demo)
-
-#### Prerequisites
+## Prerequisites
 
 Before you begin, ensure you meet the following requirements:
 
@@ -75,9 +22,9 @@ Before you begin, ensure you meet the following requirements:
 
 This document will not cover the installation process in detail.
 
-#### Getting Started
+## Getting Started
 
-*** 1. Create a New Project ***
+### 1. Create a new project
 
 We can use the `dfx` tool to quickly create a project template with a Rust backend canister and a React frontend:
 
@@ -90,7 +37,6 @@ Executing this command generates the following project structure:
 ```
 ./ree-demo-exchange
 ├── src
-│   ├── declarations          # Canister interface definitions
 │   ├── ree-demo-exchange-backend # Backend Canister project (Rust)
 │   └── ree-demo-exchange-frontend # Frontend project (React)
 ├── dfx.json                 # Dfx configuration file
@@ -100,7 +46,7 @@ Executing this command generates the following project structure:
 * `ree-demo-exchange-backend`: This directory contains the Rust canister project where we will write the core logic.
 * `ree-demo-exchange-frontend`: This directory contains the React project for the frontend user interface.
 
-*** 2. Define the Core Data Structure: Pool ***
+### 2. Define the core data structure: pool
 
 First, we need to define the core data structure representing a lending pool, `Pool`. A `Pool` primarily holds assets and records its state change history.
 
@@ -110,10 +56,10 @@ Create a new file `pool.rs` in the `ree-demo-exchange-backend/src` directory and
 // Pool represents the basic structure of a lending pool
 // It maintains the pool's state history, metadata, and address information
 pub struct Pool {
-    pub states: Vec<PoolState>, // Chain of historical pool states
+    pub states: Vec<PoolState>, // chain of historical pool states
     pub meta: CoinMeta,
     pub pubkey: Pubkey,
-    pub addr: String, // Pool address (cached to avoid re-acquisition costs)
+    pub addr: String, // pool address (cached to avoid re-acquisition costs)
 }
 
 impl Pool {
@@ -132,9 +78,9 @@ impl Pool {
 **Explanation:**
 
 * The `Pool` struct stores metadata about the associated asset (`CoinMeta`), the pool's public key (`Pubkey`), a cached pool address (`addr`), and a list of historical states (`states`).
-* The `derivation_path` method generates a unique path based on the pool's base asset ID (`CoinId`). This is crucial for generating deterministic addresses using Chain-key technology, ensuring different pools have distinct addresses controlled by different underlying keys managed by the IC.
+* The `derivation_path` method generates a unique path based on the pool's base asset id (`CoinId`). This is crucial for generating deterministic addresses using Chain-key technology, ensuring different pools have distinct addresses controlled by different underlying keys managed by the IC.
 
-*** 3. Manage Pool State: `PoolState` ***
+### 3. Manage pool state: `PoolState`
 
 We need a way to represent the state of a pool at a specific point in time, usually after a transaction.
 
@@ -144,9 +90,9 @@ Define the `PoolState` struct within `pool.rs` (code provided as a reference sni
 // PoolState represents the state of a pool
 // A new PoolState is created and added to the Pool's states chain after each transaction
 pub struct PoolState {
-    pub id: Option<Txid>, // Transaction ID that created this state (None for initial state)
-    pub nonce: u64,       // Incremental counter to prevent replay attacks
-    pub utxo: Option<Utxo>, // The UTXO holding the pool's assets
+    pub id: Option<Txid>, // transaction id that created this state (none for initial state)
+    pub nonce: u64,       // incremental counter to prevent replay attacks
+    pub utxo: Option<Utxo>, // the utxo holding the pool's assets
 }
 ```
 
@@ -185,7 +131,7 @@ impl Pool {
 * The `finalize` method is used after a transaction is confirmed on the underlying blockchain. It sets the state corresponding to the confirmed `txid` as the new base state and removes older states to save storage.
 * The `commit` method appends a new `PoolState` to the history, typically after a transaction has been submitted but not yet finalized.
 
-*** 4. Store Pool Data ***
+### 4. Store pool data
 
 We need a persistent way to store all the created `Pool` instances, ensuring data survives canister upgrades. The IC provides `StableBTreeMap` for this purpose.
 
@@ -207,9 +153,9 @@ static LENDING_POOLS: RefCell<StableBTreeMap<String, Pool, Memory>> = RefCell::n
 * This map uses the `Pool`'s address (String) as the key and the `Pool` struct as the value.
 * It is initialized using memory obtained from a `MEMORY_MANAGER` (typically defined using `thread_local!`), ensuring the data resides in stable memory.
 
-*** 5. Initialize a Demo Pool ***
+### 5. Initialize a demo pool
 
-For demonstration purposes, it's useful to have a function that initializes a sample `Pool` when the canister is deployed or upgraded. This function is usually restricted to the canister's controller.
+For demonstration purposes, it's useful to have a function that initializes a sample `Pool` when the canister is deployed. This function is restricted to the canister's controller.
 
 Create a new file `lending.rs` in `ree-demo-exchange-backend/src` and implement the `init_pool` function (code provided as a reference snippet):
 
@@ -264,9 +210,9 @@ async fn init_pool() -> Result<(), String> {
 * It creates a new `Pool` instance with an empty initial state (`states: vec![]`).
 * It stores the newly created `pool` in the `LENDING_POOLS` stable map.
 
-*** 6. Implement Required Exchange Methods (Partial) ***
+### 6. Implement required exchange methods
 
-An Exchange canister interacting with a framework like REE (Rune Exchange Engine) usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
+An Exchange canister interacting with a framework like REE usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
 
 Let's implement the first three query methods. Create a new file `exchange.rs` in `ree-demo-exchange-backend/src` (code provided as reference snippets):
 
@@ -275,7 +221,7 @@ Let's implement the first three query methods. Create a new file `exchange.rs` i
 // Returns a list of all lending pools
 // Each pool entry contains its name (symbol) and address
 pub fn get_pool_list() -> GetPoolListResponse {
-    let pools = crate::get_pools(); // Assumes a helper function get_pools() exists
+    let pools = crate::get_pools(); // assumes a helper function get_pools() exists
     pools
         .iter()
         .map(|p| PoolBasic {
@@ -289,22 +235,22 @@ pub fn get_pool_list() -> GetPoolListResponse {
 // Returns detailed information about a specific pool identified by its address
 pub fn get_pool_info(args: GetPoolInfoArgs) -> GetPoolInfoResponse {
     let GetPoolInfoArgs { pool_address } = args;
-    let p = crate::get_pool(&pool_address)?; // Assumes a helper function get_pool() exists
+    let p = crate::get_pool(&pool_address)?; // assumes a helper function get_pool() exists
 
     Some(PoolInfo {
         key: p.pubkey.clone(),
         name: p.meta.symbol.clone(),
-        key_derivation_path: vec![p.meta.id.to_bytes()], // Simplified example path
+        key_derivation_path: vec![p.meta.id.to_bytes()], // simplified example path
         address: p.addr.clone(),
         nonce: p.states.last().map(|s| s.nonce).unwrap_or_default(),
-        btc_reserved: p.states.last().map(|s| s.btc_supply()).unwrap_or_default(), // Assumes btc_supply() helper
+        btc_reserved: p.states.last().map(|s| s.btc_supply()).unwrap_or_default(), // assumes btc_supply() exists
         coin_reserved: p
             .states
             .last()
             .map(|s| {
                 vec![CoinBalance {
                     id: p.meta.id,
-                    value: s.rune_supply() as u128, // Assumes rune_supply() helper
+                    value: s.rune_supply() as u128, // assumes rune_supply() exists
                 }]
             })
             .unwrap_or_default(),
@@ -314,7 +260,7 @@ pub fn get_pool_info(args: GetPoolInfoArgs) -> GetPoolInfoResponse {
             .and_then(|s| s.utxo.clone())
             .map(|utxo| vec![utxo])
             .unwrap_or_default(),
-        attributes: p.attrs(), // Assumes attrs() helper
+        attributes: p.attrs(), // assumes attrs() exists
     })
 }
 
@@ -326,7 +272,7 @@ pub fn get_pool_info(args: GetPoolInfoArgs) -> GetPoolInfoResponse {
 fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueResponse {
     // In this demo implementation, the minimal value is fixed
     // In a production environment, this would scale based on _args.zero_confirmed_tx_queue_length
-    pool::MIN_BTC_VALUE // Assumes a constant MIN_BTC_VALUE exists
+    pool::MIN_BTC_VALUE // assumes MIN_BTC_VALUE exists
 }
 ```
 
@@ -336,83 +282,31 @@ fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueRespon
 * `get_pool_info`: A `#[query]` method that takes a `pool_address`, looks up the corresponding `Pool` (assuming a helper like `get_pool()`), and returns detailed `PoolInfo` if found. It extracts data like `nonce`, asset reserves, and `utxos` from the latest `PoolState`.
 * `get_minimal_tx_value`: A `#[query]` method. In a real exchange, this value helps manage transaction flow and prevent dust spam, often scaling with the length of the pending transaction queue (`zero_confirmed_tx_queue_length`). This simplified demo returns a fixed constant value.
 
-*** 7. Implementing the Deposit Functionality (Overview) ***
+### 7. Implementing the Deposit Functionality
 
 Now, let's outline how to implement the user deposit functionality (e.g., depositing BTC into a Pool). We'll use the **pre/invoke pattern**, common in designs like REE involving user signatures and external blockchain interactions:
 
-1.  **Pre-computation:**
+1.  **The pre step:**
     * The frontend (or caller) invokes a "pre" method on the Exchange canister (e.g., `pre_deposit`).
     * This method doesn't change state but calculates the necessary parameters to build the Bitcoin transaction (PSBT - Partially Signed Bitcoin Transaction) based on the request (e.g., deposit amount) and the current `Pool` state. This includes the target `Pool` address, amount, required fees, current `nonce`, etc.
     * The canister returns these parameters to the frontend.
 
-2.  **Transaction Construction & Signing:**
+2.  **Transaction construction & signing:**
     * The frontend uses the parameters received from the "pre" method to construct a PSBT.
-    * The frontend prompts the user to sign the PSBT inputs belonging to them using their Bitcoin wallet or signing tool.
+    * The frontend prompts the user to sign the PSBT inputs belonging to them using their Bitcoin wallet or signing tool. (Note: Frontend implementation details need to be added here.)
 
-3.  **Invocation:**
-    * The frontend (or an Orchestrator Canister) sends the signed PSBT to an "invoke" method on the Exchange canister (e.g., `execute_tx`).
+3.  **Invoke:**
+    * The frontend sends the signed PSBT to an "invoke" method on the Orchestrator canister.
     * This method validates the PSBT (signatures, amounts, etc.) and checks requirements (like `get_minimal_tx_value`).
-    * **Crucially:** It calls an Orchestrator service (part of the REE framework or similar) to submit the valid PSBT to the Bitcoin network.
-    * It may create a temporary `PoolState` to track the pending transaction.
-    * It waits for Bitcoin network confirmation (handled by the Orchestrator, which notifies the Exchange via methods like `new_block`).
+    * **Crucially:** It calls the Orchestrator canister to submit the valid PSBT to the Bitcoin network.
+    * It waits for Bitcoin network confirmation.
     * Once confirmed, the `Pool`'s base state is updated using `finalize`.
-
-**Next Steps:**
-
-The next phase involves implementing the specific logic for the `pre_deposit` (or similar pre-computation method) and `execute_tx` methods. It also requires handling callbacks from the Orchestrator, such as `new_block` (for transaction confirmation) and `rollback_tx` (for handling blockchain reorganizations), to correctly manage `PoolState` updates.
-
 ---
 
-
-
-
-### State Management 
-[To be added]
-
----
-
-### Next Steps and Resources
-Congratulations on deploying your first Exchange on REE! Continue your journey with additional resources, examples, tools, and support channels.
-
-#### Additional Resources
-
-* ***Core Development & Learning   ***
-- [IC Developer Docs](https://internetcomputer.org/docs/home)**: Official documentation for the Internet Computer Protocol, covering development concepts and guides relevant to REE canisters.
-- [REE Type Definitions](https://github.com/octopus-network/ree-types)**: This repository contains the essential data type definitions for the REE (Runes Exchange Environment).
-
-* ***Tools & Explorers   ***
-- [Testnet Runescan](https://testnet.runescan.net/)**: REE transaction explorer for the testnet.
-- [Mainnet Runescan](https://runescan.net/)**: REE transaction explorer for the mainnet.
-- [Testnet Orchestrator Dashboard](https://dashboard.internetcomputer.org/canister/hvyp5-5yaaa-aaaao-qjxha-cai)**: Interface to view the status and details of the testnet Orchestrator canister.
-
-* ***Examples & Code Repositories   ***
-
-* RichSwap AMM DEX:
-- [RichSwap Application](https://richswap.io): An AMM-based decentralized exchange allowing trustless swaps of Bitcoin and Runes assets.
-- [RichSwap Canister Code](https://github.com/octopus-network/richswap-canister): Source code for the RichSwap exchange canister.
-* REE Lending Demo:
-- [Lending Demo Application](https://ree-lending-demo.vercel.app/): A demonstration application showcasing lending functionalities built on REE.
-- [Lending Demo Code](https://github.com/octopus-network/ree-lending-demo): Source code for the REE lending demo.
-
-* ***Get Technical Support   ***
-- [REE Dev Support Channel (English)](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/3944635384)
-- [REE Dev Support Channel (Chinese)](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/2543618207)
-
-
-
-* ***Appendix   ***
-
-** Common Terminology **
-
-[To be added]
-
-** Frequently Asked Questions **
-
-[To be added]
+More content will be added.
 
 
 
 
 
-
-Last updated on April 6, 2025
+Last updated on April 9, 2025
