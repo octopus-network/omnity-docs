@@ -41,6 +41,17 @@ Result: a variant containing either:
         SelfServiceError: the operation failed, and the SelfServiceError provides details about the failure
         
 ```
+```md title="To Pay Fee"
+# Please note that a 10 ICP token addition fee is required, and the payment must be sent to AccountIdentifier::new(omnity_hub_canister_id, &your_principal_subaccount), see how to convert your principal to your_principal_subaccount: 
+pub fn principal_to_subaccount(principal_id: &Principal) -> Subaccount {
+		let mut subaccount = [0; std::mem::size_of::<Subaccount>()];
+		let principal_id = principal_id.as_slice();
+		subaccount[0] = principal_id.len().try_into().unwrap();
+		subaccount[1..1 + principal_id.len()].copy_from_slice(principal_id);
+
+		Subaccount(subaccount)
+}
+```
 
 ### link_chains
 Connecting two chains
@@ -799,4 +810,4 @@ Returns:
 Option<u64>: the fee amount
 ```
 
-Last updated on February 10, 2025
+Last updated on April 24, 2025
