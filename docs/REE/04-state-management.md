@@ -10,6 +10,26 @@ We have already covered four of the six required REE interface methods. This cha
 
 It's important to note that the implementation logic for `new_block()` and `rollback_tx()` is often standard across most exchanges. We plan to potentially move this common logic into an SDK or framework in the future to simplify development. For now, we'll explain their purpose and provide reference implementations.
 
+To enable state rollback in exceptional cases, we first need to add this code snippet at the end of the `execute_tx()` method to record the pool associated with the transaction and whether it has been confirmed.
+
+```rust
+#[update(guard = "ensure_testnet4_orchestrator")]
+pub async fn execute_tx(args: ExecuteTxArgs) -> ExecuteTxResponse {
+...
+    // Record the transaction as unconfirmed and track which pools it affects
+    crate::TX_RECORDS.with_borrow_mut(|m| {
+        ic_cdk::println!("new unconfirmed txid: {} in pool: {} ", txid, pool_address);
+        let mut record = m.get(&(txid.clone(), false)).unwrap_or_default();
+        if !record.pools.contains(&pool_address) {
+            record.pools.push(pool_address.clone());
+        }
+        m.insert((txid.clone(), false), record);
+    });
+
+ ...
+}
+```
+
 ## Handling New Blocks: `new_block()`
 
 The Orchestrator calls the `new_block()` method on an exchange canister whenever it learns that a new Bitcoin block has been indexed.

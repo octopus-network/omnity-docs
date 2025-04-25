@@ -374,16 +374,6 @@ pub async fn execute_tx(args: ExecuteTxArgs) -> ExecuteTxResponse {
         }
     }
 
-    // Record the transaction as unconfirmed and track which pools it affects
-    crate::TX_RECORDS.with_borrow_mut(|m| {
-        ic_cdk::println!("new unconfirmed txid: {} in pool: {} ", txid, pool_address);
-        let mut record = m.get(&(txid.clone(), false)).unwrap_or_default();
-        if !record.pools.contains(&pool_address) {
-            record.pools.push(pool_address.clone());
-        }
-        m.insert((txid.clone(), false), record);
-    });
-
     // Return the serialized PSBT with the exchange's signatures
     Ok(psbt.serialize_hex())
 }
