@@ -100,24 +100,6 @@ We can then implement methods on the `Pool` struct to manage these states (code 
 
 ```rust
 impl Pool {
-    // ... (derivation_path and other methods) ...
-
-    // Finalize a transaction by making its state the new base state
-    // Removes all states before the specified transaction
-    pub(crate) fn finalize(&mut self, txid: Txid) -> Result<(), ExchangeError> {
-        let idx = self
-            .states
-            .iter()
-            .position(|state| state.id == Some(txid))
-            .ok_or(ExchangeError::InvalidState("txid not found".to_string()))?;
-        if idx == 0 {
-            return Ok(());
-        }
-        self.states.rotate_left(idx);
-        self.states.truncate(self.states.len() - idx);
-        Ok(())
-    }
-
     // Adds a new PoolState to the chain after a transaction is executed
     pub(crate) fn commit(&mut self, state: PoolState) {
         self.states.push(state);
@@ -284,29 +266,292 @@ fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueRespon
 
 ### 7. Implementing the Deposit Functionality
 
-Now, let's outline how to implement the user deposit functionality (e.g., depositing BTC into a Pool). We'll use the **pre/invoke pattern**, common in designs like REE involving user signatures and external blockchain interactions:
+We first implement the necessary methods in the canister for the deposit functionality, including `pre_deposit()` and `execute_tx`.
+
+`pre_deposit` receives the quantity of assets the user wants to deposit. This method typically needs to return the information required for the deposit transaction corresponding to the user's input. In this example, we only accept any amount of BTC assets deposited by the user, so we can ignore the user's input and only return the pool's UTXO and nonce.
+We can add the following method in `lending.rs`:
+
+```rust
+#[query]
+// pre_deposit queries the information needed to build a deposit transaction
+// by specifying the target pool address and deposit amount
+pub fn pre_deposit(
+    pool_address: String,
+    amount: CoinBalance,
+) -> Result<DepositOffer, ExchangeError> {
+    if amount.value < CoinMeta::btc().min_amount {
+        return Err(ExchangeError::TooSmallFunds);
+    }
+    let pool = crate::get_pool(&pool_address).ok_or(ExchangeError::InvalidPool)?;
+    let state = pool.states.last().clone();
+    Ok(DepositOffer {
+        pool_utxo: state.map(|s| s.utxo.clone()).flatten(),
+        nonce: state.map(|s| s.nonce).unwrap_or_default(),
+    })
+}
+```
+
+Next, we implement `execute_tx`. This method accepts the PSBT constructed by the frontend and validated by the orchestrator, along with the user's intention set. There are three steps to be done in this method:
+1. Validate that the intention set meets the pool's requirements. In this example, it should be that the user transfers out a certain amount of BTC, and the pool receives a certain amount of BTC (i.e., the deposit process). Other necessary validations should also be performed.
+2. Call the `ree_pool_sign` method provided by the `ree-types` library to sign the UTXO held by the pool, releasing the assets.
+3. Execute this transaction and modify the exchange pool state. The user will then be able to see the result of the deposit.
+A reference code looks like this:
+
+```rust
+#[update(guard = "ensure_testnet4_orchestrator")]
+// Accepts transaction execution requests from the orchestrator
+// Verifies the submitted PSBT (Partially Signed Bitcoin Transaction)
+// If validation passes, signs the pool's UTXOs and updates the exchange pool state
+// Only the orchestrator can call this function (ensured by the guard)
+pub async fn execute_tx(args: ExecuteTxArgs) -> ExecuteTxResponse {
+    let ExecuteTxArgs {
+        psbt_hex,
+        txid,
+        intention_set,
+        intention_index,
+        zero_confirmed_tx_queue_length: _zero_confirmed_tx_queue_length,
+    } = args;
+    // Decode and deserialize the PSBT
+    let raw = hex::decode(&psbt_hex).map_err(|_| "invalid psbt".to_string())?;
+    let mut psbt = Psbt::deserialize(raw.as_slice()).map_err(|_| "invalid psbt".to_string())?;
+
+    // Extract the intention details
+    let intention = intention_set.intentions[intention_index as usize].clone();
+    let Intention {
+        exchange_id: _,
+        action: _,
+        action_params: _,
+        pool_address,
+        nonce,
+        pool_utxo_spend,
+        pool_utxo_receive,
+        input_coins,
+        output_coins,
+    } = intention;
+
+    // Get the pool from storage
+    let pool = crate::LENDING_POOLS
+        .with_borrow(|m| m.get(&pool_address).expect("already checked in pre_*; qed"));
+
+    // Process the transaction based on the action type
+    match intention.action.as_ref() {
+        "deposit" => {
+            // Validate the deposit transaction and get the new pool state
+            let (new_state, consumed) = pool
+                .validate_deposit(
+                    txid,
+                    nonce,
+                    pool_utxo_spend,
+                    pool_utxo_receive,
+                    input_coins,
+                    output_coins,
+                )
+                .map_err(|e| e.to_string())?;
+
+            // Sign the UTXO if there's an existing one to spend
+            if let Some(ref utxo) = consumed {
+                ree_pool_sign(
+                    &mut psbt,
+                    utxo,
+                    crate::SCHNORR_KEY_NAME,
+                    pool.derivation_path(),
+                )
+                .await
+                .map_err(|e| e.to_string())?;
+            }
+
+            // Update the pool with the new state
+            crate::LENDING_POOLS.with_borrow_mut(|m| {
+                let mut pool = m
+                    .get(&pool_address)
+                    .expect("already checked in pre_deposit; qed");
+                pool.commit(new_state);
+                m.insert(pool_address.clone(), pool);
+            });
+        }
+        _ => {
+            return Err("invalid method".to_string());
+        }
+    }
+
+    // Return the serialized PSBT with the exchange's signatures
+    Ok(psbt.serialize_hex())
+}
+```
+
+### 8. Implementing the Deposit Functionality on the Frontend
+
+Now, let's outline how to implement the user deposit functionality on the frontend, interacting with the canister methods defined in Section 7. We'll use the **pre/invoke pattern**:
 
 1.  **The pre step:**
-    * The frontend (or caller) invokes a "pre" method on the Exchange canister (e.g., `pre_deposit`).
-    * This method doesn't change state but calculates the necessary parameters to build the Bitcoin transaction (PSBT - Partially Signed Bitcoin Transaction) based on the request (e.g., deposit amount) and the current `Pool` state. This includes the target `Pool` address, amount, required fees, current `nonce`, etc.
-    * The canister returns these parameters to the frontend.
+    *   The frontend invokes the `pre_deposit` query method on the Exchange canister, passing the target pool address and the desired deposit amount.
+    *   The canister returns the necessary information (like the pool's current UTXO and nonce) needed to construct the transaction.
+
+    *Frontend Example (React `useEffect` hook):*
+    ```typescript
+    // Simplified example of calling pre_deposit when the input amount changes
+    useEffect(() => {
+      if (!Number(debouncedInputAmount)) {
+        return;
+      }
+      const btcAmount = parseCoinAmount(debouncedInputAmount, BITCOIN);
+      setIsQuoting(true);
+      // Call the exchange canister's pre_deposit method
+      lendingActor
+        .pre_deposit(pool.address, { id: BITCOIN.id, value: BigInt(btcAmount) })
+        .then((res: any) => {
+          if (res.Ok) {
+            // Store the returned offer (pool UTXO, nonce)
+            setDepositOffer(res.Ok);
+          }
+        })
+        .finally(() => {
+          setIsQuoting(false);
+        });
+    }, [debouncedInputAmount]); // Re-run when amount changes
+    ```
 
 2.  **Transaction construction & signing:**
-    * The frontend uses the parameters received from the "pre" method to construct a PSBT.
-    * The frontend prompts the user to sign the PSBT inputs belonging to them using their Bitcoin wallet or signing tool. (Note: Frontend implementation details need to be added here.)
+    *   The frontend uses the parameters received from `pre_deposit` (like the pool's UTXO and nonce) and the user's input (deposit amount, their UTXOs) to construct a PSBT.
+    *   The frontend prompts the user to sign the PSBT inputs belonging to them using their Bitcoin wallet (e.g., UniSat, Xverse).
+
+    *Explanation on PSBT Construction:*
+
+    Constructing the PSBT currently involves some complexity, requiring developers to understand the UTXO calculation model. The specific implementation for this deposit example can be found in the REE Lending Demo repository: [DepositContent.tsx#L116-L329](https://github.com/octopus-network/ree-lending-demo/blob/5a6c454cbeb1f3bc01a0b19cc2f3db6f629acb52/src/ree-lending-demo-frontend/src/components/ManagePoolModal/DepositContent.tsx#L116-L329).
+
+    We plan to abstract this implementation into a library method in the future to simplify development. Here's the basic principle behind constructing this PSBT:
+
+    A Bitcoin transaction essentially destroys a set of input UTXOs and creates a set of output UTXOs. In our deposit example, we need to construct a transaction where:
+    *   **Inputs:** Combine the pool's current BTC UTXO (obtained via `pre_deposit`) and the user's UTXO(s) used to pay for the deposit (obtained from the user's wallet).
+    *   **Outputs:** Create new UTXOs:
+        1.  One UTXO belonging to the pool, with a BTC balance increased by the deposited amount.
+        2.  One UTXO belonging to the user (change), with a BTC amount equal to the user's input UTXO(s) minus the deposit amount and minus the transaction fee.
+
+    This process effectively transfers the deposited BTC from the user to the pool while accounting for the network transaction fee.
 
 3.  **Invoke:**
-    * The frontend sends the signed PSBT to an "invoke" method on the Orchestrator canister.
-    * This method validates the PSBT (signatures, amounts, etc.) and checks requirements (like `get_minimal_tx_value`).
-    * **Crucially:** It calls the Orchestrator canister to submit the valid PSBT to the Bitcoin network.
-    * It waits for Bitcoin network confirmation.
-    * Once confirmed, the `Pool`'s base state is updated using `finalize`.
----
+    *   The frontend sends the user-signed PSBT along with an `IntentionSet` to the `invoke` method on the REE Orchestrator canister.
+    *   The Orchestrator validates the PSBT and the `IntentionSet`, calls the corresponding `execute_tx` method on the specified Exchange canister (as described in Section 7), gathers the exchange's signature on the PSBT, broadcasts the final transaction to the Bitcoin network, and eventually returns the Bitcoin transaction ID (`txid`).
 
-More content will be added.
+    **Understanding the `invoke` Call and `IntentionSet`:**
+
+    The Orchestrator's `invoke` function is the main entry point for executing actions within REE. It expects `InvokeArgs`:
+
+    ```rust
+    // Arguments for the Orchestrator's invoke function
+    pub struct InvokeArgs {
+        pub psbt_hex: String,      // User-signed PSBT (hex encoded)
+        pub intention_set: IntentionSet, // Describes the user's and exchange's actions
+    }
+    ```
+
+    The crucial part is the `IntentionSet`, which details *what* the transaction aims to achieve:
+
+    ```rust
+    // Defines the overall goal of the transaction
+    pub struct IntentionSet {
+        pub initiator_address: String, // User's address (for change/refunds)
+        pub tx_fee_in_sats: u64,     // Proposed Bitcoin transaction fee
+        pub intentions: Vec<Intention>, // List of specific actions (usually one)
+    }
+
+    // Defines a single action within the transaction
+    pub struct Intention {
+        pub exchange_id: String,        // Target Exchange canister ID
+        pub action: String,             // Action name (e.g., "deposit")
+        pub action_params: String,    // Optional extra parameters for the exchange
+        pub pool_address: String,       // Target Pool address within the exchange
+        pub nonce: u64,                 // Nonce obtained from pre_deposit
+        pub pool_utxo_spend: Vec<String>, // Pool UTXOs being spent (if any)
+        pub pool_utxo_receive: Vec<String>, // New UTXOs the pool will receive
+        pub input_coins: Vec<InputCoin>,    // Coins the user is spending
+        pub output_coins: Vec<OutputCoin>,   // Coins the user might receive (e.g., change)
+    }
+
+    // Represents coins being spent
+    pub struct InputCoin {
+        pub from: String,      // Owner address (usually the user)
+        pub coin: CoinBalance, // Asset type and amount
+    }
+
+    // Represents coins being received
+    pub struct OutputCoin {
+        pub to: String,        // Receiver address
+        pub coin: CoinBalance, // Asset type and amount
+    }
+    ```
+
+    For our deposit example, the `Intention` would specify:
+    *   `action`: "deposit"
+    *   `exchange_id`: The ID of our lending exchange canister.
+    *   `pool_address`: The address of the specific BTC pool.
+    *   `nonce`: The nonce received from `pre_deposit`.
+    *   `pool_utxo_spend`: Often empty for a simple deposit, unless the pool consolidates funds.
+    *   `pool_utxo_receive`: The new UTXO representing the deposited amount combined with existing pool funds.
+    *   `input_coins`: The BTC the user is sending from their wallet.
+    *   `output_coins`: Usually empty for a simple deposit, unless there's change involved.
+
+    The Orchestrator validates fields like `exchange_id` and `pool_address` and ensures the `IntentionSet` aligns with the PSBT data before calling the Exchange's `execute_tx`.
+
+    *Frontend Example (React `onSubmit` function):*
+    ```typescript
+    // Simplified example of constructing IntentionSet and calling invoke
+    const onSubmit = async () => {
+      if (!psbt || !depositOffer) { // Ensure PSBT and pre_deposit info exist
+        return;
+      }
+      setIsSubmiting(true);
+      try {
+        // Get the signed PSBT hex from the user's wallet
+        const psbtBase64 = psbt.toBase64();
+        const res = await signPsbt(psbtBase64); // Wallet signing function
+        const signedPsbtHex = res?.signedPsbtHex ?? "";
+        if (!signedPsbtHex) throw new Error("Signing Failed");
+
+        // Construct the IntentionSet
+        const intentionSet = {
+          tx_fee_in_sats: fee, // Calculated fee
+          initiator_address: paymentAddress, // User's address
+          intentions: [
+            {
+              action: "deposit",
+              exchange_id: EXCHANGE_ID, // Your Exchange Canister ID
+              input_coins: inputCoins, // User's BTC input
+              pool_utxo_spend: [], // Pool spends nothing in simple deposit
+              pool_utxo_receive: poolReceiveOutpoints, // Expected pool output
+              output_coins: [], // No other outputs in simple deposit
+              pool_address: pool.address,
+              action_params: "",
+              nonce: depositOffer.nonce, // Nonce from pre_deposit
+            },
+          ],
+        };
+
+        // Call the Orchestrator's invoke method
+        const txid = await Orchestrator.invoke({
+          intention_set: intentionSet,
+          psbt_hex: signedPsbtHex,
+        });
+
+        // Handle success (e.g., update UI, track spent UTXOs)
+        addSpentUtxos(toSpendUtxos);
+        onSuccess(txid);
+
+      } catch (error: any) {
+        // Handle errors (e.g., user rejection, network issues)
+        if (error.code !== 4001) { // Ignore user wallet rejection
+          console.error(error);
+          toast(error.toString());
+        }
+      } finally {
+        setIsSubmiting(false);
+      }
+    };
+    ```
 
 
 
 
 
-Last updated on April 9, 2025
+
+Last updated on May 6, 2025
