@@ -3,27 +3,27 @@ sidebar_position: 1
 ---
 
 # APIs
-[RichSwap](https://github.com/octopus-network/richswap-canister) is the first AMM DEX exchange on [REE](https://docs.omnity.network/docs/REE/build).
+[RichSwap](https://github.com/octopus-network/richswap-canister) is the first AMM DEX exchange on [REE](http://localhost:3000/docs/REE/apis).
 
 For Rich Swap testnet4 please visit **[Rich Swap Testnet](https://richswap-testnet.vercel.app/swap)**.
 
 For Rich Swap support please visit **[The Rich Swap Channel](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/1529837122)** in both English and Chinese.
 
-## Update
+## Query
 #### Workflow(e.g., Swap): 
-The core business logic of Rich Swap is encapsulated within the following functions: pre_withdraw_liquidity, pre_add_liquidity, pre_swap, and create. To gain a clearer understanding of their functionality, please refer to the example workflow provided below:
+The core business logic of Rich Swap is encapsulated within the following functions: pre_withdraw_liquidity, pre_add_liquidity, pre_swap, pre_donate(to ensure fairness and incentivize long-term liquidity provision) and create. To gain a clearer understanding of their functionality, please refer to the example workflow provided below:
 
 **  1. Invoke pre_swap and Display SwapOffer:**
 
-The client application call the [pre_swap](https://docs.omnity.network/docs/Rich-Swap/build#pre_swap) function based on user input. Once the SwapOffer is generated, it should be displayed on the frontend for the user to review and confirm. For every update request that modifies the pool's state, there is a corresponding pre_x method. In the case of a swap, the pre_swap method is invoked to retrieve the quotation and the pool's utxo as input.
+The client application call the [pre_swap](https://docs.omnity.network/docs/Rich-Swap/apis#pre_swap) function based on user input. Once the SwapOffer is generated, it should be displayed on the frontend for the user to review and confirm. For every update request that modifies the pool's state, there is a corresponding pre_x method. In the case of a swap, the pre_swap method is invoked to retrieve the quotation and the pool's utxo as input.
 
 ** 2. Construct a PSBT Using the Wallet API:**
 
-After the user confirms the SwapOffer, the frontend will use the wallet api to construct a psbt (Partially Signed Bitcoin Transaction) based on the provided input parameters and the [estimate_min_tx_fee](https://docs.omnity.network/docs/REE/build#estimate_min_tx_fee), following the verification of the address's utxos. Unlike BTC utxoss, which can be fetched with 0 confirmations through the Unisat api, Runes utxos must be retrieved using the [get_zero_confirmed_utxos_of_address](https://docs.omnity.network/docs/REE/build#get_zero_confirmed_utxos_of_address) method from REE. This step involves significant technical complexity. For a comprehensive guide on constructing a psbt, refer to this [example](https://github.com/unisat-wallet/wallet-utils/blob/master/src/tx-helpers/send-runes.ts).
+After the user confirms the SwapOffer, the frontend will use the wallet api to construct a psbt (Partially Signed Bitcoin Transaction) based on the provided input parameters and the [estimate_min_tx_fee](https://docs.omnity.network/docs/REE/apis#estimate_min_tx_fee), following the verification of the address's utxos. Unlike BTC utxos, which can be fetched with 0 confirmations through the Unisat api, Runes utxos must be retrieved using the [get_zero_confirmed_utxos_of_address](https://docs.omnity.network/docs/REE/apis#get_zero_confirmed_utxos_of_address) method from REE. This step involves significant technical complexity. For a comprehensive guide on constructing a psbt, refer to this [example](https://github.com/unisat-wallet/wallet-utils/blob/master/src/tx-helpers/send-runes.ts).
 
 ** 3. Invoke REE's invoke Function:** 
 
-Once the PSBT is constructed, it is passed along with the intention(see the [example](https://github.com/octopus-network/ree-types/blob/master/intention_set_samples/add_liquidity.json)) to call [REE's invoke function](https://docs.omnity.network/docs/REE/build#invoke). This function will subsequently trigger the **execution_tx** function of the Rich Swap exchange. The Rich Swap exchange will then perform [the necessary checks](https://github.com/octopus-network/richswap-canister?tab=readme-ov-file#how-it-works) to ensure the transaction is valid.
+Once the PSBT is constructed, it is passed along with the intention(see the [example](https://github.com/octopus-network/ree-types/blob/master/intention_set_samples/add_liquidity.json)) to call [REE's invoke function](https://docs.omnity.network/docs/REE/apis#invoke). This function will subsequently trigger the **execution_tx** function of the Rich Swap exchange. The Rich Swap exchange will then perform [the necessary checks](https://github.com/octopus-network/richswap-canister?tab=readme-ov-file#how-it-works) to ensure the transaction is valid.
 
 ** 4. Broadcast the Transaction and Handle Results:**
 
@@ -156,14 +156,32 @@ pre_swap : (text, CoinBalance) -> (Result_4) query;
 
 * SwapOffer: for constructing the PSBT as part of the inputs
 
-### create
+### pre_donate
 ```md
+type CoinBalance = record { id : text; value : nat };
+
+type Utxo = record {
+  maybe_rune : opt CoinBalance;
+  sats : nat64;
+  txid : text;
+  vout : nat32;
+};
+
+type DonateIntention = record {
+  out_rune : CoinBalance;
+  out_sats : nat64;
+  nonce : nat64;
+  input : Utxo;
+};
+
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  UtxoMismatch;
   InvalidNumeric;
   Overflow;
   InvalidInput;
   PoolAddressNotFound;
+  RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
   InvalidRuneId;
@@ -173,23 +191,77 @@ type ExchangeError = variant {
   InvalidTxid;
   InvalidLiquidity;
   EmptyPool;
+  FetchBitcoinCanisterError;
   LpNotFound;
+  NoConfirmedUtxos;
   ChainKeyError;
   FetchRuneIndexerError;
   InvalidState : text;
   InsufficientFunds;
 };
 
-type Result = variant { Ok : text; Err : ExchangeError };
+type Result_7 = variant { Ok : DonateIntention; Err : ExchangeError };
 
-create : (text) -> (Result);
+pre_donate : (text, nat64) -> (Result_7) query;
 ```
-Pool creation is limited to BTC paired exclusively with a RUNE.
-* Input: rune_id - e.g.,:840000:846
-* Output: Pubkey - e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
+* Input: pool - String (pool address)
+* Input: input_sats - u64 (in satoshi)
 
-## Query
-The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_list), [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_info), and [get_minimal_tx_value](https://docs.omnity.network/docs/Rich-Swap/build#get_minimal_tx_value) are required for REE in the standard query api. 
+And it returns:
+DonateIntention: for constructing the PSBT as part of the inputs
+* out_rune - the rune output to pool
+* out_sats - the btc output to pool
+* nonce - pool transaction indexing
+* input - the utxo belongs to pool
+
+#### Donation Workflow:
+The donation process follows a similar workflow to [the example above](https://docs.omnity.network/docs/Rich-Swap/apis#workfloweg-swap):
+* Invoke [pre-donate](https://docs.omnity.network/docs/Rich-Swap/apis#pre_donate)
+* Construct PSBT & DonateIntention 
+* Use the PSBT and intention to call [REE’s invoke function](https://docs.omnity.network/docs/REE/apis#invoke) 
+* REE executes the transaction via [RichSwap::execute_tx](https://dashboard.internetcomputer.org/canister/kmwen-yaaaa-aaaar-qam3a-cai#execute_tx)
+
+For each DonateIntention, the parameters are determined by business logic. In this case (action = "donate"), the exchange enforces the following rules:
+* Exactly 1 `input_coins`, which must be BTC (ID: "0:0")
+* No `output_coins`
+* `pool_utxo_spend` must reference the UTXO of the just-received DonateIntention
+* `pool_utxo_receive` must reference this transaction’s UTXO
+
+PSBT Structure
+Inputs:
+* Input 0: DonateIntention::input
+* Input 1: User’s input (BTC to donate)
+Outputs:
+* Output 0: DonateIntention::out_sats (donation amount)
+* Output 1: Encoded `OP_RETURN`(out_rune)
+* Output 2: User’s change (if applicable)
+
+```jsx title="Rust"
+    let intention_set = IntentionSet {
+        tx_fee_in_sats: fee,
+        initiator_address: input_address.to_string(),
+        intentions: vec![Intention {
+            input_coins: vec![InputCoin {
+                coin: CoinBalance {
+                    id: "0:0".to_string(),
+                    value: 10000,
+                },
+                from: input_address.to_string(),
+            }],
+            output_coins: Vec::new(),
+            action: "donate".to_string(),
+            exchange_id: "RICH_SWAP".to_string(),
+            pool_utxo_spend: vec!["{txid}:{vout}"],
+            action_params: "".to_string(),
+            nonce,
+            pool_utxo_receive: vec!["{txid}:{vout}"],
+            pool_address: pool_address.to_string(),
+        }],
+    };
+```
+-----
+
+** The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_list), [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_info), and [get_minimal_tx_value](https://docs.omnity.network/docs/Rich-Swap/apis#get_minimal_tx_value) are required for REE in the standard query api. **
 
 For more details, please refer to the [Exchange Interfaces](https://github.com/octopus-network/ree-types) documentation.
 
@@ -209,7 +281,7 @@ type PoolOverview = record {
 get_pool_list : (GetPoolListArgs) -> (vec PoolInfo) query;
 ```
 Fetch a list of pools with support for optional pagination.
-See the returned result in detail from [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_info).
+See the returned result in detail from [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_info).
 
 ### get_pool_info
 ```md
@@ -283,4 +355,37 @@ And it returns:
 * sqrt_k :  btc_withdraw * rune_withdraw
 * btc_supply 
 
-Last updated on March 18, 2025
+## Update
+### create
+```md
+type ExchangeError = variant {
+  InvalidSignPsbtArgs : text;
+  InvalidNumeric;
+  Overflow;
+  InvalidInput;
+  PoolAddressNotFound;
+  PoolStateExpired : nat64;
+  TooSmallFunds;
+  InvalidRuneId;
+  InvalidPool;
+  InvalidPsbt : text;
+  PoolAlreadyExists;
+  InvalidTxid;
+  InvalidLiquidity;
+  EmptyPool;
+  LpNotFound;
+  ChainKeyError;
+  FetchRuneIndexerError;
+  InvalidState : text;
+  InsufficientFunds;
+};
+
+type Result = variant { Ok : text; Err : ExchangeError };
+
+create : (text) -> (Result);
+```
+Pool creation is limited to BTC paired exclusively with a RUNE.
+* Input: rune_id - e.g.,:840000:846
+* Output: Pubkey - e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
+
+Last updated on May 7, 2025
