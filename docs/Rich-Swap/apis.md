@@ -236,8 +236,8 @@ Outputs:
 * Output 1: Encoded `OP_RETURN`(out_rune)
 * Output 2: User’s change (if applicable)
 
-```jsx title="Rust"
-    let intention_set = IntentionSet {
+```
+    IntentionSet {
         tx_fee_in_sats: fee,
         initiator_address: input_address.to_string(),
         intentions: vec![Intention {
