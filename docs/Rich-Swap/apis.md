@@ -41,10 +41,12 @@ type WithdrawalOffer = record {
 
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  UtxoMismatch;
   InvalidNumeric;
   Overflow;
   InvalidInput;
   PoolAddressNotFound;
+  RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
   InvalidRuneId;
@@ -54,18 +56,20 @@ type ExchangeError = variant {
   InvalidTxid;
   InvalidLiquidity;
   EmptyPool;
+  FetchBitcoinCanisterError;
   LpNotFound;
+  NoConfirmedUtxos;
   ChainKeyError;
   FetchRuneIndexerError;
   InvalidState : text;
   InsufficientFunds;
 };
 
-type Result_5 = variant { Ok : WithdrawalOffer; Err : ExchangeError };
+type Result_11 = variant { Ok : WithdrawalOffer; Err : ExchangeError };
 
-pre_withdraw_liquidity : (text, text, nat) -> (Result_5) query;
+pre_withdraw_liquidity : (text, text, nat) -> (Result_11) query;
 ```
-* Input: pool_key - Pubkey (pool id)
+* Input: pool_addr - String (pool address)
 * Input: user_addr - String
 * Input: share - u128
 
@@ -75,10 +79,12 @@ pre_withdraw_liquidity : (text, text, nat) -> (Result_5) query;
 ```md
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  UtxoMismatch;
   InvalidNumeric;
   Overflow;
   InvalidInput;
   PoolAddressNotFound;
+  RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
   InvalidRuneId;
@@ -88,7 +94,9 @@ type ExchangeError = variant {
   InvalidTxid;
   InvalidLiquidity;
   EmptyPool;
+  FetchBitcoinCanisterError;
   LpNotFound;
+  NoConfirmedUtxos;
   ChainKeyError;
   FetchRuneIndexerError;
   InvalidState : text;
@@ -103,11 +111,11 @@ type LiquidityOffer = record {
   nonce : nat64;
 };
 
-type Result_2 = variant { Ok : LiquidityOffer; Err : ExchangeError };
+type Result_6 = variant { Ok : LiquidityOffer; Err : ExchangeError };
 
-pre_add_liquidity : (text, CoinBalance) -> (Result_2) query;
+pre_add_liquidity : (text, CoinBalance) -> (Result_6) query;
 ```
-* Input: id - Pubkey (pool id)
+* Input: pool_addr - String (pool address)
 * Input: side - CoinBalance (user's input)
 
 * LiquidityOffer: for constructing the PSBT as part of the inputs
@@ -127,10 +135,12 @@ type SwapOffer = record { output : CoinBalance; nonce : nat64; input : Utxo };
 
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  UtxoMismatch;
   InvalidNumeric;
   Overflow;
   InvalidInput;
   PoolAddressNotFound;
+  RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
   InvalidRuneId;
@@ -140,18 +150,20 @@ type ExchangeError = variant {
   InvalidTxid;
   InvalidLiquidity;
   EmptyPool;
+  FetchBitcoinCanisterError;
   LpNotFound;
+  NoConfirmedUtxos;
   ChainKeyError;
   FetchRuneIndexerError;
   InvalidState : text;
   InsufficientFunds;
 };
 
-type Result_4 = variant { Ok : SwapOffer; Err : ExchangeError };
+type Result_9 = variant { Ok : SwapOffer; Err : ExchangeError };
 
-pre_swap : (text, CoinBalance) -> (Result_4) query;
+pre_swap : (text, CoinBalance) -> (Result_9) query;
 ```
-* Input: id - Pubkey (pool id)
+* Input: id - String (pool address)
 * Input: input - CoinBalance (user's input)
 
 * SwapOffer: for constructing the PSBT as part of the inputs
@@ -267,30 +279,31 @@ For more details, please refer to the [Exchange Interfaces](https://github.com/o
 
 ### get_pool_list
 ```md
-type GetPoolListArgs = record { from : opt text; limit : nat32 };
+type PoolBasic = record { name : text; address : text };
 
-type PoolOverview = record {
-  key : text;
-  name : text;
-  btc_reserved : nat64;
-  coin_reserved : vec CoinBalance;
-  address : text;
-  nonce : nat64;
-};
-
-get_pool_list : (GetPoolListArgs) -> (vec PoolInfo) query;
+get_pool_list : () -> (vec PoolBasic) query;
 ```
-Fetch a list of pools with support for optional pagination.
-See the returned result in detail from [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_info).
+Retrieved all the pool information in the exchange.
+
+* Output: name - String (pool name)
+* Output: address - String (pool address)
 
 ### get_pool_info
 ```md
-type GetPoolInfoArgs = record { pool_address : text };
+type CoinBalance = record { id : text; value : nat };
+
+type Utxo = record {
+  maybe_rune : opt CoinBalance;
+  sats : nat64;
+  txid : text;
+  vout : nat32;
+};
 
 type PoolInfo = record {
   key : text;
   name : text;
   btc_reserved : nat64;
+  key_derivation_path : vec blob;
   coin_reserved : vec CoinBalance;
   attributes : text;
   address : text;
@@ -298,12 +311,15 @@ type PoolInfo = record {
   utxos : vec Utxo;
 };
 
+type GetPoolInfoArgs = record { pool_address : text };
+
 get_pool_info : (GetPoolInfoArgs) -> (opt PoolInfo) query;
 ```
 Get the META information of a certain pool.
 * key : Retrieve all pool information within the exchange, where the key is the untweaked public key of a Pay-to-Taproot (P2TR) address, ensuring that the spending conditions of the pool's utxos can be verified.
 * name: e.g.,:HOPE•YOU•GET•RICH
 * btc_reserved : e.g.,:103845689
+* key_derivation_path: e.g,: [ [ 0, 0, 0, 0, 0, 12, 209, 64, 0, 0, 3, 78 ] ]
 * coin_reserved : e.g.,:id="840000:846"; value=54286490476
 * attributes : e.g.,: "fee_rate":7000,"burn_rate":2000,"tweaked":"5ccc93f7bf8f43941c7511203d595bbf5a83c630ca9bbace10ff9a397c0dbaa4","incomes":472860,"sqrt_k":2355907027
 * address e.g.,:bc1ptnxf8aal3apeg8r4zysr6k2mhadg833se2dm4nssl7drjlqdh2jqa4tk3p
@@ -312,20 +328,31 @@ Get the META information of a certain pool.
 
 ### get_minimal_tx_value
 ```md
-get_minimal_tx_value : () -> (nat64) query;
+type GetMinimalTxValueArgs = record {
+  zero_confirmed_tx_queue_length : nat32;
+  pool_address : text;
+};
+
+get_minimal_tx_value : (GetMinimalTxValueArgs) -> (nat64) query;
 ```
-Retrieve the minimum transaction value allowed by Rich Swap.
+Retrieve the minimum transaction value allowed by Rich Swap (Hardcoded as a temporary solution).
 
 ### get_lp
 ```md
-type Liquidity = record { user_share : nat; sqrt_k : nat; btc_supply : nat64 };
+type Liquidity = record {
+  total_share : nat;
+  user_share : nat;
+  user_incomes : nat64;
+};
 
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  UtxoMismatch;
   InvalidNumeric;
   Overflow;
   InvalidInput;
   PoolAddressNotFound;
+  RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
   InvalidRuneId;
@@ -335,20 +362,22 @@ type ExchangeError = variant {
   InvalidTxid;
   InvalidLiquidity;
   EmptyPool;
+  FetchBitcoinCanisterError;
   LpNotFound;
+  NoConfirmedUtxos;
   ChainKeyError;
   FetchRuneIndexerError;
   InvalidState : text;
   InsufficientFunds;
 };
 
-type Result_1 = variant { Ok : Liquidity; Err : ExchangeError };
+type Result_4 = variant { Ok : Liquidity; Err : ExchangeError };
 
-get_lp : (text, text) -> (Result_1) query;
+get_lp : (text, text) -> (Result_4) query;
 ```
 Query the user's liquidity share ratio. It specifies the following parameters:
-* pool_key: e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
-* user_addr
+* pool_addr - String: e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
+* user_addr - String
 
 And it returns:
 * user_share : it represents the user's share. Although RichSwap does not use an LP token mechanism, this value is effectively equivalent to the amount of LP tokens
@@ -360,10 +389,12 @@ And it returns:
 ```md
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  UtxoMismatch;
   InvalidNumeric;
   Overflow;
   InvalidInput;
   PoolAddressNotFound;
+  RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
   InvalidRuneId;
@@ -373,19 +404,21 @@ type ExchangeError = variant {
   InvalidTxid;
   InvalidLiquidity;
   EmptyPool;
+  FetchBitcoinCanisterError;
   LpNotFound;
+  NoConfirmedUtxos;
   ChainKeyError;
   FetchRuneIndexerError;
   InvalidState : text;
   InsufficientFunds;
 };
 
-type Result = variant { Ok : text; Err : ExchangeError };
+type Result_1 = variant { Ok : text; Err : ExchangeError };
 
-create : (text) -> (Result);
+create : (text) -> (Result_1);
 ```
 Pool creation is limited to BTC paired exclusively with a RUNE.
 * Input: rune_id - e.g.,:840000:846
 * Output: Pubkey - e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
 
-Last updated on May 7, 2025
+Last updated on May 9, 2025
