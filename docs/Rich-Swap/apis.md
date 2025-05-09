@@ -300,6 +300,45 @@ Retrieved all the pool information in the exchange.
 * Output: name - String (pool name)
 * Output: address - String (pool address)
 
+For those who need to fetch the pool address via the runes name, please refer to the code example here:
+
+```code title="Typescript"
+import { gql } from 'graphql-request'
+import { request } from 'graphql-request'
+
+const HOST =
+  NETWORK === 'Mainnet'
+    ? 'https://ree-hasura-mainnet.omnity.network/v1/graphql'
+    : 'https://ree-hasura-testnet.omnity.network/v1/graphql'
+
+export const fetchGraphFromRee = async (query: string, variables: any) => {
+  try {
+    const data = await request({
+      url: HOST,
+      document: query,
+      variables,
+    })
+    return data as any
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+const poolDoc = gql`
+        {
+          pool_info(where: {name: {_eq: "HOPE•YOU•GET•RICH"}})
+          {
+            address
+          }
+        }
+      `
+
+const poolResult = await fetchGraphFromRee(poolDoc, {})
+```
+
+
+
 ### get_pool_info
 ```md
 type CoinBalance = record { id : text; value : nat };
