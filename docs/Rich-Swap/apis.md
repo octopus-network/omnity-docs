@@ -271,6 +271,18 @@ Outputs:
         }],
     };
 ```
+
+Please see the code ***[here](https://github.com/octopus-network/richswap-canister/tree/feature/donate/donate-cli)*** for details (this simple CLI tool donates 10,000 sats to a specified pool):
+
+To run it:
+```md
+./target/debug/donate-cli \
+  --pool-address tb1puzk3gn4z3rrjjnrhlgk5yvts8ejs0j2umazpcc4anq62wfk00e6ssw9p0n \
+  --input-priv-key {your_private_key} \
+  --rpc-url $BTC_RPC_URL \
+  --network testnet
+```
+
 -----
 
 ** The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_list), [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_info), and [get_minimal_tx_value](https://docs.omnity.network/docs/Rich-Swap/apis#get_minimal_tx_value) are required for REE in the standard query api. **
