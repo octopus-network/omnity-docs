@@ -13,6 +13,10 @@ From the backend perspective, REE is composed of four key components:
 
 For Ree support please visit **[The REE Dev Support Channel](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/3944635384)** in English and **[The REE Dev Support CN Channel](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/2543618207)** in Chinese.
 
+|  | Canister Id |
+| --- | --- |
+| Orchestrator | kqs64-paaaa-aaaar-qamza-cai |
+| Orchestrator Testnet | hvyp5-5yaaa-aaaao-qjxha-cai |
 
 ## Update
 ### invoke

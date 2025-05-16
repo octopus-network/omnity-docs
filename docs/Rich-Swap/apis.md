@@ -9,6 +9,11 @@ For Rich Swap testnet4 please visit **[Rich Swap Testnet](https://richswap-testn
 
 For Rich Swap support please visit **[The Rich Swap Channel](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/1529837122)** in both English and Chinese.
 
+|  | Canister Id |
+| --- | --- |
+| Rich Swap | kmwen-yaaaa-aaaar-qam3a-cai |
+| Rich Swap Testnet | h43eb-lqaaa-aaaao-qjxgq-cai |
+
 ## Query
 #### Workflow(e.g., Swap): 
 The core business logic of Rich Swap is encapsulated within the following functions: pre_withdraw_liquidity, pre_add_liquidity, pre_swap, pre_donate(to ensure fairness and incentivize long-term liquidity provision) and create. To gain a clearer understanding of their functionality, please refer to the example workflow provided below:
