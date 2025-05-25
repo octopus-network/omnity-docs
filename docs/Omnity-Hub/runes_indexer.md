@@ -3,16 +3,55 @@ sidebar_position: 3
 ---
 
 # Runes Indexer
-**Query Only**
 
-**[Runes Indexer](https://github.com/octopus-network/runes-indexer)** is a canister deployed on the ic that continuously fetches bitcoin blocks from a bitcoin rpc endpoint using https outcalls. The blocks are verified using ic's bitcoin integration. Once verified, the indexer parses and indexes runes information within each block. See how it is used in [Omnity](https://github.com/octopus-network/omnity-interoperability/tree/main/proxy/runes_proxy).
+**[Runes Indexer](https://github.com/octopus-network/runes-indexer)** is a canister deployed on the ic that continuously fetches bitcoin blocks from a bitcoin rpc endpoint using https outcalls. The blocks are verified using ic's bitcoin integration. Once verified, the indexer parses and indexes runes information within each block. See how it is used in [Omnity](https://github.com/octopus-network/omnity-interoperability/tree/main/proxy/runes_indexer_proxy).
 
 [This guide](https://github.com/octopus-network/runes-indexer/blob/master/development-guide.md) assists developers in setting up their local development environment and running tests for Runes Indexer (in dfx 0.24.3, https outcalls can make requests to non-https endpoints).
 
 |  | Canister Id |
 | --- | --- |
 | RUNES INDEXER | kzrva-ziaaa-aaaar-qamyq-cai |
+| RUNES INDEXER TESTNET| f2dwm-caaaa-aaaao-qjxlq-cai |
 
+## Update
+### etching
+```md
+etching : (EtchingArgs) -> (Result);
+
+type EtchingArgs = record {
+  terms : opt OrdinalsTerms;
+  turbo : bool;
+  premine : opt nat;
+  logo : opt LogoParams;
+  rune_name : text;
+  divisibility : opt nat8;
+  premine_receiver : text;
+  symbol : opt text;
+};
+
+type OrdinalsTerms = record {
+  cap : nat;
+  height : record { opt nat64; opt nat64 };
+  offset : record { opt nat64; opt nat64 };
+  amount : nat;
+};
+
+type LogoParams = record { content_type : text; content_base64 : text };
+
+type Result = variant { Ok : text; Err : text };
+```
+
+See the process in the example below:
+```md
+1. Approve fee
+dfx canister call ryjl3-tyaaa-aaaaa-aaaba-cai  icrc2_approve '(record { amount = 1000000; spender = record{owner = principal "f2dwm-caaaa-aaaao-qjxlq-cai";} })' --ic
+"ryjl3-tyaaa-aaaaa-aaaba-cai" is the ICP ledger, and "f2dwm-caaaa-aaaao-qjxlq-cai" is the testnet4 runes-indexer canister_id. You need to approve the runes-indexer to spend 0.001 ICP from your account. These are all fixed parameters.
+
+2. Perform etching and actual fee deduction: note that the logo should be provided as a base64-encoded string
+dfx canister call runes-indexer-testnet etching '(record {terms=opt record {cap=10000; height=record {null; null}; offset=record {null; null}; amount=100}; turbo=true; premine=opt 10000; logo=null; rune_name="MAKE•RICH•GREAT•AGAIN"; divisibility=opt 2; premine_receiver="tb1q837dfu2xmthlx6a6c59dvw6v4t0erg6c4mn4e2"; symbol=opt "$"})' --ic
+```
+
+## Query
 ### get_latest_block
 Returns the latest indexed block height and hash.
 ```md title="get_latest_block() -> (u32, String)"
@@ -167,4 +206,4 @@ Err: error information if the query fails
 [`codes`](https://github.com/octopus-network/runes-indexer/blob/master/canister/src/main.rs#L92)
 [`example`](https://github.com/octopus-network/runes-indexer?tab=readme-ov-file#get_rune_balances_for_outputs)
 
-Last updated on January 23, 2025
+Last updated on May 26, 2025
