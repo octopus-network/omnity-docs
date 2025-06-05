@@ -24,6 +24,8 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
 * **REE Lending Demo**:
     * [Lending Demo Application](https://ree-lending-demo.vercel.app/): A demonstration application showcasing lending functionalities built on REE.
     * [Lending Demo Code](https://github.com/octopus-network/ree-lending-demo): Source code for the REE lending demo.
+* **REE Game Demo**:
+    * [REE Cookie Game Demo Code](https://github.com/octopus-network/ree-game-demo): Source code for the REE Play-to-Earn game demo.
 
 ## Get Technical Support
 * [REE Dev Support Channel (English)](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/3944635384)
