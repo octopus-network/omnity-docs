@@ -46,14 +46,14 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
+          { to: '/ree', docId: 'REE/apis', label: 'REE', position: 'left', type: 'doc' },
+          { to: '/Rich-Swap', docId: 'Rich-Swap/apis', label: 'RICH SWAP', position: 'left', type: 'doc' },
           {
             type: 'doc',
             docId: 'Omnity-Hub/intro',
             position: 'left',
             label: 'OMNITY HUB',
           },
-          { to: '/Rich-Swap', docId: 'Rich-Swap/apis', label: 'RICH SWAP', position: 'left', type: 'doc' },
-          { to: '/ree', docId: 'REE/apis', label: 'REE', position: 'left', type: 'doc' },
         ],
       },
       prism: {
