@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Introduction To REE
+# REE Introduction
 
 ## What Is REE?
 
