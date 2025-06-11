@@ -10,6 +10,8 @@ REE (Runes Exchange Environment) is a decentralized execution layer for bitcoin 
 
 Unlike traditional bitcoin layer 2 solutions, REE preserves bitcoin’s security while enhancing programmability through turing-complete smart contracts, all while maintaining native bitcoin transactions and a seamless user experience.
 
+Reading the [white paper](https://docs.google.com/document/d/1d1_51f8YYRhxft_RpGssCKqS95ZE5Ylv1LDleIqVZJE/edit?tab=t.0#heading=h.9hfttub7lmzc) is the best way to fully understand the REE's architecture, working mechanisms, and use cases.
+
 ## Key Differences Between REE And Traditional Bitcoin Layer 2
 
 | Feature          | Traditional Bitcoin L2 | REE (Bridgeless)           |
@@ -29,4 +31,4 @@ Unlike traditional bitcoin layer 2 solutions, REE preserves bitcoin’s security
 
 
 
-Last updated on April 9, 2025
+Last updated on June 11, 2025
