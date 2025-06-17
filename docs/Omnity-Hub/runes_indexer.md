@@ -12,6 +12,8 @@ sidebar_position: 3
 | --- | --- |
 | RUNES INDEXER | kzrva-ziaaa-aaaar-qamyq-cai |
 | RUNES INDEXER TESTNET| f2dwm-caaaa-aaaao-qjxlq-cai |
+| Etching Canister| t4zai-saaaa-aaaan-qzz7q-cai |
+| Etching Canister test| e2rzq-6iaaa-aaaan-qz2ca-cai |
 
 ## Update
 ### etching
