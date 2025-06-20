@@ -38,6 +38,13 @@ When all transactions processed through the exchange are successful, REE will fi
 ```md
 type CoinBalance = record { id : text; value : nat };
 
+type Utxo = record {
+  coins : vec CoinBalance;
+  sats : nat64;
+  txid : text;
+  vout : nat32;
+};
+
 type WithdrawalOffer = record {
   nonce : nat64;
   input : Utxo;
@@ -46,11 +53,14 @@ type WithdrawalOffer = record {
 
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  FundsLimitExceeded;
   UtxoMismatch;
   InvalidNumeric;
   Overflow;
+  Paused;
   InvalidInput;
   PoolAddressNotFound;
+  PriceImpactLimitExceeded;
   RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
@@ -84,11 +94,14 @@ pre_withdraw_liquidity : (text, text, nat) -> (Result_11) query;
 ```md
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  FundsLimitExceeded;
   UtxoMismatch;
   InvalidNumeric;
   Overflow;
+  Paused;
   InvalidInput;
   PoolAddressNotFound;
+  PriceImpactLimitExceeded;
   RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
@@ -116,9 +129,9 @@ type LiquidityOffer = record {
   nonce : nat64;
 };
 
-type Result_6 = variant { Ok : LiquidityOffer; Err : ExchangeError };
+type Result_7 = variant { Ok : LiquidityOffer; Err : ExchangeError };
 
-pre_add_liquidity : (text, CoinBalance) -> (Result_6) query;
+pre_add_liquidity : (text, CoinBalance) -> (Result_7) query;
 ```
 * Input: pool_addr - String (pool address)
 * Input: side - CoinBalance (user's input)
@@ -130,21 +143,29 @@ pre_add_liquidity : (text, CoinBalance) -> (Result_6) query;
 type CoinBalance = record { id : text; value : nat };
 
 type Utxo = record {
-  maybe_rune : opt CoinBalance;
+  coins : vec CoinBalance;
   sats : nat64;
   txid : text;
   vout : nat32;
 };
 
-type SwapOffer = record { output : CoinBalance; nonce : nat64; input : Utxo };
+type SwapOffer = record {
+  output : CoinBalance;
+  nonce : nat64;
+  price_impact : nat32;
+  input : Utxo;
+};
 
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  FundsLimitExceeded;
   UtxoMismatch;
   InvalidNumeric;
   Overflow;
+  Paused;
   InvalidInput;
   PoolAddressNotFound;
+  PriceImpactLimitExceeded;
   RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
@@ -164,9 +185,9 @@ type ExchangeError = variant {
   InsufficientFunds;
 };
 
-type Result_9 = variant { Ok : SwapOffer; Err : ExchangeError };
+type Result_10 = variant { Ok : SwapOffer; Err : ExchangeError };
 
-pre_swap : (text, CoinBalance) -> (Result_9) query;
+pre_swap : (text, CoinBalance) -> (Result_10) query;
 ```
 * Input: id - String (pool address)
 * Input: input - CoinBalance (user's input)
@@ -178,7 +199,7 @@ pre_swap : (text, CoinBalance) -> (Result_9) query;
 type CoinBalance = record { id : text; value : nat };
 
 type Utxo = record {
-  maybe_rune : opt CoinBalance;
+  coins : vec CoinBalance;
   sats : nat64;
   txid : text;
   vout : nat32;
@@ -193,11 +214,14 @@ type DonateIntention = record {
 
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  FundsLimitExceeded;
   UtxoMismatch;
   InvalidNumeric;
   Overflow;
+  Paused;
   InvalidInput;
   PoolAddressNotFound;
+  PriceImpactLimitExceeded;
   RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
@@ -217,9 +241,9 @@ type ExchangeError = variant {
   InsufficientFunds;
 };
 
-type Result_7 = variant { Ok : DonateIntention; Err : ExchangeError };
+type Result_8 = variant { Ok : DonateIntention; Err : ExchangeError };
 
-pre_donate : (text, nat64) -> (Result_7) query;
+pre_donate : (text, nat64) -> (Result_8) query;
 ```
 * Input: pool - String (pool address)
 * Input: input_sats - u64 (in satoshi)
@@ -241,8 +265,8 @@ The donation process follows a similar workflow to [the example above](https://d
 For each DonateIntention, the parameters are determined by business logic. In this case (action = "donate"), the exchange enforces the following rules:
 * Exactly 1 `input_coins`, which must be BTC (ID: "0:0")
 * No `output_coins`
-* `pool_utxo_spend` must reference the UTXO of the just-received DonateIntention
-* `pool_utxo_receive` must reference this transaction’s UTXO
+* `pool_utxo_spent` must reference the UTXO of the just-received DonateIntention
+* `pool_utxo_received` must reference this transaction’s UTXO
 
 PSBT Structure
 Inputs:
@@ -349,7 +373,7 @@ const poolResult = await fetchGraphFromRee(poolDoc, {})
 type CoinBalance = record { id : text; value : nat };
 
 type Utxo = record {
-  maybe_rune : opt CoinBalance;
+  coins : vec CoinBalance;
   sats : nat64;
   txid : text;
   vout : nat32;
@@ -403,11 +427,14 @@ type Liquidity = record {
 
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  FundsLimitExceeded;
   UtxoMismatch;
   InvalidNumeric;
   Overflow;
+  Paused;
   InvalidInput;
   PoolAddressNotFound;
+  PriceImpactLimitExceeded;
   RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
@@ -445,11 +472,14 @@ And it returns:
 ```md
 type ExchangeError = variant {
   InvalidSignPsbtArgs : text;
+  FundsLimitExceeded;
   UtxoMismatch;
   InvalidNumeric;
   Overflow;
+  Paused;
   InvalidInput;
   PoolAddressNotFound;
+  PriceImpactLimitExceeded;
   RuneIndexerError : text;
   PoolStateExpired : nat64;
   TooSmallFunds;
@@ -477,4 +507,4 @@ Pool creation is limited to BTC paired exclusively with a RUNE.
 * Input: rune_id - e.g.,:840000:846
 * Output: Pubkey - e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
 
-Last updated on May 9, 2025
+Last updated on June 20, 2025

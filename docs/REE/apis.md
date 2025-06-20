@@ -27,16 +27,23 @@ type InputCoin = record { coin : CoinBalance; from : text };
 
 type OutputCoin = record { to : text; coin : CoinBalance };
 
+type Utxo = record {
+  coins : vec CoinBalance;
+  sats : nat64;
+  txid : text;
+  vout : nat32;
+};
+
 type Intention = record {
   input_coins : vec InputCoin;
   output_coins : vec OutputCoin;
   action : text;
   exchange_id : text;
-  pool_utxo_spend : vec text;
+  pool_utxo_spent : vec text;
   action_params : text;
   nonce : nat64;
-  pool_utxo_receive : vec text;
   pool_address : text;
+  pool_utxo_received : vec Utxo;
 };
 
 type IntentionSet = record {
@@ -45,7 +52,12 @@ type IntentionSet = record {
   intentions : vec Intention;
 };
 
-type InvokeArgs = record { intention_set : IntentionSet; psbt_hex : text };
+type InvokeArgs = record {
+  intention_set : IntentionSet;
+  initiator_utxo_proof : blob;
+  psbt_hex : text;
+};
+
 
 type Result_3 = variant { Ok : text; Err : text };
 
@@ -174,11 +186,11 @@ This endpoint returns the Outpoint of the address. It specifies the following pa
 
 ### estimate_min_tx_fee
 ```md
-type TxOutputType = variant { P2WPKH; OpReturn : nat64; P2TR };
+type TxOutputType = variant { P2WPKH; OpReturn : nat64; P2SH; P2TR };
 
 type EstimateMinTxFeeArgs = record {
   input_types : vec TxOutputType;
-  pool_address : text;
+  pool_address : vec text;
   output_types : vec TxOutputType;
 };
 
@@ -196,4 +208,4 @@ It specifies the following parameters:
             TxOutputType::OpReturn(14),
         ]
 
-Last updated on May 6, 2025
+Last updated on June 20, 2025
