@@ -28,7 +28,7 @@ After the user confirms the SwapOffer, the frontend will use the wallet api to c
 
 ** 3. Invoke REE's invoke Function:** 
 
-Once the PSBT is constructed, it is passed along with the intention(see the [example](https://github.com/octopus-network/ree-types/blob/master/intention_set_samples/add_liquidity.json)) to call [REE's invoke function](https://docs.omnity.network/docs/REE/apis#invoke). This function will subsequently trigger the **execution_tx** function of the Rich Swap exchange. The Rich Swap exchange will then perform [the necessary checks](https://github.com/octopus-network/richswap-canister?tab=readme-ov-file#how-it-works) to ensure the transaction is valid.
+Once the PSBT is constructed, it is passed along with the intention(see the [example](https://github.com/octopus-network/ree-types/blob/master/intention_set_samples/add_liquidity.json) or the code ***[here](https://github.com/octopus-network/richswap-canister/tree/feature/donate/donate-cli)*** for details (this simple CLI tool donates 10,000 sats to a specified pool))  to call [REE's invoke function](https://docs.omnity.network/docs/REE/apis#invoke). This function will subsequently trigger the **execution_tx** function of the Rich Swap exchange. The Rich Swap exchange will then perform [the necessary checks](https://github.com/octopus-network/richswap-canister?tab=readme-ov-file#how-it-works) to ensure the transaction is valid.
 
 ** 4. Broadcast the Transaction and Handle Results:**
 
@@ -292,10 +292,10 @@ Outputs:
             output_coins: Vec::new(),
             action: "donate".to_string(),
             exchange_id: "RICH_SWAP".to_string(),
-            pool_utxo_spend: vec!["{txid}:{vout}"],
+            pool_utxo_spend: vec![format!("{}:{}", pool_spend.txid, pool_spend.vout)],
             action_params: "".to_string(),
             nonce,
-            pool_utxo_receive: vec!["{txid}:{vout}"],
+            pool_utxo_receive: vec![format!("{}:0", txid.to_string())],
             pool_address: pool_address.to_string(),
         }],
     };
@@ -507,4 +507,4 @@ Pool creation is limited to BTC paired exclusively with a RUNE.
 * Input: rune_id - e.g.,:840000:846
 * Output: Pubkey - e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
 
-Last updated on June 20, 2025
+Last updated on June 22, 2025
