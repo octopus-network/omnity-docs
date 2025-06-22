@@ -11,13 +11,18 @@ From the backend perspective, REE is composed of four key components:
 * **Mempool Connector**: A daemon that updates the fee rate and monitors rejected transactions from REE on the Mempool, notifies the REE Orchestrator.
 * **Exchanges**: Instances of the BTCFi protocol operating on the REE platform, designed to facilitate coin exchange. Each exchange must adhere to [the formal api principles](https://github.com/octopus-network/ree-types?tab=readme-ov-file#exchange-interfaces) established by REE. Please refer to the [REE Dev Guide](https://docs.omnity.network/docs/REE/introduction) for further details. There are multiple exchanges, and each exchange consists of several pools. REE manages the state of each exchange on a per-pool basis.
 
+And the helper components:
+* **REE Exchange Registry**: Please be advised that the new exchange requires manual registration (by providing the exchange ID and canister ID) before it can call invoke. The exchange canister must be deployed on the same subnet as the orchestrator, which is also the same subnet as the chain key. Otherwise, the speed will be significantly slower.
+* **UTXO Proof Server**: A lightweight HTTP server built with Tokio and Axum that generates CBOR‑serialized UTXO proofs for Bitcoin addresses and returns them as JSON.
+* **REE Types**: The essential data type definitions for REE. It is recommended to use it for the Exchange development.
+
 For Ree support please visit **[The REE Dev Support Channel](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/3944635384)** in English and **[The REE Dev Support CN Channel](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/2543618207)** in Chinese.
 
 |  | Canister Id |
 | --- | --- |
 | Orchestrator | kqs64-paaaa-aaaar-qamza-cai |
 | Orchestrator Testnet | hvyp5-5yaaa-aaaao-qjxha-cai |
-
+ 
 ## Update
 ### invoke
 ```md
@@ -63,7 +68,7 @@ type Result_3 = variant { Ok : text; Err : text };
 
 invoke : (InvokeArgs) -> (Result_3);
 ```
-See the [instruction examples](https://github.com/octopus-network/ree-types/tree/master/intention_set_samples).
+See the [instruction examples](https://github.com/octopus-network/ree-types/tree/master/intention_set_samples) or the code ***[here](https://github.com/octopus-network/richswap-canister/tree/feature/donate/donate-cli)*** for details (this simple CLI tool donates 10,000 sats to a specified pool):.
 
 The core business function of the orchestrator. It processes exchange execution requests. Review [all the checks](https://github.com/octopus-network/ree-orchestrator/blob/main/ChecksForInvoke.md) that are performed when the invoke function is called. 
 
@@ -208,4 +213,16 @@ It specifies the following parameters:
             TxOutputType::OpReturn(14),
         ]
 
-Last updated on June 20, 2025
+Notes:      
+The TxOutputType::OpReturn(Nat) should be set by the actual bytes count of OP_RETRUN output rather than hardcoded 0. If you use 0 here and you use a non-empty OP_RETURN in PSBT of InvokeArgs, it will cause the 301 error.
+
+You should calculate the length of the OP_RETURN output before calling estimate_min_tx_fee function. For example, if the length of your actual OP_RETURN output is 17, then you should call estimate_min_tx_fee with
+```
+#OpReturn(17: Nat64),
+```
+In previous version, there is no OP_RETURN output in your PSBT of InvokeArgs. Only in this case, the estimated min tx fee is right if you pass the params like these:
+```
+#OpReturn(0: Nat64),
+```
+
+Last updated on June 22, 2025
