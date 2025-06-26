@@ -406,6 +406,16 @@ Get the META information of a certain pool.
 * nonce : e.g.,:594
 * utxos : e.g.,:vec {record {maybe_rune=opt record {id="840000:846"; value=54286490476}; sats=104318549; txid="62f607dedfb5b77b7f09cff901cc52f846306190377afc6f910d09e5b5f239a4"; vout=0}}}
 
+### get_minimal_tx_value
+```md
+type GetMinimalTxValueArgs = record {
+  zero_confirmed_tx_queue_length : nat32;
+  pool_address : text;
+};
+
+get_minimal_tx_value : (GetMinimalTxValueArgs) -> (nat64) query;
+```
+Retrieve the minimum transaction value allowed by Rich Swap (Hardcoded as a temporary solution).
 
 ### get_lp
 ```md
