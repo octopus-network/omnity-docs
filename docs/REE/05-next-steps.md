@@ -34,15 +34,9 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
 ---
 
 ## Appendix
-
-### Common Terminology
-
-[To be added]
-
-### Frequently Asked Questions
-
-[To be added]
+### REE Orchestrator InvokeStatus Code List
+[The error code reference table](https://docs.google.com/spreadsheets/d/1ATD-9-yRE41HbMyAQ5s7twzgHyMx0v1K4kxPWHHRR1Y/edit?usp=sharing) for Invoke.
 
 
 
-Last updated on April 9, 2025
+Last updated on June 27, 2025

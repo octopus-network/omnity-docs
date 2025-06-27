@@ -70,6 +70,9 @@ invoke : (InvokeArgs) -> (Result_3);
 ```
 See the [instruction examples](https://github.com/octopus-network/ree-types/tree/master/intention_set_samples) or the code ***[here](https://github.com/octopus-network/richswap-canister/tree/feature/donate/donate-cli)*** for details (this simple CLI tool donates 10,000 sats to a specified pool):.
 
+Check the [REE Orchestrator InvokeStatus Code List](https://docs.google.com/spreadsheets/d/1ATD-9-yRE41HbMyAQ5s7twzgHyMx0v1K4kxPWHHRR1Y/edit?usp=sharing) for error codes.
+
+
 The core business function of the orchestrator. It processes exchange execution requests. Review [all the checks](https://github.com/octopus-network/ree-orchestrator/blob/main/ChecksForInvoke.md) that are performed when the invoke function is called. 
 
 ```md
@@ -225,4 +228,4 @@ In previous version, there is no OP_RETURN output in your PSBT of InvokeArgs. On
 #OpReturn(0: Nat64),
 ```
 
-Last updated on June 22, 2025
+Last updated on June 27, 2025
