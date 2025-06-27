@@ -194,7 +194,7 @@ async fn init_pool() -> Result<(), String> {
 
 ### 6. Implement required exchange methods
 
-An Exchange canister interacting with a framework like REE usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
+An Exchange canister interacting with a framework like REE usually needs to implement a standard set of interface methods. The five required methods mentioned are: `get_pool_list`, `get_pool_info`, `rollback_tx`, `new_block`, and `execute_tx`.
 
 Let's implement the first three query methods. Create a new file `exchange.rs` in `ree-demo-exchange-backend/src` (code provided as reference snippets):
 
@@ -245,24 +245,12 @@ pub fn get_pool_info(args: GetPoolInfoArgs) -> GetPoolInfoResponse {
         attributes: p.attrs(), // assumes attrs() exists
     })
 }
-
-
-#[query]
-// Returns the minimum transaction value required for acceptance by the exchange
-// Normally, the difficulty (minimal value) increases as zero_confirmed_tx_queue_length grows
-// Longer queues require higher transaction values to prevent spam and congestion
-fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueResponse {
-    // In this demo implementation, the minimal value is fixed
-    // In a production environment, this would scale based on _args.zero_confirmed_tx_queue_length
-    pool::MIN_BTC_VALUE // assumes MIN_BTC_VALUE exists
-}
 ```
 
 **Explanation:**
 
 * `get_pool_list`: A `#[query]` method (read-only, fast) that iterates through the stored pools (assuming a helper like `get_pools()`) and returns a list of basic pool information (`PoolBasic`).
 * `get_pool_info`: A `#[query]` method that takes a `pool_address`, looks up the corresponding `Pool` (assuming a helper like `get_pool()`), and returns detailed `PoolInfo` if found. It extracts data like `nonce`, asset reserves, and `utxos` from the latest `PoolState`.
-* `get_minimal_tx_value`: A `#[query]` method. In a real exchange, this value helps manage transaction flow and prevent dust spam, often scaling with the length of the pending transaction queue (`zero_confirmed_tx_queue_length`). This simplified demo returns a fixed constant value.
 
 ### 7. Implementing the Deposit Functionality
 
@@ -554,4 +542,4 @@ Now, let's outline how to implement the user deposit functionality on the fronte
 
 
 
-Last updated on May 6, 2025
+Last updated on June 25, 2025

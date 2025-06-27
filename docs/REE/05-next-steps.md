@@ -35,16 +35,8 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
 
 ## Appendix
 ### REE Orchestrator InvokeStatus Code List
-```code title="200"
-Success.
-```
-
-```code title="301"
-Actual fee in tx is lower than the estimated minimum tx fee.
-
-Suggestions:
-1. 
-```
+[The error code reference table](https://docs.google.com/spreadsheets/d/1ATD-9-yRE41HbMyAQ5s7twzgHyMx0v1K4kxPWHHRR1Y/edit?usp=sharing) for Invoke.
 
 
-Last updated on June 26, 2025
+
+Last updated on June 27, 2025

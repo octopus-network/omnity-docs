@@ -314,7 +314,7 @@ To run it:
 
 -----
 
-** The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_list), [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_info), and [get_minimal_tx_value](https://docs.omnity.network/docs/Rich-Swap/apis#get_minimal_tx_value) are required for REE in the standard query api. **
+** The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_list) and [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/apis#get_pool_info) are required for REE in the standard query api. **
 
 For more details, please refer to the [Exchange Interfaces](https://github.com/octopus-network/ree-types) documentation.
 
@@ -507,4 +507,4 @@ Pool creation is limited to BTC paired exclusively with a RUNE.
 * Input: rune_id - e.g.,:840000:846
 * Output: Pubkey - e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
 
-Last updated on June 22, 2025
+Last updated on June 25, 2025
