@@ -189,7 +189,7 @@ Pool creation is limited to BTC paired exclusively with a RUNE.
 * Output: Pubkey - e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
 
 ## Query
-The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_list), [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_info), and [get_minimal_tx_value](https://docs.omnity.network/docs/Rich-Swap/build#get_minimal_tx_value) are required for REE in the standard query api. 
+The functions [get_pool_list](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_list) and [get_pool_info](https://docs.omnity.network/docs/Rich-Swap/build#get_pool_info) are required for REE in the standard query api. 
 
 For more details, please refer to the [Exchange Interfaces](https://github.com/octopus-network/ree-types) documentation.
 
@@ -237,12 +237,6 @@ Get the META information of a certain pool.
 * address e.g.,:bc1ptnxf8aal3apeg8r4zysr6k2mhadg833se2dm4nssl7drjlqdh2jqa4tk3p
 * nonce : e.g.,:594
 * utxos : e.g.,:vec {record {maybe_rune=opt record {id="840000:846"; value=54286490476}; sats=104318549; txid="62f607dedfb5b77b7f09cff901cc52f846306190377afc6f910d09e5b5f239a4"; vout=0}}}
-
-### get_minimal_tx_value
-```md
-get_minimal_tx_value : () -> (nat64) query;
-```
-Retrieve the minimum transaction value allowed by Rich Swap.
 
 ### get_lp
 ```md
