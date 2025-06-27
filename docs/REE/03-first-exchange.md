@@ -2,9 +2,9 @@
 sidebar_position: 3
 ---
 
-# Develop Your First Exchange
+# Develop Your First BTCFi DApp in REE
 
-This document explains how to develop a basic exchange canister on the Internet Computer (IC) by walking through a specific feature from a lending DApp. We will focus on the scenario where a user deposits btc into a Lending Pool to earn interest.
+This document demonstrates how to develop a REE BTCFi DApp implementing a typical lending scenario on the blockchain. It includes developing both an Exchange backend (canister) and an Exchange Frontend with core functionality. If you want to learn how to develop an Exchange Client to integrate with an existing Exchange, please refer to the RichSwap integration documentation.
 
 For a more complete demo application and source code, please refer to:
 
@@ -369,9 +369,9 @@ pub async fn execute_tx(args: ExecuteTxArgs) -> ExecuteTxResponse {
 
 ### 8. Implementing the Deposit Functionality on the Frontend
 
-Now, let's outline how to implement the user deposit functionality on the frontend, interacting with the canister methods defined in Section 7. We'll use the **pre/invoke pattern**:
+Now, let's outline how to implement the user deposit functionality on the frontend, interacting with the canister methods defined in Section 7. We'll use the **inquiry/invoke pattern**:
 
-1.  **The pre step:**
+1.  **The inquiry step:**
     *   The frontend invokes the `pre_deposit` query method on the Exchange canister, passing the target pool address and the desired deposit amount.
     *   The canister returns the necessary information (like the pool's current UTXO and nonce) needed to construct the transaction.
 

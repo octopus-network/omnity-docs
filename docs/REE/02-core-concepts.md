@@ -26,6 +26,16 @@ An **Exchange** is a specific bitcoin defi (BTCFi) protocol built as a smart con
 
 *(Note: The relationship between an exchange and its pools is often referred to as the 'Exchange-Pool Model', which is central to how REE applications manage utxo-based assets.)*
 
+## Exchange Client
+
+An **Exchange Client** is a component that interacts with an Exchange to provide user-facing functionality or integrate with existing Exchange protocols. There are two main types of Exchange Clients:
+
+**Frontend Client:** Typically a web or mobile application that serves as the user interface for an Exchange. It accepts user operations and initiates calls to the Exchange backend to complete business functions. This type of client is commonly referred to as an **Exchange Frontend**.
+
+**Integration Client:** Usually an off-chain program designed to interact with an existing Exchange to achieve specific objectives. This type of client is commonly used for integrating with an Exchange protocol and is often called an **Exchange Integration**.
+
+Both types of clients communicate with Exchanges through standardized interfaces, enabling users and third-party applications to interact with REE-based DeFi protocols seamlessly.
+
 ## Orchestrator
 
 The **Orchestrator** is a critical component within REE that oversees the entire lifecycle of a transaction. It coordinates the necessary steps, including managing signature collection through DPS, validating utxos involved in the transaction, and handling final confirmations or initiating rollbacks if issues arise. The orchestrator ensures that transactions are processed atomically and maintain consistency across the system.
