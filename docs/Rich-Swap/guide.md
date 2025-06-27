@@ -112,3 +112,6 @@ Now we could submit the tx to REE and it will automatically broadcast it to BTC 
 ``` bash
 dfx canister call kqs64-paaaa-aaaar-qamza-cai --ic invoke '...'
 ```
+
+
+Last updated on June 27, 2025

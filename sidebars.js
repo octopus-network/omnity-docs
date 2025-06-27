@@ -20,6 +20,7 @@ const sidebars = {
       label: 'Rich-Swap',
       items: [
         'Rich-Swap/apis',
+        'Rich-Swap/guide',
       ],
     },
     {
