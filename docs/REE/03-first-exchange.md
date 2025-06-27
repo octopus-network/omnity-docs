@@ -2,9 +2,9 @@
 sidebar_position: 3
 ---
 
-# Develop Your First Exchange
+# Develop Your First App in REE
 
-This document explains how to develop a basic Exchange Canister on the Internet Computer (IC) by walking through a specific feature from a hypothetical Lending DApp. We will focus on the scenario where a user deposits BTC into a Lending Pool to earn interest.
+This document demonstrates how to develop a REE App implementing a typical lending scenario on the blockchain. It includes developing both an Exchange backend (canister) and an Exchange Frontend with core functionality. If you want to learn how to develop an Exchange Client to integrate with an existing Exchange, please refer to the RichSwap integration documentation.
 
 For a more complete demo application and source code, please refer to:
 
@@ -212,7 +212,7 @@ async fn init_pool() -> Result<(), String> {
 
 ### 6. Implement Required Exchange Methods
 
-An Exchange canister interacting with a framework like REE (Runes Exchange Environment) usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
+An Exchange backend (canister) interacting with a framework like REE (Runes Exchange Environment) usually needs to implement a standard set of interface methods. The six required methods mentioned are: `get_pool_list`, `get_pool_info`, `get_minimal_tx_value`, `rollback_tx`, `new_block`, and `execute_tx`.
 
 Let's implement the first three query methods. Create a new file `exchange.rs` in `ree-demo-exchange-backend/src` (code provided as reference snippets):
 
@@ -284,19 +284,19 @@ fn get_minimal_tx_value(_args: GetMinimalTxValueArgs) -> GetMinimalTxValueRespon
 
 ### 7. Implementing the Deposit Functionality
 
-Now, let's outline how to implement the user deposit functionality (e.g., depositing BTC into a Pool). We'll use the **pre/invoke pattern**, common in designs like REE involving user signatures and external blockchain interactions:
+Now, let's outline how to implement the user deposit functionality (e.g., depositing BTC into a Pool). We'll use the **inquiry/invoke pattern**, common in designs like REE involving user signatures and external blockchain interactions:
 
-1.  **The Pre Step:**
-    * The frontend (or caller) invokes a "pre" method on the Exchange canister (e.g., `pre_deposit`).
+1.  **The Inquiry Step:**
+    * The Exchange Frontend (or caller) invokes a "pre" method on the Exchange backend (canister) (e.g., `pre_deposit`).
     * This method doesn't change state but calculates the necessary parameters to build the Bitcoin transaction (PSBT - Partially Signed Bitcoin Transaction) based on the request (e.g., deposit amount) and the current `Pool` state. This includes the target `Pool` address, amount, required fees, current `nonce`, etc.
-    * The canister returns these parameters to the frontend.
+    * The backend returns these parameters to the frontend.
 
 2.  **Transaction Construction & Signing:**
-    * The frontend uses the parameters received from the "pre" method to construct a PSBT.
+    * The Exchange Frontend uses the parameters received from the "pre" method to construct a PSBT.
     * The frontend prompts the user to sign the PSBT inputs belonging to them using their Bitcoin wallet or signing tool. (Note: Frontend implementation details need to be added here.)
 
 3.  **Invoke:**
-    * The frontend sends the signed PSBT to an "invoke" method on the Orchestrator canister.
+    * The Exchange Frontend sends the signed PSBT to an "invoke" method on the Orchestrator canister.
     * This method validates the PSBT (signatures, amounts, etc.) and checks requirements (like `get_minimal_tx_value`).
     * **Crucially:** It calls the Orchestrator canister to submit the valid PSBT to the Bitcoin network.
     * It waits for Bitcoin network confirmation.
