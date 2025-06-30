@@ -80,10 +80,11 @@ Then, based on the query results (most importantly, the pool UTXO), the DApp cli
 Finally, the DApp client submits the PSBT and other parameters to the REE Orchestrator, which then calls the exchange canister to sign the pool inputs.
 
 Therefore, clearly defining the Bitcoin transaction structure for each type is crucial. We can expand the simple diagram obtained in the first step, "Identify Transaction Types," into one that closely resembles the actual Bitcoin transaction structure. Here, we continuously expand the swap DApp design:
-![swap1](/img/swap1.png) 
-![swap2](/img/swap2.png) 
-![swap3](/img/swap3.png) 
-![swap4](/img/swap4.png) 
+<img src="/img/swap1.png" alt="swap1" style={{width: '850px', height: 'auto'}} />
+<img src="/img/swap2.png" alt="swap2" style={{width: '850px', height: 'auto'}} />
+<img src="/img/swap3.png" alt="swap3" style={{width: '850px', height: 'auto'}} />
+<img src="/img/swap4.png" alt="swap4" style={{width: '850px', height: 'auto'}} />
+
 
 ### Identify Pool State
 The REE white paper proposes the Exchange-Pool model as the standard for managing exchange execution state. So, what states belong to the pool state, and what belongs to the exchange's global state?

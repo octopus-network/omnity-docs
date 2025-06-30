@@ -21,12 +21,16 @@ Reading the [white paper](https://docs.google.com/document/d/1d1_51f8YYRhxft_RpG
 | Signing Mechanism| Centralized/semi-centralized | Fully decentralized (via ICP)|
 | Wallet Compatibility| Often needs new wallets| Works with native Bitcoin wallets |
 
+
+## REE Architecture
+<img src="/img/archi.png" alt="ree architecture" style={{width: '850px', height: 'auto'}} />
+
+The Runes Exchange Environment (REE) is a Turing-complete, bridgeless execution layer for BTCFi. The REE Orchestrator is responsible for managing the execution of exchange programs within REE. It acts as a coordinator for exchange programs and validates invoke requests submitted by traders, schedules the execution of exchange programs, monitors their progress, and reports the results back to traders. 
+
 ## Advantages Of REE
-![ree architecture](/img/archi.png) 
 **REE offers compelling advantages for the Bitcoin DeFi ecosystem.** For end-users, it delivers a seamless experience by supporting standard Bitcoin wallets and enabling faster transactions - all while maintaining Bitcoin's robust security through decentralized validation. For developers, REE provides an open-source (FOSS), highly composable environment that facilitates easy protocol interoperability and shared liquidity. Builders gain additional power through a sophisticated smart contract platform, complete with comprehensive development tools, practical implementation examples, and integrated mechanisms for implementing value capture strategies.
 
 ## Core Concepts
-
 ### PSBT (Partially Signed Bitcoin Transaction)
 
 PSBT is a standardized bitcoin transaction format. Its key feature is allowing multiple participants to independently sign different inputs of a transaction before it's combined and broadcasted. This is fundamental for multi-party coordination on bitcoin.
