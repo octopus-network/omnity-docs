@@ -7,9 +7,8 @@ const sidebars = {
       label: 'REE',
       items: [
         'REE/introduction',
-        'REE/core-concepts',
+        'REE/btcfi-design-guide',
         'REE/first-exchange',
-        'REE/state-management',
         'REE/next-steps',
         'REE/apis',
 
