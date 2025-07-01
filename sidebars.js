@@ -18,8 +18,8 @@ const sidebars = {
       type: 'category',
       label: 'Rich-Swap',
       items: [
-        'Rich-Swap/apis',
         'Rich-Swap/guide',
+        'Rich-Swap/apis',
       ],
     },
     {

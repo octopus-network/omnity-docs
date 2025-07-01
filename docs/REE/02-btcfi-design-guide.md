@@ -188,7 +188,7 @@ REE DApps can protect against dust attacks by setting a minimum economic value f
 
 More advanced strategies could dynamically adjust this minimum transaction value based on the length of the unconfirmed transaction queue. In other words, when the settlement queue is congested, only high-value transactions are allowed to enter.
 
-### Guardian Deamon
+### Guardian Daemon
 Every developer should clearly understand that BTCFi smart contracts operate in a perilous environment, and their risk of being attacked is directly proportional to their Total Value Locked (TVL). No quality control method can 100% eliminate defects. Therefore, for high-value BTCFi applications, building external defense systems is essential. These systems are like the reactive armor and active protection systems on a tank, supplementing its main armor. Guardian daemons, flow control, and escape hatches all fall under the category of external defense systems.
 
 Guardian daemons, as the name suggests, are off-chain resident programs. They monitor the transaction execution of exchange canisters, which can be achieved by connecting to a Bitcoin full node and the REE Orchestrator. After detecting specific types of transactions, they check whether the exchange canister's state transitions are as expected.
