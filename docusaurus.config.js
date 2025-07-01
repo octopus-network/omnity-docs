@@ -6,17 +6,17 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: ' ',
+  title: 'Omnity Document',
   url: 'https://docs.omnity.network',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
 
-  customFields: {
-    title: '',
-    titleDelimiter: '',
-  },
+  // customFields: {
+  //   title: ' ',
+  //   titleDelimiter: ' ',
+  // },
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
