@@ -7,11 +7,16 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: ' ',
-  url: 'https://docusaurus.io',
+  url: 'https://docs.omnity.network',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
+
+  customFields: {
+    title: '',
+    titleDelimiter: '',
+  },
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -46,8 +51,8 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
-          { to: '/ree', docId: 'REE/apis', label: 'REE', position: 'left', type: 'doc' },
-          { to: '/Rich-Swap', docId: 'Rich-Swap/apis', label: 'RICH SWAP', position: 'left', type: 'doc' },
+          { to: '/ree', docId: 'REE/introduction', label: 'REE', position: 'left', type: 'doc' },
+          { to: '/Rich-Swap', docId: 'Rich-Swap/guide', label: 'RICH SWAP', position: 'left', type: 'doc' },
           {
             type: 'doc',
             docId: 'Omnity-Hub/intro',

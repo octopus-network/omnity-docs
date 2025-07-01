@@ -16,7 +16,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Rich-Swap',
+      label: 'RichSwap',
       items: [
         'Rich-Swap/guide',
         'Rich-Swap/apis',
@@ -24,7 +24,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Omnity-Hub',
+      label: 'OmnityHub',
       items: [
         'Omnity-Hub/intro',
         'Omnity-Hub/evm',
