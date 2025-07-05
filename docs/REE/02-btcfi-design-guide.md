@@ -48,13 +48,13 @@ A typical BTCFi on the REE platform comprises several key components:
 
 
 ## A Step-to-Step Guide
-### Identify Transaction Types
-BTCFi applications can be seen as a series of transitions between users and smart contracts that fulfill users’ financial needs. Typically, a BTCFi application supports one or more types of transactions. For example, the core transaction types of a lending application are deposit transactions from lenders and borrowing transactions from borrowers. The core transaction types of a swap application are token swaps, liquidity additions, and withdrawals. 
+### Identify Actions
+BTCFi applications can be seen as a series of transitions between users and smart contracts that fulfill users’ financial needs. Typically, a BTCFi application supports one or more types of transactions. For example, the core actions of a lending application are deposit transactions from lenders and borrowing transactions from borrowers. The core actions of a swap application are token swaps, liquidity additions, and withdrawals.
 
-Below, we'll use a token swap as an example to explain how to identify and define transaction types. This example will be used throughout the guide, but it will only cover the backbone of a token swap application. RichSwap provides production-grade complete [code](https://github.com/octopus-network/richswap-canister).
+Below, we'll use a token swap as an example to explain how to identify and define actions. This example will be used throughout the guide, but it will only cover the backbone of a token swap application. RichSwap provides production-grade complete [code](https://github.com/octopus-network/richswap-canister).
 
-Following the principle of "prioritizing BTC as the currency," swaps can be categorized into two types: BTC for Token and Token for BTC. Therefore, a swap application's main transaction types are four: BTC for Token, Token for BTC, adding liquidity, and withdrawing liquidity. Other auxiliary transaction types won't be detailed here. I recommend that designers illustrate the inputs and outputs for each transaction type based on the example diagram below.
-![transaction type](/img/transaction_type.png) 
+Following the principle of "prioritizing BTC as the currency," swaps can be categorized into two types: BTC for Token and Token for BTC. Therefore, a swap application's main actions are four: BTC for Token, Token for BTC, adding liquidity, and withdrawing liquidity. Other auxiliary actions won't be detailed here. I recommend that designers illustrate the inputs and outputs for each action based on the example diagram below.
+![action](/img/action.png)
 
 ### Define Pool
 A pool is a container used by a REE DApp smart contract (termed as an exchange canister) to hold Bitcoin assets and serve the demands of traders. From a technical point of view, a pool is a Chain Key that is controlled by the exchange canister for signing Bitcoin transactions.
@@ -73,13 +73,13 @@ The most crucial shared state for a swap application is the token price, which i
 ### Design Transaction Structures
 As stated in the white paper, the REE transaction processing involves the trader and the BTCFi smart contract jointly signing a PSBT (Partially Signed Bitcoin Transaction). This process is divided into two steps:
 
-First, the trader queries the pool state via the DApp client (web frontend or mobile app). Typically, the exchange canister will provide a public query method for each transaction type.
+First, the trader queries the pool state via the DApp client (web frontend or mobile app). Typically, the exchange canister will provide a public query method for each action.
 
 Then, based on the query results (most importantly, the pool UTXO), the DApp client constructs the PSBT and calls the wallet to sign the trader's inputs.
 
 Finally, the DApp client submits the PSBT and other parameters to the REE Orchestrator, which then calls the exchange canister to sign the pool inputs.
 
-Therefore, clearly defining the Bitcoin transaction structure for each type is crucial. We can expand the simple diagram obtained in the first step, "Identify Transaction Types," into one that closely resembles the actual Bitcoin transaction structure. Here, we continuously expand the swap DApp design:
+Therefore, clearly defining the Bitcoin transaction structure for each type is crucial. We can expand the simple diagram obtained in the first step, "Identify Actions," into one that closely resembles the actual Bitcoin transaction structure. Here, we continuously expand the swap DApp design:
 <img src="/img/swap1.png" alt="swap1" style={{width: '850px', height: 'auto'}} />
 <img src="/img/swap2.png" alt="swap2" style={{width: '850px', height: 'auto'}} />
 <img src="/img/swap3.png" alt="swap3" style={{width: '850px', height: 'auto'}} />
@@ -109,7 +109,7 @@ To avoid the hassle of multiple signatures on the client side, the intention set
 It is worthy to emphasize that action_params are arbitrary parameters passed by the client to the exchange canister, and the Orchestrator does not check them. Therefore, action_params should only be used for remarks and should never serve as the basis for a transaction.
 
 ### Put It All Together
-At this point, the skeleton of an exchange canister is apparent. It will include quote methods that correspond one-to-one with each transaction type, along with the five public methods required by the REE environment:
+At this point, the skeleton of an exchange canister is apparent. It will include quote methods that correspond one-to-one with each action, along with the five public methods required by the REE environment:
 
 * execute_tx: Tx execution on an exchange canister means checking the intention against the current pool state, in other words, the head of the pool state chain. If the intention meets the trading term, duplicate the head of the pool state chain, update the new head state, and then sign the PSBT with the pool’s Chain Key.
 * new_block: Transactions came along with a new block, which means they have been included in the Bitcoin block. The exchange canister needs to associate these transactions with the block and wait for finalization or reorg. 
@@ -193,7 +193,7 @@ Every developer should clearly understand that BTCFi smart contracts operate in 
 
 Guardian daemons, as the name suggests, are off-chain resident programs. They monitor the transaction execution of exchange canisters, which can be achieved by connecting to a Bitcoin full node and the REE Orchestrator. After detecting specific types of transactions, they check whether the exchange canister's state transitions are as expected.
 
-Typically, guardian daemons are only interested in transaction types that have pool asset outputs or affect the ownership shares of pool assets. Specifically, they verify whether the transaction withdrew excessive assets or whether it disproportionately increased the initiator's share of assets.
+Typically, guardian daemons are only interested in actions that have pool asset outputs or affect the ownership shares of pool assets. Specifically, they verify whether the transaction withdrew excessive assets or whether it disproportionately increased the initiator's share of assets.
 
 I recommend that the implementations of guardian daemons and exchange canisters remain independent of each other. They should be developed by different people using different programming languages to avoid harmful correlations. When a guardian daemon detects an anomalous state transition, it should be able to call a privileged interface to halt the BTCFi service, thereby mitigating further losses.
 

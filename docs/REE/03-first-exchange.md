@@ -252,9 +252,9 @@ pub fn get_pool_info(args: GetPoolInfoArgs) -> GetPoolInfoResponse {
 * `get_pool_list`: A `#[query]` method (read-only, fast) that iterates through the stored pools (assuming a helper like `get_pools()`) and returns a list of basic pool information (`PoolBasic`).
 * `get_pool_info`: A `#[query]` method that takes a `pool_address`, looks up the corresponding `Pool` (assuming a helper like `get_pool()`), and returns detailed `PoolInfo` if found. It extracts data like `nonce`, asset reserves, and `utxos` from the latest `PoolState`.
 
-### 7. Implementing the Deposit Functionality
+### 7. Implementing the Deposit Action
 
-We first implement the necessary methods in the canister for the deposit functionality, including `pre_deposit()` and `execute_tx`.
+We first implement the necessary methods in the canister for the deposit action, including `pre_deposit()` and `execute_tx`.
 
 `pre_deposit` receives the quantity of assets the user wants to deposit. This method typically needs to return the information required for the deposit transaction corresponding to the user's input. In this example, we only accept any amount of BTC assets deposited by the user, so we can ignore the user's input and only return the pool's UTXO and nonce.
 We can add the following method in `lending.rs`:
@@ -367,9 +367,9 @@ pub async fn execute_tx(args: ExecuteTxArgs) -> ExecuteTxResponse {
 }
 ```
 
-### 8. Implementing the Deposit Functionality on the Frontend
+### 8. Implementing the Deposit Action on the Frontend
 
-Now, let's outline how to implement the user deposit functionality on the frontend, interacting with the canister methods defined in Section 7. We'll use the **inquiry/invoke pattern**:
+Now, let's outline how to implement the user deposit action on the frontend, interacting with the canister methods defined in Section 7. We'll use the **inquiry/invoke pattern**:
 
 1.  **The inquiry step:**
     *   The frontend invokes the `pre_deposit` query method on the Exchange canister, passing the target pool address and the desired deposit amount.
