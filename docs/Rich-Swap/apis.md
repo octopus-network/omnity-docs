@@ -191,8 +191,9 @@ pre_swap : (text, CoinBalance) -> (Result_10) query;
 ```
 * Input: id - String (pool address)
 * Input: input - CoinBalance (user's input)
-
 * SwapOffer: for constructing the PSBT as part of the inputs
+
+NOTE: In the `REE#invoke` phase, you could set the `action_params` to `"channel=YOUR_ORG_NAME"` to share the protocol revenue.
 
 ### pre_donate
 ```md
