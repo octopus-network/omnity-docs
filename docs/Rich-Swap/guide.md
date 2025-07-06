@@ -61,9 +61,9 @@ Assume we got 1 UTXO > 10000 sats(since the client must pay for the network fee)
 input #0: 115fd37d0622775daf2783228d2997e38c756bc1d99714d62e2f5c96e9714e42:1 (pool, unsigned) 167414167 sats
 input #1: 9c1f8398f5a92eee44aee58d000a4dc1705f9c25e29683f7730215bc1274cff1:0 (client, signed) 20000 sats
 --------------
-output #0: 167414165 + 10000 sats to pool's pubbkey
-output #1: OP_RETURN: allocate 64183732378 - 3834248 RUNE to #0; allocate 3834248 to RUNE #2
-output #2: 9000 sats to client's pubkey
+output #0: (167414165 + 10000) sats to pool's pubbkey
+output #1: OP_RETURN: allocate (64183732378 - 3834248) RUNE(840000:846) to output #0; allocate 3834248 RUNE(840000:846) to #output 2
+output #2: (20000 - 10000 - network_fee) sats to client's pubkey
 ```
 
 After we signed this PSBT, we should serialize it and submit to REE. Since the actuall PSBT might be more complicated than this one, REE requires some extra information to validate the whole transaction. Below is the full parameter of REE `invoke` function:
@@ -97,9 +97,9 @@ The definition seems a little bit complicated, but we only need to fill part of 
 
 - The `input_coins` is the what we passed in the first step, i.e. "0:0" + 10000 sats.
 - The `output_coins` is the result of the second step, i.e. how much rune we can get.
-- The `action` is decided by the RichSwap since REE is a general protocol for extending BTC's capacity. Different functions have different action. In this scenario, it is "swap".
 - The `exchange_id` is "RICH_SWAP".
-- The `action_params` should be empty in this case.
+- The `action` is decided by the RichSwap since REE is a general protocol for extending BTC's capacity. Different functions have different action. In this scenario, it is "swap".
+- The `action_params` is defined by REE for relaying some extra informations between exchange client and exchagne. In this case, you could leave empty, or if you are integrating RichSwap with your service, you could set it `"channel=YOUR_ORG_NAME"` to share the protocol revenue from Omnity Team.
 - The `nonce` should be value just returned from RichSwap pool. In this case, it is 1147.
 - The `pool_address` is "bc1ptnxf8aal3apeg8r4zysr6k2mhadg833se2dm4nssl7drjlqdh2jqa4tk3p" in this case.
 - The `pool_utxo_spent` and `pool_utxo_received` are both empty since REE will infer them from PSBT.
