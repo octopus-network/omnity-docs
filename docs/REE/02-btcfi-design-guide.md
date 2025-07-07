@@ -160,7 +160,7 @@ As mentioned earlier, each of an exchange's pools acts as an independent settlem
 However, this method isn't without limitations, as it fragments liquidity across multiple pools. This either makes it difficult for users, who can only access a portion of the liquidity at a time, or it increases the complexity of transaction logic and state management, as a single transaction might need to update the state of multiple pools.
 
 ### Transparency
-Omnity has established [Runscan.net](http://Runscan.net) as the open and shared explorer for all REE DApp. The exchange canister just needs to implement get_pool_list and get_pool_info for its internal state, visible to the public. 
+Omnity has established [Runescan.net](https://www.runescan.net/) as the open and shared explorer for all REE DApp. The exchange canister just needs to implement get_pool_list and get_pool_info for its internal state, visible to the public. 
 
 In the PoolInfo return value, there's an extensible field called attributes. The exchange canister can place any data it wishes to display to users within this field, formatted as JSON key/value pairs.
 
