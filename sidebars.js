@@ -11,7 +11,17 @@ const sidebars = {
         'REE/first-exchange',
         'REE/next-steps',
         'REE/apis',
-
+        {
+          type: 'category',
+          label: 'REE Workshop',
+          items: [
+            'REE/workshop',
+            'REE/workshop2',
+            'REE/workshop3',
+            'REE/workshop4',
+          ],
+          collapsed: false,
+        },
       ],
     },
     {
