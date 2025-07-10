@@ -5,6 +5,8 @@ sidebar_position: 2
 # REE-Based BTCFi Design Guide
 This document outlines the key considerations and steps for designing a robust and secure Bitcoin-backed Decentralized Finance (BTCFi) system, built explicitly on the Runes Exchange Environment (REE). Please note that this guide focuses on the exchange canister design; front-end or alternative client designs are out of scope.
 
+REE can be used to run both Bitcoin L1 DApps and L2 DApps. For L2 DApps, the role of REE is fixed: it serves as the embedded bridge of the DApp, enabling autonomous custody of Bitcoin assets and facilitating BTC and Runes deposit and withdrawal. For an implementation example, see the [Cookie Game Demo](https://github.com/octopus-network/ree-l2-dapp-demo). This article mainly focuses on building Bitcoin L1 DApps based on REE.
+
 ## Prerequest
 Designing a well-functioning, secure, and maintainable Bitcoin DApp on REE requires three areas of background knowledge:
 
@@ -237,4 +239,4 @@ By maintaining continuous engagement and fostering a culture of shared knowledge
 
 
 
-Last updated on June 30, 2025
+Last updated on July 10, 2025
