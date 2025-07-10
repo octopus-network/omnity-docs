@@ -1,12 +1,12 @@
-# REE Gaming Demo
+# Define Pool State
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: 1 }}>
-    <h3>实现标准的Exchange方法</h3>
-    <p>欢</p>
+    <h3>定义Pool</h3>
+    <p>管理 pool state</p>
   </div>
 
   <div style={{ flex: 1 }}>
@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
       <TabItem value="source" label="Source" default>
         <Tabs>
           <TabItem value="toml" label="Cargo.toml" default>
-           代码1
+          代码1
           </TabItem>
           <TabItem value="lib" label="lib.rs">
             代码2
@@ -24,7 +24,7 @@ import TabItem from '@theme/TabItem';
       <TabItem value="solution" label="Solution">
         <Tabs>
           <TabItem value="state" label="state.rs" default>
-            代码3
+            pub enum UserAction
           </TabItem>
           <TabItem value="lib" label="lib.rs">
             代码4

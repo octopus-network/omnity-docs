@@ -1,12 +1,12 @@
-# REE Gaming Demo
+# Implement The Frontend
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: 1 }}>
-    <h3>存pool数据</h3>
-    <p></p>
+    <h3>实现游戏前端</h3>
+    <p>欢</p>
   </div>
 
   <div style={{ flex: 1 }}>

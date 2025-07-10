@@ -1,11 +1,11 @@
-# REE Gaming Demo
+# Implement REE Exchange Methods
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: 1 }}>
-    <h3>状态管理：处理区块链</h3>
+    <h3>实现标准的Exchange方法</h3>
     <p>欢</p>
   </div>
 

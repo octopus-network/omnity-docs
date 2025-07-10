@@ -1,11 +1,11 @@
-# REE Gaming Demo
+# State Management
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: 1 }}>
-    <h3>实现游戏前端</h3>
+    <h3>状态管理：处理区块链</h3>
     <p>欢</p>
   </div>
 

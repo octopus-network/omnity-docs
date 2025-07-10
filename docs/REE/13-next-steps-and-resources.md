@@ -1,4 +1,4 @@
-# REE Gaming Demo
+# Next Steps and Resources
 
 # 最后Next Steps and Resources
 该游戏显示的是单runes结算方式，可进一步升级为不同游戏不同runes结算。
