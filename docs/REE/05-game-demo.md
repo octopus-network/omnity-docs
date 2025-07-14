@@ -5,19 +5,19 @@ import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
-    <h3>初始</h3>
-    <p>欢迎来到REE Gaming Demo，这个Workshop的前提你己经了解REE是什么，如果有兴趣也可以试下Bitcoin一层应用的Lending Demo, 而REE Gaming Demo是基于REE的二层应用. 这个Workshop的初衷是想让开发者扩展性地了解二层应用如何利用REE来实现业务. </p>
-    <p>REE Gaming Demo是一个简单的点击Cookie然后获得点数，再把点数以Runes的形式返回到玩家的账户。以下是流程：</p>
-    <p>1. 在BTC签登陆ICP并充值BTC到游戏</p>
-    <p>2. 点击Cookie玩游戏来获得点数，点击越多点数越高</p>
-    <p>3. 集够点数可直接以Runes方式提现到BTC账户</p>
-    <h5>这是需要实现的技术点：</h5>
-    <p>1. 利用SIWB在BTC签登陆ICP</p>
-    <p>2. 链接REE快速充值BTC</p>
-    <p>3. 游戏逻辑</p>
-    <p>4. Runes提现</p>
-    <p>事不宜迟，开始第一步</p>
-    <h5>下载 + 创建Canister</h5>
+    <h3>Prerequisites</h3>
+    <p>Welcome to the REE Gaming Demo. This workshop assumes you already understand what REE is. If you're interested, you can also try the Bitcoin Layer 1 Lending Demo, while the REE Gaming Demo is a Layer 2 application built on REE. The goal of this workshop is to help developers understand how Layer 2 applications can leverage REE for business logic. </p>
+    <p>A simple cookie-clicker game where you earn points and withdraw them as Runes to your Bitcoin wallet. Here’s how it works:</p>
+    <p>1. Sign in to ICP via SIWB and deposit BTC into the game.</p>
+    <p>2. Click the cookie to earn points—the more you click, the higher your score.</p>
+    <p>3. Withdraw your points as Runes directly to your Bitcoin wallet once you’ve collected enough.</p>
+    <h5>Key Technical Components:</h5>
+    <p>1. SIWB (Sign-In with Bitcoin) authentication for ICP login.</p>
+    <p>2. REE-fast BTC deposits (Layer 2 integration).</p>
+    <p>3. Game logic (cookie-clicker mechanics & point system)</p>
+    <p>4. Runes withdrawal (converting points into Bitcoin Runes)</p>
+    <p>Let’s get started!</p>
+    <h5>Download + Create a Canister</h5>
     <pre style={{
               backgroundColor: '#f5f5f5',
               padding: '1rem',
@@ -34,7 +34,7 @@ import TabItem from '@theme/TabItem';
               <p>dfx new --type rust --frontend react ree-workshop</p>
               </code>
     </pre>
-    <p>得到右边repo结构</p>
+    <p>See the repository structure on the right</p>
   </div>
 
   <div style={{ flex: 1 }}>

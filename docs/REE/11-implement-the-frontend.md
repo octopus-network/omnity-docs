@@ -5,10 +5,10 @@ import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
-    <h3>实现游戏前端</h3>
-    <p>钱包用LaserEyes</p>
-    <p>身份认证用ic-siwb-lasereyes-connector</p>
-    <p>构建PSBT</p>
+    <h3>Implement game frontend</h3>
+    <p>Use LaserEyes for wallet</p>
+    <p>Use ic-siwb-lasereyes-connector for authentication</p>
+    <p>Construct PSBT</p>
   </div>
 
   <div style={{ flex: '1 0 50%' }}>

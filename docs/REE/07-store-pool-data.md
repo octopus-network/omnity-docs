@@ -5,8 +5,8 @@ import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
-    <h3>存Pool数据</h3>
-    <p>我们用IC的持久性存诸来确保数据升级安全</p>
+    <h3>Store pool data</h3>
+    <p>We need a persistent way to store all the created Pool instances, ensuring data survives canister upgrades. The IC provides StableBTreeMap for this purpose.</p>
   </div>
 
    <div style={{ flex: 1 }}>

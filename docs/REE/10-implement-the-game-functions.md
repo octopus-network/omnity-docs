@@ -5,7 +5,7 @@ import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
-    <h3>实现游戏功能</h3>
+    <h3>Implement game functionality</h3>
     <p></p>
     <p></p>
     <p></p>

@@ -5,7 +5,7 @@ import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
-    <h3>实现标准的Exchange方法</h3>
+    <h3>Implement required exchange methods</h3>
     <p>An Exchange canister interacting with a framework like REE usually needs to implement a standard set of interface methods. The five required methods mentioned are: </p>
     <p>get_pool_list</p>
     <p>get_pool_info</p>

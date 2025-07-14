@@ -1,10 +1,10 @@
 # Next Steps and Resources
 
 # Next Steps
-1. 该游戏默认用己存在的Runes, 可进一步升级为内盘完成后etch新的runes。
-2. 该游戏显示的是单Runes结算方式，可进一步升级为不同游戏不同runes结算。
-3. 可加上跟其它Exchange交互的功能，比如用生成的Runes在RichSwap提供流动性。
+1. By default, the game uses existing Runes, but it can be further upgraded to etch new Runes once the internal process is completed.
+2. The game currently displays a single-Rune settlement method, but it can be upgraded to support different Runes settlements for different games.
+3. Features for interacting with other exchanges can be added, such as providing liquidity on RichSwap using the generated Runes.
 
 # Additional Resources
-* Cookie Game 完整代码
-* Etching 接口
+* Complete code for Cookie Game
+* Etching API

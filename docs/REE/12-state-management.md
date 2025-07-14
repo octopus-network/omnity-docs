@@ -5,10 +5,10 @@ import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
-    <h3>状态管理：处理区块链</h3>
+    <h3>State Management: Handling Blockchain Events</h3>
     <p>Handling New Blocks: new_block()</p>
     <p>Handling Rejected Transactions: rollback_tx()</p>
-    <p>execute_tx()</p>
+    <p>Handling Pool State: execute_tx()</p>
   </div>
 
  <div style={{ flex: '1 0 50%' }}>

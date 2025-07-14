@@ -5,10 +5,10 @@ import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
-    <h3>定义Pool</h3>
-    <p>Pool是Exchange的最小管理单位， 它代表应用的业务逻辑，该游戏的业务定义请看代码备注</p>
-    <h3>管理 Pool State</h3>
-    <p>Pool State代表每次交易状态，可用于记录和回滚状态</p>
+    <h3>Define Pool</h3>
+    <p>A Pool serves as the smallest management unit of the Exchange, representing the application's business logic. For this game's specific business definitions, please refer to the code comments.</p>
+    <h3>Manage Pool State</h3>
+    <p>Pool State represents the transaction state for each operation and can be used to record and rollback states.</p>
     <img src="/img/roll_back.png" alt="roll_back" style={{width: '850px', height: 'auto'}} />
   </div>
 
