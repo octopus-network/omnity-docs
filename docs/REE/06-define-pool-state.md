@@ -4,33 +4,78 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
-  <div style={{ flex: 1 }}>
+  <div style={{ flex: '1 0 50%' }}>
     <h3>定义Pool</h3>
-    <p>管理 pool state</p>
+    <p>Pool是Exchange的最小管理单位， 它代表应用的业务逻辑，该游戏的业务定义请看代码备注</p>
+    <h3>管理 Pool State</h3>
+    <p>Pool State代表每次交易状态，可用于记录和回滚状态</p>
+    <img src="/img/roll_back.png" alt="roll_back" style={{width: '850px', height: 'auto'}} />
   </div>
 
   <div style={{ flex: 1 }}>
-    <Tabs>
       <TabItem value="source" label="Source" default>
         <Tabs>
-          <TabItem value="toml" label="Cargo.toml" default>
-          代码1
-          </TabItem>
-          <TabItem value="lib" label="lib.rs">
-            代码2
-          </TabItem>
-        </Tabs>
-      </TabItem>
-      <TabItem value="solution" label="Solution">
-        <Tabs>
           <TabItem value="state" label="state.rs" default>
-            pub enum UserAction
-          </TabItem>
-          <TabItem value="lib" label="lib.rs">
-            代码4
+          <pre style={{
+              backgroundColor: '#f5f5f5',
+              padding: '1rem',
+              borderRadius: '4px',
+              overflowX: 'auto',
+              fontFamily: 'monospace',
+              fontSize: '14px',
+              lineHeight: '1.5',
+              margin: '0'
+            }}>
+              <code>
+                {`
+pub struct ExchangeState {
+    pub states: Vec<PoolState>,
+    pub key: Pubkey,
+    pub address: String,
+    pub ii_canister: Principal,
+    pub orchestrator: Principal,
+    pub address_principal_map: Option<BTreeMap<Principal, Address>>,
+    pub game: Game,
+    pub game_status: GameStatus,
+}
+pub struct Game {
+    pub game_duration: Seconds,
+    pub game_start_time: SecondTimestamp,
+    pub gamer_register_fee: Satoshi,
+    pub claim_cooling_down: Seconds,
+    pub cookie_amount_per_claim: u128,
+    pub max_cookies: u128,
+    pub claimed_cookies: u128,
+    pub gamer: Option<BTreeMap<Address, Gamer>>,
+}
+pub struct Gamer {
+    pub address: String,
+    pub cookies: u128,
+    pub last_click_time: SecondTimestamp,
+    pub is_withdrawn: bool,
+}
+pub enum GameStatus {
+    Init,
+    Play,
+    AddLiquidity,
+    End,
+}
+pub struct PoolState {
+    pub id: Option<Txid>,
+    pub nonce: u64,
+    pub utxo: Option<Utxo>,
+    pub user_action: UserAction,
+}
+pub enum UserAction {
+    Init,
+    Register(Address),
+    Withdraw(Address),
+}
+                `}
+              </code>
+            </pre>
           </TabItem>
         </Tabs>
       </TabItem>
-    </Tabs>
   </div>
 </div>
