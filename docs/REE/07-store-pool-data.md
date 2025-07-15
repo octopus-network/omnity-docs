@@ -7,6 +7,12 @@ import TabItem from '@theme/TabItem';
   <div style={{ flex: '1 0 50%' }}>
     <h3>Store pool data</h3>
     <p>We need a persistent way to store all the created Pool instances, ensuring data survives canister upgrades. The IC provides StableBTreeMap for this purpose.</p>
+    <h5>Key points:</h5>
+    <ul style={{listStyleType: 'disc', paddingLeft: '20px', margin: '0'}}>
+      <li>ExchangeState is declared as a static RefCell containing a StableBTreeMap.</li>
+      <li>This map uses the Pool's address (String) as the key and the Pool struct as the value.</li>
+      <li>It is initialized using memory obtained from a MEMORY_MANAGER (typically defined using thread_local!), ensuring the data resides in stable memory.</li>
+    </ul>
   </div>
 
    <div style={{ flex: 1 }}>

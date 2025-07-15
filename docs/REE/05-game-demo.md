@@ -6,14 +6,15 @@ import TabItem from '@theme/TabItem';
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
     <h3>Prerequisites</h3>
-    <p>Welcome to the REE Gaming Demo. This workshop assumes you already understand what REE is. If you're interested, you can also try the Bitcoin Layer 1 Lending Demo, while the REE Gaming Demo is a Layer 2 application built on REE. The goal of this workshop is to help developers understand how Layer 2 applications can leverage REE for business logic. </p>
+    <p>Welcome to the REE Gaming Demo. </p>
+    <p>This workshop assumes you already understand what REE is. If you're interested, you can also try the Bitcoin Layer 1 <a href="https://docs.omnity.network/docs/REE/first-exchange">Lending Demo</a>, while the REE Gaming Demo is a Layer 2 application built on REE. The goal of this workshop is to help developers understand how Layer 2 applications can leverage REE for business logic. </p>
     <p>A simple cookie-clicker game where you earn points and withdraw them as Runes to your Bitcoin wallet. Here’s how it works:</p>
     <p>1. Sign in to ICP via SIWB and deposit BTC into the game.</p>
     <p>2. Click the cookie to earn points—the more you click, the higher your score.</p>
     <p>3. Withdraw your points as Runes directly to your Bitcoin wallet once you’ve collected enough.</p>
     <h5>Key Technical Components:</h5>
-    <p>1. SIWB (Sign-In with Bitcoin) authentication for ICP login.</p>
-    <p>2. REE-fast BTC deposits (Layer 2 integration).</p>
+    <p>1. <a href="https://github.com/AstroxNetwork/ic-siwb">SIWB</a> (Sign-In with Bitcoin) authentication for ICP login.</p>
+    <p>2. Fast BTC deposits (Layer 2 integration) on <a href="https://www.omnity.network/ree">REE</a>.</p>
     <p>3. Game logic (cookie-clicker mechanics & point system)</p>
     <p>4. Runes withdrawal (converting points into Bitcoin Runes)</p>
     <p>Let’s get started!</p>

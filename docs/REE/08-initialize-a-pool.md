@@ -6,7 +6,8 @@ import TabItem from '@theme/TabItem';
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
     <h3>Initialize a pool</h3>
-    <p>It should be noted that compared to key_1, test_key_1 can be used on the mainnet with different fee rates - specifically about one-third lower, without requiring additional backup. On the mainnet, Chain Key signing can use either test_key_1 or key_1, which differ in security level and cost.You can choose to use test_key_1 for your own test canister to save costs. If the number of signatures is small, the savings will be limited — about $0.02 saved per signature.https://internetcomputer.org/docs/references/t-sigs-how-it-works/#fees-for-the-t-schnorr-test-key</p>
+    <p>It should be noted that compared to key_1, test_key_1 can be used on the mainnet with different fee rates - specifically about one-third lower, without requiring additional backup.</p>
+    <p>On the mainnet, Chain Key signing can use either test_key_1 or key_1, which differ in security level and cost.You can choose to use test_key_1 for your own test canister to save costs. If the number of signatures is small, the savings will be limited — <a href="https://internetcomputer.org/docs/references/t-sigs-how-it-works/#fees-for-the-t-schnorr-test-key">about $0.02 saved per signature</a>.</p>
   </div>
 
   <div style={{ flex: 1 }}>

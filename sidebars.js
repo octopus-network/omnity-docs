@@ -22,7 +22,6 @@ const sidebars = {
             'REE/implement-ree-exchange-methods',
             'REE/implement-the-game-functions',
             'REE/implement-the-frontend',
-            'REE/state-management',
             'REE/next-steps-and-resources',
           ],
           collapsed: false,

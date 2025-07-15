@@ -5,12 +5,16 @@ import TabItem from '@theme/TabItem';
 
 <div style={{ display: 'flex', gap: '20px' }}>
   <div style={{ flex: '1 0 50%' }}>
-    <h3>Implement game functionality</h3>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
+    <h3>Workflow</h3>
+     <ul style={{listStyleType: 'disc', paddingLeft: '20px', margin: '0'}}>
+      <li>init</li>
+      <li>get_exchange_state</li>
+      <li>get_chain_key_btc_address</li>
+      <li>get_game_and_gamer_infos</li>
+      <li>get_register_info</li>
+      <li>end_game</li>
+      <li>withdraw</li>
+    </ul>
   </div>
 
   <div style={{ flex: 1 }}>

@@ -7,4 +7,5 @@
 
 # Additional Resources
 * Complete code for Cookie Game
-* Etching API
+* [Etching API](https://docs.omnity.network/docs/Omnity-Hub/runes_indexer)
+* [Complete code](https://github.com/octopus-network/ree-l2-dapp-demo) for the Cookie Game with the above additional features added
