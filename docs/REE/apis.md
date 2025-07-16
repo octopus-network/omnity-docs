@@ -68,7 +68,9 @@ type Result_3 = variant { Ok : text; Err : text };
 
 invoke : (InvokeArgs) -> (Result_3);
 ```
-See the [instruction examples](https://github.com/octopus-network/ree-types/tree/master/intention_set_samples) or the code ***[here](https://github.com/octopus-network/richswap-canister/tree/feature/donate/donate-cli)*** for details (this simple CLI tool donates 10,000 sats to a specified pool):.
+See the [instruction examples](https://github.com/octopus-network/ree-types/tree/master/intention_set_samples) or the code ***[here](https://github.com/octopus-network/richswap-canister/tree/feature/donate/donate-cli)*** for details (this simple CLI tool donates 10,000 sats to a specified pool).
+
+For the **initiator_utxo_proof**, please pass an empty string. If the client provides a proof, the Orchestrator will inspect and verify it, rejecting the request if verification fails. If the proof is empty or verification succeeds, the request is allowed. For calls with an empty proof, the Orchestrator performs verification via the Bitcoin canister.
 
 Check the [REE Orchestrator InvokeStatus Code List](https://docs.google.com/spreadsheets/d/1ATD-9-yRE41HbMyAQ5s7twzgHyMx0v1K4kxPWHHRR1Y/edit?usp=sharing) for error codes.
 
