@@ -568,6 +568,7 @@ pub async fn execute_tx(args: ExecuteTxArgs) -> ExecuteTxResponse {
 ```
 
 ### Handling New Blocks: `new_block()`
+A note on REE transaction confirmation order: when a block contains multiple transactions, the Runes indexer calls the Orchestrator’s new_block_detected method, with the transactions in the parameters following the same order as they appear in the block.
 
 The Orchestrator calls the `new_block()` method on an exchange canister whenever it learns that a new Bitcoin block has been indexed.
 
@@ -789,4 +790,4 @@ By implementing `new_block` and `rollback_tx` (along with the supporting `Pool` 
 
 
 
-Last updated on June 30, 2025
+Last updated on July 20, 2025
