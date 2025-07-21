@@ -27,10 +27,9 @@ const sidebars = {
       label: 'OmnityHub',
       items: [
         'Omnity-Hub/intro',
-        'Omnity-Hub/evm',
-        'Omnity-Hub/runes_indexer',
+        'Omnity-Hub/runes_on_bitcoin',
         'Omnity-Hub/runes',
-        'Omnity-Hub/icp_icrc',
+        'Omnity-Hub/evm',
         'Omnity-Hub/cosmwasm',
         'Omnity-Hub/solana_settlement',
         'Omnity-Hub/solana_execution',

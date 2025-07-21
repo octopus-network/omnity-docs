@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Port Contract On EVM
+# Runes On EVM
 ## Supported Chains:
 | Chain | Canister Id | Contract | Chain Id |
 | --- | --- | --- | --- |
