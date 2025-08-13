@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Integration Guide
 
-To interact with RichSwap, [clients](https://docs.omnity.network/docs/REE/core-concepts#exchange-client) must have the capability to access ICP canisters and sign BTC PSBTs.
+To interact with RichSwap, [clients](https://docs.omnity.network/docs/REE/introduction#exchange-client) must have the capability to access ICP canisters and sign BTC PSBTs.
 
 The [RichSwap canister](https://dashboard.internetcomputer.org/canister/kmwen-yaaaa-aaaar-qam3a-cai#interface) generates different language code to access RichSwap. You could also refer to the [RichSwap API docs](https://docs.omnity.network/docs/Rich-Swap/apis) for more details.
 

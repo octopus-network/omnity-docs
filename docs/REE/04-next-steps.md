@@ -10,7 +10,7 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
 
 ### Core Development & Learning
 * **[IC Developer Docs](https://internetcomputer.org/docs/home)**: Official documentation for the Internet Computer Protocol, covering development concepts and guides relevant to REE canisters.
-* **[REE Type Definitions](https://github.com/octopus-network/ree-types)**: This repository contains the essential data type definitions for the REE (Runes Exchange Environment).
+* **[REE Type Definitions/SDK](https://github.com/octopus-network/ree-exchange-sdk)**: This repository contains the essential data type definitions for the REE (Runes Exchange Environment) and its exchange canister SDK.
 
 ### Tools & Explorers
 * **[Testnet Runescan](https://testnet.runescan.net/)**: REE transaction explorer for the testnet.
