@@ -7,13 +7,13 @@ import TabItem from '@theme/TabItem';
   <div style={{ flex: '1 0 50%' }}>
     <h3>Workflow</h3>
      <ul style={{listStyleType: 'disc', paddingLeft: '20px', margin: '0'}}>
-      <li>init</li>
-      <li>get_exchange_state</li>
-      <li>get_chain_key_btc_address</li>
-      <li>get_game_and_gamer_infos</li>
-      <li>get_register_info</li>
-      <li>end_game</li>
-      <li>withdraw</li>
+      <li><strong>init</strong>: Initialize a pool with no gamers and no UTXOs.</li>
+      <li><strong>get_exchange_state</strong>: Fetch the current pool state to verify the data.</li>
+      <li><strong>get_chain_key_btc_address</strong>: Get the pool’s BTC address for sending the registration fee.</li>
+      <li><strong>get_game_and_gamer_infos</strong>: Fetch the current game and gamer status to determine the next move.</li>
+      <li><strong>get_register_info</strong>: Retrieve the registration fee required for a new gamer to join.</li>
+      <li><strong>end_game</strong>: End the game.</li>
+      <li><strong>withdraw</strong>: Withdraw the total amount of Runes tokens (cookies).</li>
     </ul>
   </div>
 

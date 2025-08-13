@@ -7,14 +7,14 @@ import TabItem from '@theme/TabItem';
   <div style={{ flex: '1 0 50%' }}>
     <p>An Exchange canister interacting with a framework like REE usually needs to implement a standard set of interface methods. The <a href="https://github.com/octopus-network/ree-types?tab=readme-ov-file#exchange-interfaces">five required methods</a> mentioned are: </p>
     <ul style={{listStyleType: 'disc', paddingLeft: '20px', margin: '0'}}>
-      <li><strong>get_pool_list</strong>: Retrieved all the pool information in the exchange</li>
-      <li><strong>get_pool_info</strong>: Get the META information of a certain pool</li>
+      <li><strong>get_pool_list</strong>: Retrieved all the pool information in the exchange.</li>
+      <li><strong>get_pool_info</strong>: Get the META information of a certain pool.</li>
     </ul>
      <h5 style={{ marginTop: '24px' }}>State Management: handling blockchain events</h5>
      <ul style={{listStyleType: 'disc', paddingLeft: '20px', margin: '0'}}>
-      <li><strong>rollback_tx</strong>: The Orchestrator calls rollback_tx() when it detects that a previously broadcast transaction is unlikely to ever be confirmed (e.g., it was rejected by the Bitcoin network or replaced by another transaction)</li>
-      <li><strong>new_block</strong>: The Orchestrator calls the new_block() method on an exchange canister whenever it learns that a new Bitcoin block has been indexed</li>
-      <li><strong>execute_tx</strong>: The Orchestrator calls the execute_tx() method to record the pool associated with the transaction and whether it has been confirmed inside of the <a href="https://docs.omnity.network/docs/REE/apis#invoke">invoke()</a> call</li>
+      <li><strong>rollback_tx</strong>: The Orchestrator calls rollback_tx() when it detects that a previously broadcast transaction is unlikely to ever be confirmed (e.g., it was rejected by the Bitcoin network or replaced by another transaction).</li>
+      <li><strong>new_block</strong>: The Orchestrator calls the new_block() method on an exchange canister whenever it learns that a new Bitcoin block has been indexed.</li>
+      <li><strong>execute_tx</strong>: The Orchestrator calls the execute_tx() method to record the pool associated with the transaction and whether it has been confirmed inside of the <a href="https://docs.omnity.network/docs/REE/apis#invoke">invoke()</a> call.</li>
     </ul>
   </div>
 

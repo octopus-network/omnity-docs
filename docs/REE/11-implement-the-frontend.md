@@ -7,14 +7,14 @@ import TabItem from '@theme/TabItem';
   <div style={{ flex: '1 0 50%' }}>
     <h3>Implement game frontend</h3>
     <ul style={{listStyleType: 'disc', paddingLeft: '20px', margin: '0'}}>
-      <li>Use <a href="https://www.npmjs.com/package/@omnisat/lasereyess">LaserEyes</a> for wallet</li>
-      <li>Use <a href="https://www.npmjs.com/package/ic-siwb-lasereyes-connector">ic-siwb-lasereyes-connector</a> for authentication</li>
-      <li>Construct <strong>PSBT</strong>: Constructing the PSBT currently involves some complexity, requiring developers to understand the UTXO calculation model. The specific implementation for this deposit example can be found in the repository</li>
+      <li>Use <a href="https://www.npmjs.com/package/@omnisat/lasereyess">LaserEyes</a> for wallet.</li>
+      <li>Use <a href="https://www.npmjs.com/package/ic-siwb-lasereyes-connector">ic-siwb-lasereyes-connector</a> for authentication.</li>
+      <li>Construct <strong>PSBT</strong>: Constructing the PSBT currently involves some complexity, requiring developers to understand the UTXO calculation model. The specific implementation for this deposit example can be found in the repository.</li>
     </ul>
     <h5 style={{ marginTop: '24px' }}>Here's the basic principle behind constructing this PSBT:</h5>
      <ul style={{listStyleType: 'disc', paddingLeft: '20px', margin: '0'}}>
-      <li>A Bitcoin transaction essentially destroys a set of input UTXOs and creates a set of output UTXOs</li>
-      <li>Inputs: Combine the pool's current BTC UTXO (obtained via pre_deposit) and the user's UTXO(s) used to pay for the deposit (obtained from the user's wallet).</li>
+      <li>A Bitcoin transaction essentially destroys a set of input UTXOs and creates a set of output UTXOs.</li>
+      <li>Inputs: Combine the pool's current BTC UTXO (obtained via get_exchange_state()) and the user's UTXO(s) used to pay for the deposit (obtained from the user's wallet).</li>
       <li>Outputs: Create new UTXOs:
 One UTXO belonging to the pool, with a BTC balance increased by the deposited amount.
 One UTXO belonging to the user (change), with a BTC amount equal to the user's input UTXO(s) minus the deposit amount and minus the transaction fee.</li>
