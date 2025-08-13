@@ -303,7 +303,7 @@ type LogoParams = record { content_type : text; content_base64 : text };
 type Result = variant { Ok : text; Err : text };
 ```
 
-See the process in the example below(for more details about the parameters, please refer to the description [here](https://docs.omnity.network/docs/Omnity-Hub/runes#etching_v2)):
+See the process in the example below(for more details about the parameters, please refer to the description [here](https://docs.omnity.network/docs/Omnity-Hub/runes#etching)):
 ```md
 1. Approve fee
 dfx canister call ryjl3-tyaaa-aaaaa-aaaba-cai  icrc2_approve '(record { amount = 1000000; spender = record{owner = principal "f2dwm-caaaa-aaaao-qjxlq-cai";} })' --ic
