@@ -16,6 +16,29 @@ It be achieved by using [generate_ticket2](http://localhost:3000/docs/Omnity-Hub
 * For withdrawing runes from icp to btc, please use generate_ticket from eICP with TxAction::Redeem.
 * For burning runes from icp (the runes tokens will be burnt on the layer 1 chain as well), please use generate_ticket from eICP with TxAction::Burn.
 
+#### Workflow: 
+***0***. The route uses the sub-account payment method. To use this api, the redeem fee must first be transferred to the sub-account. To check your sub-account, please use [get_fee_account](https://docs.omnity.network/docs/Omnity-Hub/runes#get_fee_account). To check the amount of the redeem fee, please use [get_redeem_fee](https://docs.omnity.network/docs/Omnity-Hub/runes#get_redeem_fee).
+```md title="Request Example:"
+# Retrieve a list of token_ids and ledger principals available on icp.
+❯ dfx canister call icp_route get_token_list --ic
+
+#  Retrieve the redeem fee information：
+❯ dfx canister call icp_route get_redeem_fee '("Bitcoin")' --ic
+
+# Approve icp(ryjl3-tyaaa-aaaaa-aaaba-cai:for redeem fees) & icrc token(e.g,:$Rich(77xez-aaaaa-aaaar-qaezq-cai)) by call the icrc2_approve method of the icp canister to authorize our canister (7ywcn-nyaaa-aaaar-qaeza-cai) to spend the transaction fee. Please ensure the transfer fee is deducted before approving the full balance.
+❯ dfx canister call icp_ledger icrc2_approve '(record { spender=record { owner=principal "7ywcn-nyaaa-aaaar-qaeza-cai" } ; amount=60_010_000;   } )' --ic
+❯ dfx canister call rich_ledger icrc2_approve '(record { spender=record { owner=principal "7ywcn-nyaaa-aaaar-qaeza-cai" } ; amount=100000;   } )' --ic
+
+# Invoke the generate_ticket_v2 method:
+❯  dfx canister call icp_route generate_ticket_v2 '(record { target_chain_id="Bitcoin"; receiver="bc1q55ghpce6jq8q78cfcnmkz8qq5ww3asd28dw"; token_id="Bitcoin-runes-HOPE•YOU•GET•RICH"; amount=100000; from_subaccount=null; action=variant { Redeem}  } )' --ic
+```
+
+***1***. The operation will be executed on icp based on the TxAction, for example, for TxAction::Redeem, on the icp side, the corresponding wrapped icrc runes token will be burned by calling the ledger.approve for the sender, and from the bitcoin side, the runes indexer will verify the sender account to see if there is original runes tokens, if so, will transfer from the generated bitcoin account to the receiver account.
+
+***2***. Put the GenerateTicketReq as a parameter into generate_ticket from your dapp.
+
+***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
+
 ## eICP
 **Update:**
 ### generate_ticket_v2
@@ -75,29 +98,6 @@ let burn_args = GenerateTicketReq {
 		action: TxAction::Burn,
 	}
 ```
-
-#### Workflow: 
-***0***. The route uses the sub-account payment method. To use this api, the redeem fee must first be transferred to the sub-account. To check your sub-account, please use [get_fee_account](https://docs.omnity.network/docs/Omnity-Hub/runes#get_fee_account). To check the amount of the redeem fee, please use [get_redeem_fee](https://docs.omnity.network/docs/Omnity-Hub/runes#get_redeem_fee).
-```md title="Request Example:"
-# Retrieve a list of token_ids and ledger principals available on icp.
-❯ dfx canister call icp_route get_token_list --ic
-
-#  Retrieve the redeem fee information：
-❯ dfx canister call icp_route get_redeem_fee '("Bitcoin")' --ic
-
-# Approve icp(ryjl3-tyaaa-aaaaa-aaaba-cai:for redeem fees) & icrc token(e.g,:$Rich(77xez-aaaaa-aaaar-qaezq-cai)) by call the icrc2_approve method of the icp canister to authorize our canister (7ywcn-nyaaa-aaaar-qaeza-cai) to spend the transaction fee. Please ensure the transfer fee is deducted before approving the full balance.
-❯ dfx canister call icp_ledger icrc2_approve '(record { spender=record { owner=principal "7ywcn-nyaaa-aaaar-qaeza-cai" } ; amount=60_010_000;   } )' --ic
-❯ dfx canister call rich_ledger icrc2_approve '(record { spender=record { owner=principal "7ywcn-nyaaa-aaaar-qaeza-cai" } ; amount=100000;   } )' --ic
-
-# Invoke the generate_ticket_v2 method:
-❯  dfx canister call icp_route generate_ticket_v2 '(record { target_chain_id="Bitcoin"; receiver="bc1q55ghpce6jq8q78cfcnmkz8qq5ww3asd28dw"; token_id="Bitcoin-runes-HOPE•YOU•GET•RICH"; amount=100000; from_subaccount=null; action=variant { Redeem}  } )' --ic
-```
-
-***1***. The operation will be executed on icp based on the TxAction, for example, for TxAction::Redeem, on the icp side, the corresponding wrapped icrc runes token will be burned by calling the ledger.approve for the sender, and from the bitcoin side, the runes indexer will verify the sender account to see if there is original runes tokens, if so, will transfer from the generated bitcoin account to the receiver account.
-
-***2***. Put the GenerateTicketReq as a parameter into generate_ticket from your dapp.
-
-***3***. Go to [Omnity Explorer](https://explorer.omnity.network/) to track the generated ticket status.
 
 ----------------------------------------------------------------------------
 
