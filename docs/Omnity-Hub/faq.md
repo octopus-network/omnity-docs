@@ -5,7 +5,7 @@ sidebar_position: 16
 # FAQ
 ***Question 1:*** How long does a transaction take?
 
-Answer : ckBTC will take around 6 confirmation blocks, while others typically take about 4 confirmations.
+Answer : ckBTC will take around 6 confirmation blocks, while others typically take about 3 confirmations.
 
 
 ***Question 2:*** How do fees work?
@@ -17,7 +17,7 @@ Answer :
 
 ***Question 3:***  What happens if the “Insufficient balance” pop-up window appears?
 
-Answer : It means you have some unconfirmed transactions. Please wait for at least 4 confirmations before proceeding with the transaction.
+Answer : It means you have some unconfirmed transactions. Please wait for at least 3 confirmations before proceeding with the transaction.
 
 
 ***Question 4:*** What happens if the “Not Enough Cardinal Utxos” pop-up window appears?

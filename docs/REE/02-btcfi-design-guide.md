@@ -126,7 +126,7 @@ Omnity has presented multiple open-source [examples](https://github.com/octopus-
 ### Block Reorg
 For an exchange canister, a block reorg means receiving a new block at the same height as the current one (a depth-1 reorg), or a new block one height lower than the current one (a depth-2 reorg).
 
-Statistics show that reorganizations deeper than two have never occurred on the Bitcoin network in the past decade. Therefore, transactions with more than three confirmations are generally considered finalized. For high-value transactions, a higher finality threshold can be chosen, such as 4 to 6 confirmations. The exchange canister can decide its finality threshold.
+Statistics show that reorganizations deeper than two have never occurred on the Bitcoin network in the past decade. Therefore, transactions with more than three confirmations are generally considered finalized. For high-value transactions, a higher finality threshold can be chosen, such as 3 to 6 confirmations. The exchange canister can decide its finality threshold.
 
 ### Tx Reject
 The mempool can reject a transaction in a few situations:

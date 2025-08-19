@@ -89,7 +89,7 @@ args: The content for etching runes, represented as a structured parameter:
 
 #### Workflow: 
 *** estimate_etching_fee（Optional） -> etching(The icrc2_approve method should be called beforehand) -> get_etching（Optional）***
-* When the api is called, the workflow proceeds as follows: Execute the commit transaction- > Wait for 6 blocks -> Execute the reveal transaction -> Wait for 4 blocks for the transaction -> Create the icp token ledger. So the total time would typically take around 10 blocks. After creating the ledger, if there is a premine, a cross-chain transaction will be initiated. Approximately 1 to 2 hours.
+* When the api is called, the workflow proceeds as follows: Execute the commit transaction- > Wait for 6 blocks -> Execute the reveal transaction -> Wait for 3 blocks for the transaction -> Create the icp token ledger. So the total time would typically take around 10 blocks. After creating the ledger, if there is a premine, a cross-chain transaction will be initiated. Approximately 1 to 2 hours.
 * For icp ledger creation: if you've already etched your runes elsewhere and want to add them to the Omnity system, you can do so either through our [UI](https://bridge.omnity.network/runes/add%20runes) or via our apis. To make the process more convenient, we've integrated the rune-adding functionality directly into the etching api, so you won’t need to repeat the process. We have 3 apis for this function are currently open for use from Hub:
 		* add_runes_token – Adds tokens to Omnity.
 		* add_dest_chain_for_token – Connects the token to the chain.
