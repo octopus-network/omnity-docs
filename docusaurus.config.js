@@ -45,21 +45,23 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        // title: 'Home',
+        title: 'Omnity ⚡ Ignites Bitcoin DeFi',
         logo: {
           alt: 'Omnity Logo',
           src: 'img/logo.svg',
+          href: 'https://www.omnity.network/',
         },
-        items: [
-          { to: '/ree', docId: 'REE/introduction', label: 'REE', position: 'left', type: 'doc' },
-          { to: '/Rich-Swap', docId: 'Rich-Swap/guide', label: 'RICH SWAP', position: 'left', type: 'doc' },
-          {
-            type: 'doc',
-            docId: 'Omnity-Hub/intro',
-            position: 'left',
-            label: 'OMNITY HUB',
-          },
-        ],
+        // items: [
+        //   { to: '/ree', docId: 'REE/introduction', label: 'REE', position: 'left', type: 'doc' },
+        //   { to: '/Rich-Swap', docId: 'Rich-Swap/guide', label: 'RICH SWAP', position: 'left', type: 'doc' },
+        //   {
+        //     type: 'doc',
+        //     docId: 'Omnity-Hub/intro',
+        //     position: 'left',
+        //     label: 'OMNITY HUB',
+        //   },
+        // ],
+
       },
       prism: {
         theme: lightCodeTheme,

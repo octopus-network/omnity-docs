@@ -36,8 +36,21 @@ const sidebars = {
         'Omnity-Hub/dogecoin',
         'Omnity-Hub/ton',
         'Omnity-Hub/explorer',
-        'Omnity-Hub/faq',
         'Omnity-Hub/references',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Runes Indexer',
+      items: [
+        'Runes-Indexer/apis',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Ordinals Indexer',
+      items: [
+        'Ordinals-Indexer/apis',
       ],
     },
   ],

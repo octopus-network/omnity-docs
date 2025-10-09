@@ -1,1 +1,1 @@
-# Omnity Api
+# Omnity Docs
