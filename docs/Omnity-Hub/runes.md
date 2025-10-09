@@ -260,4 +260,4 @@ MintTokenStatus: a enum containing:
 * Unknown represents the operation is not completed.
 ```
 
-Last updated on October, 2025
+Last updated on July 21, 2025
