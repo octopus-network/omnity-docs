@@ -22,7 +22,7 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
     * [RichSwap Application](https://richswap.io): An AMM-based decentralized exchange allowing trustless swaps of Bitcoin and Runes assets.
     * [RichSwap Canister Code](https://github.com/octopus-network/richswap-canister): Source code for the RichSwap exchange canister.
 * **REE Lending Demo**:
-    * [Lending Demo Application](https://ree-lending-demo.vercel.app/): A demonstration application showcasing lending functionalities built on REE.
+    * [Lending Demo Application](https://lending-demo.omnity.network/): A demonstration application showcasing lending functionalities built on REE.
     * [Lending Demo Code](https://github.com/octopus-network/ree-lending-demo): Source code for the REE lending demo.
 * **REE Game Demo**:
     * [REE Cookie Game Demo Code](https://github.com/octopus-network/ree-game-demo): Source code for the REE Play-to-Earn game demo.
@@ -39,4 +39,4 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
 
 
 
-Last updated on June 27, 2025
+Last updated on October 10, 2025

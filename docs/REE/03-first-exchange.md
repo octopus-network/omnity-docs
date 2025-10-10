@@ -8,7 +8,7 @@ This document demonstrates how to develop a REE BTCFi DApp implementing a typica
 
 For a more complete demo application and source code, please refer to:
 
-* **Demo:** [https://ree-lending-demo.vercel.app/](https://ree-lending-demo.vercel.app/)
+* **Demo:** [https://lending-demo.omnity.network/](https://lending-demo.omnity.network/)
 * **GitHub:** [https://github.com/octopus-network/ree-lending-demo](https://github.com/octopus-network/ree-lending-demo)
 
 ## Prerequisites
