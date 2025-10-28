@@ -18,7 +18,7 @@ req: GenerateTicketArgs - struct containing:
         * receiver: String
         * token_id: String
         * amount: u64
-        * signature: String - the transaction id from the bitcoin transaction
+        * signature: String - the transaction id from the token transport transaction
 
 Returns:
 Result: a variant containing either:
