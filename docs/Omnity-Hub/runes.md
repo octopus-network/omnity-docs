@@ -6,7 +6,7 @@ sidebar_position: 4
 **ICP -> BTC**:
 For any icrc token (like $BOXY), it is possible to operate 100% premine on bitcoin with a suitable runes ticker and bridge total supply to icp via Omnity, then connect it up with the icrc token on the icp side.
 
-It be achieved by using [generate_ticket2](http://localhost:3000/docs/Omnity-Hub/runes#generate_ticket_v2) on eICP based on where you want to utilize the runes tokens:
+It be achieved by using [generate_ticket2](https://docs.omnity.network/docs/Omnity-Hub/runes#generate_ticket_v2) on eICP based on where you want to utilize the runes tokens:
 
 |  | Canister ID | Chain Id |
 | --- | --- | --- |

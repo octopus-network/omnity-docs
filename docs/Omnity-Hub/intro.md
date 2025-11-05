@@ -6,18 +6,18 @@ sidebar_position: 1
 
 ***Omnity API hosts a library of fundamental apis for app developers to plug and play into their codebases.***
 
-See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbFR7eTtG5Eml6JWT5RCWwrJQIs/edit?pli=1)** / **[codebase](https://github.com/octopus-network/omnity-interoperability)** for more details. It includes:
+See the **[architecture](https://docs.google.com/document/d/1Nrt4oNj7r59TrOp3dbFR7eTtG5Eml6JWT5RCWwrJQIs/edit?pli=1)** for more details. It includes:
 
-- **[Hub](https://github.com/octopus-network/omnity-interoperability/tree/main/hub)** A canister (smart contract) on [icp](https://internetcomputer.org/) that handles chain and token registration and ticket (transaction) execution, and it also lists settlement chains and execution chains.
-- **[ICP(Settlement)](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/icp)** A settlement chain canister that manages on icp network.
-- **[Solana(Settlement)](https://github.com/octopus-network/omnity-interoperability/tree/main)** A settlement chain canister that manages the logic on solana network.
-- **[Dogecoin(Settlement)](https://github.com/octopus-network/omnity-interoperability)** A settlement chain canister that manages the logic on the dogecoin network.
-- **[Bitcoin Runes(Settlement)](https://github.com/octopus-network/omnity-interoperability/tree/main/customs/bitcoin_runes)** A settlement chain canister that manages the logic on the bitcoin network, it is where runes assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
-- **[Ton(Execution)](https://github.com/octopus-network/omnity-interoperability/tree/main/route/ton)** A execution chain canister that manages the logic on ton network.
-- **[ICP(Execution)](https://github.com/octopus-network/omnity-interoperability/tree/main/route/icp)** A execution chain canister that manages the logic on icp network.
-- **[Solana(Execution)](https://github.com/octopus-network/omnity-interoperability/tree/main/route/solana)** A execution chain canister that manages the logic on solana network.
-- **[EVM(Execution)](https://github.com/octopus-network/omnity-interoperability/tree/main/route/evm)** The evm route includes layer 2 evm-compatible instances and ethereum as execution chains.
-- **[Cosmwasm(Execution)](https://github.com/octopus-network/cosmwasm-route)** CosmWasm Route is the component of the system that interfaces with the execution chains supporting CosmWasm.
+- **Hub** A canister (smart contract) on [icp](https://internetcomputer.org/) that handles chain and token registration and ticket (transaction) execution, and it also lists settlement chains and execution chains.
+- **ICP(Settlement)** A settlement chain canister that manages on icp network.
+- **Solana(Settlement)** A settlement chain canister that manages the logic on solana network.
+- **Dogecoin(Settlement)** A settlement chain canister that manages the logic on the dogecoin network.
+- **Bitcoin Runes(Settlement)** A settlement chain canister that manages the logic on the bitcoin network, it is where runes assets are listed and it calls the bitcoin canister to check the status of any bitcoin address.
+- **Ton(Execution)** A execution chain canister that manages the logic on ton network.
+- **ICP(Execution)** A execution chain canister that manages the logic on icp network.
+- **Solana(Execution)** A execution chain canister that manages the logic on solana network.
+- **EVM(Execution)** The evm route includes layer 2 evm-compatible instances and ethereum as execution chains.
+- **Cosmwasm(Execution)** CosmWasm Route is the component of the system that interfaces with the execution chains supporting CosmWasm.
 
 ## Use Cases
 

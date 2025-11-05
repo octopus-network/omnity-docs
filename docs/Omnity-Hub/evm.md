@@ -31,7 +31,7 @@ String: error information if the query fails
 ```
 #### Workflow: 
 ***1***. Call the corresponding solidity function(e.g., burnToken) from your own contract in the UI and get the calculated function_hash:
-- **[omnity-port-solidity](https://github.com/octopus-network/omnity-port-solidity/blob/main/contracts/OmnityPort.sol)** is the solidity implementation of Omnity Port on evm-compatible blockchains, a contract module which provides a basic access control mechanism on the runes tokens. 
+- **omnity-port-solidity** is the solidity implementation of Omnity Port on evm-compatible blockchains, a contract module which provides a basic access control mechanism on the runes tokens. 
 - **[LuckyPot](https://github.com/octopus-network/bitlayer-omnity-demo)** is a solidity implementation that includes a **[demo](https://bitlayer-omnity-demo.vercel.app/)** application interacting with Omnity on the Bitlayer. 
 
 Both provide the following apis:

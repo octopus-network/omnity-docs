@@ -16,7 +16,7 @@ sidebar_position: 6
 * Call [update_balance_after_finalization](https://docs.omnity.network/docs/Omnity-Hub/cosmwasm#update_balance_after_finalization) to create a scheduled task to trigger the update balance for ckBTC, and if successful, it will call generate_ticket from the icp custom, after 6 block confirmation, the transaction result will be returned.
 
 **Osmosis -> Bitcoin**:
-* [Cosmwasm Port](https://github.com/octopus-network/omnity-port-cosmos) is the cosmwasm contract Omnity cross-chain system connect to for the Osmosis side operation. To interact with the contract, you can use either commandline([osmosisd](https://docs.osmosis.zone/osmosis-core/osmosisd/)) or typescript([cosmos client](https://www.npmjs.com/package/@cosmjs/cosmwasm-stargate)).
+* Cosmwasm Port is the cosmwasm contract Omnity cross-chain system connect to for the Osmosis side operation. To interact with the contract, you can use either commandline([osmosisd](https://docs.osmosis.zone/osmosis-core/osmosisd/)) or typescript([cosmos client](https://www.npmjs.com/package/@cosmjs/cosmwasm-stargate)).
 * To redeem the btc, we firstly call [redeem_allbtc](https://github.com/octopus-network/omnity-port-cosmos/blob/main/src/contract.rs) to burn the wrapping btc and get the transaction hash(see [the command line example](https://github.com/octopus-network/omnity-port-cosmos?tab=readme-ov-file#testnet-deploy-cli)). The formatted payload will look like this: 
 ```code title="Typescript"
 redeem_token: {
