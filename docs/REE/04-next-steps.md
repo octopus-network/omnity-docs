@@ -31,6 +31,9 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
 * [REE Dev Support Channel (English)](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/3944635384)
 * [REE Dev Support Channel (Chinese)](https://oc.app/community/o5uz6-dqaaa-aaaar-bhnia-cai/channel/2543618207)
 
+## REE DApp Registration
+* **[Testnet Runescan](https://www.runescan.net/dashboard)**
+* **[Mainnet Runescan](https://testnet.runescan.net/dashboard)**
 ---
 
 ## Appendix
@@ -39,4 +42,4 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
 
 
 
-Last updated on October 10, 2025
+Last updated on November 11, 2025
