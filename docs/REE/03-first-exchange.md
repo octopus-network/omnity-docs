@@ -45,7 +45,7 @@ Next, add the `ree-exchange-sdk` dependency to your `Cargo.toml` file:
 
 ```toml
 [dependencies]
-ree-exchange-sdk = "0.11.0"
+ree-exchange-sdk = "0.11"
 ```
 
 ### 2. Define Exchange Storage
