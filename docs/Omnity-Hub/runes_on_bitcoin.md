@@ -17,7 +17,7 @@ It be achieved by using [generate_ticket](https://docs.omnity.network/docs/Omnit
 * For etching runes from icp, please use [etching](https://docs.omnity.network/docs/Omnity-Hub/runes_on_bitcoin#etching) from Bitcoin.
 
 #### Workflow: 
-***1***. Get the bitcoin deposit address from get_btc_address by providing the target chain id and the receiver address as a derivative path. And this bitcoin deposit address is owned by the bitcoin customs canister(thanks to [the chain key](https://internetcomputer.org/how-it-works/chain-key-technology) feature). Get the [send](https://github.com/octopus-network/rune-mint/blob/main/src/send.rs#L18) input from the UI provided by the user, and pass it to a [web service](https://github.com/octopus-network/rune-mint) to format the wrapped transaction(the data output), the UI will then bring the formatted transaction to call the [wallet api](https://www.okx.com/web3/build/docs/sdks/chains/bitcoin/provider#signpsbt) to sign the transaction and return the tx-hash as a txid. This action is to lock the runes tokens by transfering them to the bitcoin deposit address.
+***1***. Get the bitcoin deposit address from get_btc_address by providing the target chain id and the receiver address as a derivative path. And this bitcoin deposit address is owned by the bitcoin customs canister(thanks to [the chain key](https://internetcomputer.org/how-it-works/chain-key-technology) feature).  Generate a txid (transaction hash) from a PSBT by signing it with [lasereyes](https://www.npmjs.com/package/@omnisat/lasereyes). This action is to lock the runes tokens by transfering them to the bitcoin deposit address.
 
 ***2***. Put the txid as one of the parameter into generate_ticket from your dapp.
 
