@@ -39,7 +39,8 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
 ## Appendix
 ### REE Orchestrator InvokeStatus Code List
 [The error code reference table](https://docs.google.com/spreadsheets/d/1ATD-9-yRE41HbMyAQ5s7twzgHyMx0v1K4kxPWHHRR1Y/edit?usp=sharing) for Invoke.
+[The Rollback Reason Code](https://github.com/octopus-network/ree-exchange-sdk/tree/master/types#rollback-tx)
 
 
 
-Last updated on November 11, 2025
+Last updated on December 16, 2025
