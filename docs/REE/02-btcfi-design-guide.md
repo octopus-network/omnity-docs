@@ -166,6 +166,55 @@ Omnity has established [Runescan.net](https://www.runescan.net/) as the open and
 
 In the PoolInfo return value, there's an extensible field called attributes. The exchange canister can place any data it wishes to display to users within this field, formatted as JSON key/value pairs.
 
+### Minimum Transaction Fee
+As stated in the REE whitepaper, to ensure consistency between REE and Bitcoin, it is necessary to promote transactions to be confirmed quickly on-chain through the CPFP (Child Pays For Parent) mechanism when Bitcoin transaction fees surge.
+
+To achieve this, the Orchestrator must maintain two parameters for each pool: unconfirmed_tx_total_size (measured in vb) and unconfirmed_tx_total_fee (measured in sats). The current_fee_rate is the current recommended fee level from mempool.space.
+
+The Orchestrator will check that the transaction fee is greater than the maximum of min_fee and current_fee, where:
+
+```rust
+min_fee = current_fee_rate * (unconfirmed_tx_total_size + tx_size) - unconfirmed_tx_total_fee
+current_fee = current_fee_rate * tx_size
+```
+
+The maximum of `min_fee` and `current_fee` is the minimum fee that the Orchestrator will accept for the invoke request, which can be queried through the `estimate_min_tx_fee` function.
+
+### Conditionally Allow Unconfirmed UTXOs
+
+The Orchestrator can conditionally allow unconfirmed UTXOs generated in REE to accelerate the exchange processes over pools.
+
+First, the Orchestrator will collect utxo proofs for the UTXOs used in the PSBT of an invoke request. The status of the proof of an UTXO is defined as follows:
+
+```rust
+pub enum MpcUtxoStatus {
+    Error,
+    AvailableConfirmed,
+    AvailableUnconfirmed,
+    SpentInMempool,
+    SpentOnChain,
+    InvalidTxid,
+    InvalidVout,
+}
+```
+The UTXO proofs come from 3 sources:
+- The clients can provide the proofs in the `initiator_utxo_proof` field of the `InvokeArgs`.
+- If the `initiator_utxo_proof` field is empty or exchanges disable the utxo proof feature, the Orchestrator will query the UTXOs belonging to the `initiator_address` in the `intention_set` from the Bitcoin Canister. In this case, the status of these UTXOs will be `AvailableConfirmed`.
+- For UTXOs with rune assets, the Orchestrator will query the rune balances from the Rune Indexer canister. In this case, the status of these UTXOs will also be `AvailableConfirmed`.
+
+Then, the Orchestrator will check the UTXOs used in the inputs of the PSBT in the invoke request one by one. The rules are as follows:
+
+- If the status of the UTXO is not `AvailableConfirmed` or `AvailableUnconfirmed`, it is invalid.
+- If the status of the UTXO is `AvailableConfirmed`, the Orchestrator will check whether it has been used in another transaction in REE (in recent 3 days).
+  - If yes, it is invalid, otherwise valid.
+- If the status of the UTXO is `AvailableUnconfirmed`, the Orchestrator will check whether it belongs to a pool corresponding to this invoke request.
+  - If yes, it is valid.
+  - If no, the Orchestrator will check whether the tx corresponding to the UTXO is generated in REE (in recent 3 days).
+    - If yes, check whether the pools affected by this tx is the superset of the pools corresponding to this invoke request.
+      - If yes, it is valid.
+      - If no, check whether the UTXO's `unconfirmed ancestors count` > `(25 - max([pending tx count in the corresponding pool of this invoke]) / 2`, if yes, it is invalid, otherwise valid.
+    - If no, check whether the UTXO's `unconfirmed ancestors count` > `(25 - max([pending tx count in the corresponding pool of this invoke]) / 2`, if yes, it is invalid, otherwise valid.
+
 ## Security Best Practices
 ### Common Practices
 Security is paramount in BTCFi. REE DApps should implement the following Web3-generic best practices:
