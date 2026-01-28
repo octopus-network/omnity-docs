@@ -42,6 +42,10 @@ Congratulations on deploying your first Exchange on REE! Continue your journey w
 
 * [The Rollback Reason Code](https://github.com/octopus-network/ree-exchange-sdk/tree/master/types#rollback-tx)
 
+### REE Orchestrator Subnets
 
+* Mainnet: pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae
+
+* Testnet: fuqsr-in2lc-zbcjj-ydmcw-pzq7h-4xm2z-pto4i-dcyee-5z4rz-x63ji-nae
 
 Last updated on December 16, 2025
