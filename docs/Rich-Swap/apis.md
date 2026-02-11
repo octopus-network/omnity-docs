@@ -468,6 +468,246 @@ And it returns:
 * sqrt_k :  btc_withdraw * rune_withdraw
 * btc_supply 
 
+### /api/tickers - RichSwap Tickers API
+
+#### Overview
+Real-time market data API for all trading pairs on the RichSwap platform.
+
+**Endpoint:** `https://www.richswap.io/api/tickers`
+
+**Method:** GET
+
+**Response Format:** JSON
+
+**Type:** Public Query Interface
+
+#### Description
+Retrieves real-time market data for all trading pairs on the RichSwap platform, including price, volume, and depth information.
+
+#### Response Data Structure
+The API returns a JSON array where each element represents market data for a trading pair:
+
+```typescript
+type TickerData = {
+  ticker_id: string;           // Trading pair identifier (format: "base_currency_target_currency")
+  pool_id: string;            // Liquidity pool address (Taproot address)
+  base_currency: string;      // Base currency (traded asset)
+  target_currency: string;    // Target currency (quote asset)
+  last_price: number;         // Last traded price (denominated in target currency)
+  base_volume: number;        // 24-hour trading volume in base currency
+  target_volume: number;      // 24-hour trading volume in target currency
+  bid: number;               // Best bid price (highest buy order)
+  ask: number;               // Best ask price (lowest sell order)
+  high: number;              // 24-hour high price
+  low: number;               // 24-hour low price
+  liquidity_in_usd: number;  // Liquidity value in USD (currently all 0)
+}[]
+```
+
+#### Field Descriptions
+
+**1. ticker_id**
+- Type: `string`
+- Description: Unique identifier for the trading pair in the format `base_currency_target_currency`
+- Examples: `"ZZZZZZZ_BTC"`, `"DOG•GO•TO•THE•MOON_BTC"`
+
+**2. pool_id**
+- Type: `string`
+- Description: Taproot format Bitcoin address representing the liquidity pool for this trading pair
+- Format: `bc1p...` (Bech32m encoding)
+- Example: `"bc1pk2p29jsw6sjz3ue5jclrr5gzdr5hhss6f8e2ftup3tmspelc37ssqa570p"`
+
+**3. base_currency**
+- Type: `string`
+- Description: Name of the base currency (traded asset)
+- Features: Usually Runes or token names, may contain special separators `•`
+- Examples: `"ZZZZZZZ"`, `"HOPE•YOU•GET•RICH"`, `"DOG•GO•TO•THE•MOON"`
+
+**4. target_currency**
+- Type: `string`
+- Description: Name of the target currency (quote asset)
+- Current Value: All trading pairs are denominated in `"BTC"` (Bitcoin)
+
+**5. last_price**
+- Type: `number`
+- Description: Latest transaction price, indicating how much target currency one unit of base currency is worth
+- Precision: Expressed in scientific notation for very small prices
+- Example: `1.9179099945630937e-9` represents `0.0000000019179099945630937 BTC`
+
+**6. base_volume**
+- Type: `number`
+- Description: Trading volume in base currency over the past 24 hours
+- Unit: Number of base currency units
+- Example: `142072` represents 142,072 base tokens traded
+
+**7. target_volume**
+- Type: `number`
+- Description: Trading volume in target currency over the past 24 hours
+- Unit: Number of target currency units (BTC)
+- Example: `0.00027248130874756786` represents approximately 0.00027248 BTC traded
+
+**8. bid**
+- Type: `number`
+- Description: Current highest buy order price (best bid)
+- Meaning: The highest price the market is willing to pay for the base currency
+- Example: `1.908320444590278e-9`
+
+**9. ask**
+- Type: `number`
+- Description: Current lowest sell order price (best ask)
+- Meaning: The lowest price the market is willing to sell the base currency
+- Example: `1.927499544535909e-9`
+
+**10. high**
+- Type: `number`
+- Description: Highest transaction price in the past 24 hours
+- Example: `1.9190567218515392e-9`
+
+**11. low**
+- Type: `number`
+- Description: Lowest transaction price in the past 24 hours
+- Example: `1.9179099945630937e-9`
+
+**12. liquidity_in_usd**
+- Type: `number`
+- Description: Total value of the liquidity pool (in USD)
+- Current Status: All trading pairs show 0, indicating this data is temporarily unavailable or not calculated
+
+#### Trading Pair Naming Convention
+
+**Base Currency Naming Characteristics:**
+- Rune names: e.g., `"ZZZZZZZ"`, `"UNCOMMON•GOODS"`
+- Separator: Uses `•` as word separator, e.g., `"DOG•GO•TO•THE•MOON"`
+- Descriptive names: Many tokens have descriptive names, e.g., `"MAKE•CRYPTO•FUN•AGAIN"`
+- ID identifiers: Some tokens include ID suffixes, e.g., `"BABYODIN•ID•NWKQ•ODIN"`
+
+**Trading Pair Format:**
+```
+{base_currency}_{target_currency}
+```
+Currently, all trading pairs use BTC as the target currency.
+
+#### Data Characteristics
+
+**1. Price Range**
+- Price values are very small (10⁻⁷ to 10⁻¹² range) because base currencies are typically newly issued runes/tokens
+- Scientific notation is used to maintain precision
+
+**2. Trading Volume**
+- Some trading pairs have significant volume, while others have zero
+- Volume data reflects market activity levels
+
+**3. Bid-Ask Spread**
+- Each trading pair has a bid price and ask price, forming a spread
+- Spread size reflects market liquidity
+
+**4. Liquidity**
+- The `liquidity_in_usd` field is currently all 0, which may indicate:
+  - Feature not yet implemented
+  - Data being calculated
+  - Requires external price oracle
+
+#### Usage Examples
+
+**Fetch All Trading Pairs:**
+
+```bash
+curl -X GET "https://www.richswap.io/api/tickers"
+```
+
+**Response Example (Single Trading Pair):**
+
+```json
+{
+  "ticker_id": "DOG•GO•TO•THE•MOON_BTC",
+  "pool_id": "bc1pvwfm76srd9eqjxamjejrvzyywhyenwetnzl47lxteenu6l6lqp8s2jcznm",
+  "base_currency": "DOG•GO•TO•THE•MOON",
+  "target_currency": "BTC",
+  "last_price": 1.3964052799377934e-8,
+  "base_volume": 223148,
+  "target_volume": 0.0031160504540755874,
+  "bid": 1.3894232535381044e-8,
+  "ask": 1.4033873063374822e-8,
+  "high": 1.3964052799377936e-8,
+  "low": 1.3964052799377936e-8,
+  "liquidity_in_usd": 0
+}
+```
+
+**Complete Response Example (Multiple Trading Pairs):**
+
+```json
+[
+  {
+    "ticker_id": "ZZZZZZZ_BTC",
+    "pool_id": "bc1pk2p29jsw6sjz3ue5jclrr5gzdr5hhss6f8e2ftup3tmspelc37ssqa570p",
+    "base_currency": "ZZZZZZZ",
+    "target_currency": "BTC",
+    "last_price": 1.9179099945630937e-9,
+    "base_volume": 142072,
+    "target_volume": 0.00027248130874756786,
+    "bid": 1.908320444590278e-9,
+    "ask": 1.927499544535909e-9,
+    "high": 1.9190567218515392e-9,
+    "low": 1.9179099945630937e-9,
+    "liquidity_in_usd": 0
+  },
+  {
+    "ticker_id": "HOPE•YOU•GET•RICH_BTC",
+    "pool_id": "bc1ptnxf8aal3apeg8r4zysr6k2mhadg833se2dm4nssl7drjlqdh2jqa4tk3p",
+    "base_currency": "HOPE•YOU•GET•RICH",
+    "target_currency": "BTC",
+    "last_price": 5.234567890123456e-10,
+    "base_volume": 98765,
+    "target_volume": 0.00051690123456789,
+    "bid": 5.2e-10,
+    "ask": 5.27e-10,
+    "high": 5.35e-10,
+    "low": 5.18e-10,
+    "liquidity_in_usd": 0
+  }
+]
+```
+
+#### Error Handling
+This is a simple GET request endpoint. Possible response statuses:
+
+- **200 OK**: Successfully returned data
+- **404 Not Found**: Incorrect endpoint URL
+- **500 Internal Server Error**: Server internal error
+- **503 Service Unavailable**: Service temporarily unavailable
+
+#### Integration Example
+
+**JavaScript/TypeScript:**
+
+```typescript
+async function fetchTickers() {
+  try {
+    const response = await fetch('https://www.richswap.io/api/tickers');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const tickers = await response.json();
+    
+    // Process ticker data
+    tickers.forEach(ticker => {
+      console.log(`${ticker.base_currency}/${ticker.target_currency}`);
+      console.log(`Last Price: ${ticker.last_price}`);
+      console.log(`24h Volume: ${ticker.base_volume} ${ticker.base_currency}`);
+      console.log(`Bid/Ask: ${ticker.bid} / ${ticker.ask}`);
+      console.log('---');
+    });
+    
+    return tickers;
+  } catch (error) {
+    console.error('Error fetching tickers:', error);
+    return null;
+  }
+}
+```
+
+
 ## Update
 ### create
 ```md
@@ -508,4 +748,4 @@ Pool creation is limited to BTC paired exclusively with a RUNE.
 * Input: rune_id - e.g.,:840000:846
 * Output: Pubkey - e.g.,: 5c9eaaf2e8821d8810c625f5039ed69db13f3e6fb2ed4f3c9194e212bfc88428
 
-Last updated on June 25, 2025
+Last updated on January 11, 2026
